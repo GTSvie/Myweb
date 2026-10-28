@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>redKAI Smart AI</title>
     <style>
         * {
@@ -16,7 +16,7 @@
             color: #e1e7ec;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height: 100dvh; /* Dùng 100dvh chuẩn cho mobile */
             overflow: hidden;
         }
         header {
@@ -67,7 +67,7 @@
         }
         #chat-container {
             flex: 1;
-            padding: 12px;
+            padding: 15px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -101,12 +101,13 @@
             margin-bottom: 4px;
             font-size: 11px;
         }
+        /* Cố định khung nhập và đẩy hẳn lên trên thanh điều hướng điện thoại */
         #input-container {
-            padding: 10px 12px;
+            padding: 12px 15px 20px 15px; /* Thêm khoảng trống ở dưới */
             background: #141722;
             border-top: 1px solid #23283b;
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
             flex-shrink: 0;
         }
@@ -114,7 +115,7 @@
             flex: 1;
             background: #0d0f17;
             border: 1px solid #2a3146;
-            padding: 10px 14px;
+            padding: 12px 14px;
             border-radius: 10px;
             color: #fff;
             font-size: 14px;
@@ -127,7 +128,7 @@
             background: linear-gradient(45deg, #ff0055, #7a00ff);
             border: none;
             color: white;
-            padding: 10px 16px;
+            padding: 12px 18px;
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
@@ -156,12 +157,12 @@
     <div id="chat-container">
         <div class="message ai-message">
             <strong>💀 redKAI Smart AI</strong>
-            Nút gửi to đùng ở đây chứ đâu ông tướng! Nhập câu hỏi vào rồi bấm phát xem tôi văn vở thế nào nào! ⚡
+            Thấy nút chat to đành đạch chưa ông tướng? Nhập câu hỏi vào đây xem tôi văn vở mỏ hỗn cỡ nào nào! ⚡
         </div>
     </div>
 
     <div id="input-container">
-        <input type="text" id="user-input" placeholder="Nhắn gì đi..." onkeypress="handleKeyPress(event)">
+        <input type="text" id="user-input" placeholder="Nhập câu hỏi..." onkeypress="handleKeyPress(event)">
         <button id="send-btn" onclick="sendMessage()">Gửi 🚀</button>
     </div>
 
