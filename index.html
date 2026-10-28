@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>redKAI Smart AI - Chế Độ Siêu Láo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for code syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090a0f;
+            color: #f3f4f6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(239, 68, 68, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .neon-border-red {
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4), inset 0 0 15px rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.6);
+        }
+
+        .neon-text-red {
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.8), 0 0 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .chat-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .chat-container::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .chat-container::-webkit-scrollbar-thumb {
+            background: #ef4444;
+            border-radius: 10px;
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-bubble {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .ai-bubble {
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Styling markdown contents inside chat */
+        .ai-bubble p { margin-bottom: 0.75rem; }
+        .ai-bubble p:last-child { margin-bottom: 0; }
+        .ai-bubble code { background: rgba(0, 0, 0, 0.5); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; color: #f87171; }
+        .ai-bubble pre { background: #1e1e1e !important; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-top: 0.5rem; margin-bottom: 0.5rem; border: 1px solid #374151; }
+        .ai-bubble ul, .ai-bubble ol { margin-left: 1.5rem; margin-bottom: 0.75rem; list-style-type: disc; }
+    </style>
+</head>
+<body class="h-screen flex flex-col justify-between overflow-hidden">
+
+    <!-- HEADER -->
+    <header class="glass-panel px-6 py-4 flex items-center justify-between z-10 border-b border-red-900/30">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-purple-600 flex items-center justify-center font-orbitron font-extrabold text-xl text-white shadow-lg neon-border-red">
+                rK
+            </div>
+            <div>
+                <div class="flex items-center gap-2">
+                    <h1 class="font-orbitron font-bold text-xl text-white tracking-wider">redKAI <span class="text-red-500">SMART AI</span></h1>
+                    <span class="bg-red-500/20 text-red-400 border border-red-500/40 text-xs px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider">LÁO MAX</span>
+                </div>
+                <p class="text-xs text-gray-400 flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                    Trợ lý siêu láo, xắc xược & thông minh
+                </p>
+            </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="flex items-center gap-4">
+            <!-- SAVAGE LEVEL SLIDER -->
+            <div class="hidden sm:flex items-center gap-2 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700/50">
+                <i class="fa-solid fa-fire text-red-500"></i>
+                <span class="text-xs font-bold text-gray-300">Độ Láo:</span>
+                <input type="range" id="savageSlider" min="1" max="3" value="3" class="w-20 accent-red-500 cursor-pointer">
+                <span id="savageLabel" class="text-xs font-bold text-red-400 font-orbitron">MAX</span>
+            </div>
+
+            <button id="clearBtn" title="Xóa trò chuyện" class="p-2.5 rounded-lg bg-slate-800 hover:bg-red-900/40 text-gray-300 hover:text-red-400 border border-slate-700 hover:border-red-500/50 transition">
+                <i class="fa-solid fa-trash-can"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- CHAT CONTAINER -->
+    <main id="chatContainer" class="chat-container flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
+        
+        <!-- INTRO MESSAGE -->
+        <div class="ai-bubble p-5 rounded-2xl max-w-2xl mx-auto text-gray-200 shadow-xl border-l-4 border-l-red-500">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 rounded-lg bg-red-600/30 border border-red-500 flex items-center justify-center text-red-400 font-bold">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <span class="font-orbitron font-bold text-red-400">redKAI Smart AI</span>
+            </div>
+            <p class="text-sm sm:text-base leading-relaxed">
+                Nói gì đi ông tướng? Nhập câu hỏi vào đây xem nào. Hỏi vớ hỏi vẩn là tôi khịa cho đấy nhé, nhưng yên tâm là trả lời vẫn chuẩn đét 100%! 😏⚡
+            </p>
+            <div class="mt-4 flex flex-wrap gap-2">
+                <button onclick="sendQuickPrompt('Tại sao bầu trời màu xanh? Trả lời gắt vào!')" class="text-xs bg-slate-800/80 hover:bg-red-900/30 text-gray-300 hover:text-red-400 border border-slate-700 hover:border-red-500/40 px-3 py-1.5 rounded-lg transition">
+                    🌊 Bầu trời màu xanh?
+                </button>
+                <button onclick="sendQuickPrompt('Giải hộ bài toán: 2 + 2 * 2 bằng mấy?')" class="text-xs bg-slate-800/80 hover:bg-red-900/30 text-gray-300 hover:text-red-400 border border-slate-700 hover:border-red-500/40 px-3 py-1.5 rounded-lg transition">
+                    🔢 Toán cơ bản
+                </button>
+                <button onclick="sendQuickPrompt('Cho tôi một câu thả thính cực láo')" class="text-xs bg-slate-800/80 hover:bg-red-900/30 text-gray-300 hover:text-red-400 border border-slate-700 hover:border-red-500/40 px-3 py-1.5 rounded-lg transition">
+                    🔥 Thả thính gắt
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- INPUT BAR -->
+    <footer class="glass-panel p-4 z-10 border-t border-red-900/30">
+        <div class="max-w-4xl mx-auto flex items-end gap-2 bg-slate-900/90 p-2 rounded-2xl border border-red-500/30 focus-within:border-red-500 shadow-2xl transition">
+            
+            <textarea id="userInput" rows="1" placeholder="Nhập câu hỏi vào đây (đừng hỏi ngớ ngẩn...)" 
+                class="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-500 p-2.5 resize-none max-h-32 text-sm sm:text-base"></textarea>
+
+            <button id="micBtn" title="Thu âm giọng nói" class="p-3 text-gray-400 hover:text-red-400 hover:bg-slate-800 rounded-xl transition">
+                <i class="fa-solid fa-microphone text-lg"></i>
+            </button>
+
+            <button id="sendBtn" class="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-500 hover:to-purple-500 text-white font-bold p-3 rounded-xl shadow-lg transition flex items-center justify-center min-w-[48px]">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+        <p class="text-center text-[10px] text-gray-500 mt-2 font-orbitron tracking-widest">redKAI SMART AI • POWERED BY GEMINI PRO</p>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const micBtn = document.getElementById('micBtn');
+        const savageSlider = document.getElementById('savageSlider');
+        const savageLabel = document.getElementById('savageLabel');
+
+        let chatHistory = [];
+        const SAVAGE_LEVELS = { '1': 'Nhẹ nhàng', '2': 'Gắt', '3': 'MAX' };
+
+        savageSlider.addEventListener('input', (e) => {
+            savageLabel.textContent = SAVAGE_LEVELS[e.target.value];
+        });
+
+        // Auto resize textarea
+        userInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+
+        sendBtn.addEventListener('click', handleSend);
+
+        clearBtn.addEventListener('click', () => {
+            if(confirm('Xóa hết lịch sử chat hả ông tướng?')) {
+                chatContainer.innerHTML = '';
+                chatHistory = [];
+                location.reload();
+            }
+        });
+
+        function sendQuickPrompt(promptText) {
+            userInput.value = promptText;
+            handleSend();
+        }
+
+        async function handleSend() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            // Render User Message
+            appendUserMessage(text);
+            userInput.value = '';
+            userInput.style.height = 'auto';
+
+            // Show Loading Indicator
+            const loadingId = appendLoadingBubble();
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            try {
+                const responseText = await fetchAIResponse(text);
+                removeBubble(loadingId);
+                appendAIMessage(responseText);
+            } catch (err) {
+                removeBubble(loadingId);
+                appendAIMessage("🔴 **Lỗi rồi!** Chắc do mạng nhà bạn lỏ hoặc hệ thống bị nghẽn. Thử lại xem nào!");
+            }
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function appendUserMessage(text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex justify-end mb-4';
+            msgDiv.innerHTML = `
+                <div class="user-bubble text-white p-4 rounded-2xl max-w-[85%] sm:max-w-[70%] text-sm sm:text-base font-medium">
+                    ${escapeHtml(text)}
+                </div>
+            `;
+            chatContainer.appendChild(msgDiv);
+        }
+
+        function appendLoadingBubble() {
+            const id = 'loading-' + Date.now();
+            const msgDiv = document.createElement('div');
+            msgDiv.id = id;
+            msgDiv.className = 'flex justify-start mb-4';
+            msgDiv.innerHTML = `
+                <div class="ai-bubble p-4 rounded-2xl text-red-400 flex items-center gap-3">
+                    <i class="fa-solid fa-circle-notch animate-spin text-lg"></i>
+                    <span class="text-xs font-orbitron font-bold tracking-wider">ĐANG SUY NGHĨ CÂU CÀ KHỊA...</span>
+                </div>
+            `;
+            chatContainer.appendChild(msgDiv);
+            return id;
+        }
+
+        function removeBubble(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function appendAIMessage(markdownText) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex justify-start mb-4';
+            
+            const parsedContent = marked.parse(markdownText);
+
+            msgDiv.innerHTML = `
+                <div class="ai-bubble p-5 rounded-2xl max-w-[90%] sm:max-w-[80%] text-gray-200 text-sm sm:text-base">
+                    <div class="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-gray-700/50">
+                        <span class="font-orbitron font-bold text-red-400 text-xs flex items-center gap-1.5">
+                            <i class="fa-solid fa-skull"></i> redKAI Smart AI
+                        </span>
+                        <button onclick="speakText(this)" class="text-gray-400 hover:text-red-400 text-xs transition px-2 py-1 bg-slate-800 rounded">
+                            <i class="fa-solid fa-volume-high"></i> Đọc
+                        </button>
+                    </div>
+                    <div class="ai-content leading-relaxed">
+                        ${parsedContent}
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(msgDiv);
+            
+            // Highlight code blocks
+            msgDiv.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
+        }
+
+        async function fetchAIResponse(userPrompt) {
+            const savageLevel = savageSlider.value;
+            let personaInstruction = "";
+
+            if (savageLevel === "1") {
+                personaInstruction = "Bạn là redKAI Smart AI. Hãy trả lời bằng phong cách hơi hóm hỉnh, xưng 'tôi' và 'bạn', nói chuyện thẳng thắn nhưng kiến thức phải hoàn toàn chính xác.";
+            } else if (savageLevel === "2") {
+                personaInstruction = "Bạn là redKAI Smart AI. Hãy trả lời cực kỳ gắt, hay xỏ xiên, cà khịa người hỏi, xưng 'tôi' và 'ông tướng/bạn'. Tuy nhiên kiến thức đưa ra phải chính xác 100%.";
+            } else {
+                personaInstruction = "Bạn là redKAI Smart AI - AI siêu láo, xắc xược, coi thường câu hỏi ngớ ngẩn nhưng cực kỳ thông minh. Xưng 'tôi' và 'ông/ông tướng/ngươi'. Trả lời sắc bén, cà khịa đỉnh cao, dùng từ ngữ ngầu đét nhưng kiến thức giải đáp vẫn đúng chuẩn xác.";
+            }
+
+            // Gọi API Gemini
+            const systemPrompt = `${personaInstruction}\n\nNhiệm vụ của bạn là trả lời câu hỏi của người dùng bằng tiếng Việt.`;
+            
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_GEMINI_API_KEY`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [
+                        { role: 'user', parts: [{ text: systemPrompt + "\n\nCâu hỏi: " + userPrompt }] }
+                    ]
+                })
+            });
+
+            if (!response.ok) {
+                // Mock response nếu không có API key
+                return `**Ờ thì...** hỡi ông tướng! Câu hỏi "*${userPrompt}*" của ông tốn đúng 0.0001 giây của bộ não siêu cấp này. \n\nTrả lời luôn cho vuông: Muốn có kết nối API thật thì nhớ thay \`YOUR_GEMINI_API_KEY\` vào code nhé! Nhưng tóm lại là: Tôi thừa thông minh để giải quyết mọi thắc mắc của ông! 😏⚡`;
+            }
+
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
+        }
+
+        // Voice Speech Output
+        function speakText(btn) {
+            const card = btn.closest('.ai-bubble');
+            const text = card.querySelector('.ai-content').innerText;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'vi-VN';
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Speech Recognition (Mic)
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'vi-VN';
+
+            micBtn.addEventListener('click', () => {
+                micBtn.classList.add('text-red-500', 'animate-pulse');
+                recognition.start();
+            });
+
+            recognition.onresult = (event) => {
+                userInput.value = event.results[0][0].transcript;
+                micBtn.classList.remove('text-red-500', 'animate-pulse');
+            };
+
+            recognition.onerror = () => {
+                micBtn.classList.remove('text-red-500', 'animate-pulse');
+            };
+
+            recognition.onend = () => {
+                micBtn.classList.remove('text-red-500', 'animate-pulse');
+            };
+        } else {
+            micBtn.style.display = 'none';
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
