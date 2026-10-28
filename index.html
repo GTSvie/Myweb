@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>redKAI Smart AI</title>
     <style>
         * {
@@ -14,10 +14,7 @@
         body {
             background-color: #0d0f17;
             color: #e1e7ec;
-            display: flex;
-            flex-direction: column;
-            height: 100dvh; /* Dùng 100dvh chuẩn cho mobile */
-            overflow: hidden;
+            padding-bottom: 90px; /* Chừa khoảng trống bên dưới để không bị che */
         }
         header {
             background: linear-gradient(135deg, #1f1a3a, #0d0f17);
@@ -27,7 +24,9 @@
             justify-content: space-between;
             border-bottom: 2px solid #ff0055;
             box-shadow: 0 4px 20px rgba(255, 0, 85, 0.2);
-            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .logo-container {
             display: flex;
@@ -66,16 +65,14 @@
             font-weight: bold;
         }
         #chat-container {
-            flex: 1;
             padding: 15px;
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         .message {
             max-width: 88%;
-            padding: 10px 14px;
+            padding: 12px 14px;
             border-radius: 12px;
             line-height: 1.4;
             font-size: 14px;
@@ -101,15 +98,21 @@
             margin-bottom: 4px;
             font-size: 11px;
         }
-        /* Cố định khung nhập và đẩy hẳn lên trên thanh điều hướng điện thoại */
+        /* Ghim hẳn khung chat nổi lên trên màn hình, cách đáy một khoảng an toàn */
         #input-container {
-            padding: 12px 15px 20px 15px; /* Thêm khoảng trống ở dưới */
+            position: fixed;
+            bottom: 20px;
+            left: 10px;
+            right: 10px;
+            padding: 10px 12px;
             background: #141722;
-            border-top: 1px solid #23283b;
+            border: 1px solid #2a3146;
+            border-radius: 14px;
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
-            flex-shrink: 0;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
+            z-index: 999;
         }
         #user-input {
             flex: 1;
@@ -128,7 +131,7 @@
             background: linear-gradient(45deg, #ff0055, #7a00ff);
             border: none;
             color: white;
-            padding: 12px 18px;
+            padding: 12px 16px;
             border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
@@ -157,7 +160,7 @@
     <div id="chat-container">
         <div class="message ai-message">
             <strong>💀 redKAI Smart AI</strong>
-            Thấy nút chat to đành đạch chưa ông tướng? Nhập câu hỏi vào đây xem tôi văn vở mỏ hỗn cỡ nào nào! ⚡
+            Nổi lềnh bềnh ngay trước mặt thế này rồi nhé ông tướng! Gõ phím chiến thử xem nào! ⚡
         </div>
     </div>
 
@@ -186,7 +189,7 @@
             loadingDiv.className = 'message ai-message';
             loadingDiv.innerHTML = '<strong>💀 redKAI Smart AI</strong>Đang bẻ lái tìm câu cà khịa... 🧠⚡';
             chatContainer.appendChild(loadingDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            window.scrollTo(0, document.body.scrollHeight);
 
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
@@ -214,7 +217,7 @@
             }
 
             sendBtn.disabled = false;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function appendMessage(text, className) {
@@ -223,7 +226,7 @@
             msgDiv.className = `message ${className}`;
             msgDiv.innerText = text;
             chatContainer.appendChild(msgDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            window.scrollTo(0, document.body.scrollHeight);
         }
 
         function handleKeyPress(e) {
