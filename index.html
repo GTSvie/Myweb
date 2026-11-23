@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOX FRUITS SHOP | Cày Thuê – Hỗ Trợ – Dịch Vụ Blox Fruits</title>
+    <title>redKAI Rshop | Cày Thuê – Tài Khoản – Dịch Vụ Roblox</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Tải Google Fonts: Inter & Cinzel/Chakra Petch cho phong cách Gaming Pirate -->
@@ -27,6 +27,7 @@
                             dark: '#060B19',
                             navy: '#0B152C',
                             card: '#111E3C',
+                            red: '#EF4444',
                             gold: '#F59E0B',
                             goldLight: '#FCD34D',
                             cyan: '#06B6D4',
@@ -39,38 +40,38 @@
         }
     </script>
 </head>
-<body class="bg-[#060B19] text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950 overflow-x-hidden pb-24 md:pb-12">
+<body class="bg-[#060B19] text-slate-100 font-sans antialiased selection:bg-rose-500 selection:text-white overflow-x-hidden pb-24 md:pb-12">
 
     <!-- Hiệu ứng ánh sáng nền (Ambient Glow) -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"></div>
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-rose-600/15 rounded-full blur-3xl"></div>
         <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-amber-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"></div>
     </div>
 
     <!-- Thanh điều hướng trên cùng (Sticky Header + Chuyển 2 Trang) -->
-    <header class="sticky top-0 z-40 bg-[#060B19]/90 backdrop-blur-md border-b border-cyan-500/25 shadow-lg shadow-black/40">
+    <header class="sticky top-0 z-40 bg-[#060B19]/90 backdrop-blur-md border-b border-rose-500/30 shadow-lg shadow-black/40">
         <div class="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:h-16 flex flex-wrap items-center justify-between gap-2.5">
-            <!-- Logo thương hiệu -->
+            <!-- Logo thương hiệu redKAI Rshop -->
             <a href="#top" onclick="switchPage('page1')" class="flex items-center gap-2.5 group">
-                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-extrabold text-lg sm:text-xl shadow-lg shadow-amber-500/30 group-hover:scale-105 transition-transform">
-                    <i class="fa-solid fa-skull-crossbones"></i>
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-rose-500 via-red-600 to-amber-500 flex items-center justify-center text-white font-extrabold text-lg sm:text-xl shadow-lg shadow-rose-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-fire-flame-curved"></i>
                 </div>
                 <div>
-                    <span class="font-gaming font-bold text-base sm:text-xl tracking-wider bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
-                        BLOX FRUITS SHOP
+                    <span class="font-gaming font-extrabold text-base sm:text-xl tracking-wider">
+                        <span class="text-rose-500">red</span><span class="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">KAI Rshop</span>
                     </span>
                 </div>
             </a>
 
             <!-- Nút TikTok nhanh trên Header -->
             <div class="flex items-center gap-2 sm:order-3">
-                <a href="#tao-don-hang" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-amber-500/40 text-amber-300 text-xs font-bold transition-all">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                <a href="#tao-don-hang" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-rose-500/40 text-amber-300 text-xs font-bold transition-all">
+                    <i class="fa-solid fa-cart-shopping text-rose-400"></i>
                     <span>Đơn (<span id="header-cart-count">0</span>)</span>
                 </a>
                 <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
-                   class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-cyan-500/25 transition-all active:scale-95">
+                   class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white text-xs sm:text-sm font-bold shadow-lg shadow-rose-500/25 transition-all active:scale-95">
                     <i class="fa-brands fa-tiktok text-base"></i>
                     <span class="hidden sm:inline">@levutientruong</span>
                     <span class="sm:hidden">TikTok</span>
@@ -80,8 +81,8 @@
             <!-- Thanh chuyển đổi 2 Trang (SPA Page Switcher) -->
             <nav aria-label="Chuyển trang dịch vụ" class="w-full sm:w-auto sm:order-2 grid grid-cols-2 sm:flex items-center gap-1.5 p-1 rounded-2xl bg-[#0B152C] border border-slate-700/80">
                 <button type="button" id="tab-btn-page1" onclick="switchPage('page1')"
-                    class="px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md shadow-amber-500/25">
-                    <i class="fa-solid fa-swords"></i>
+                    class="px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/25">
+                    <i class="fa-solid fa-khanda"></i>
                     <span>Dịch vụ cày thuê</span>
                 </button>
                 <button type="button" id="tab-btn-page2" onclick="switchPage('page2')"
@@ -97,37 +98,35 @@
     <main id="top" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-12 sm:space-y-16">
 
         <!-- ========================================================= -->
-        <!-- TRANG 1: DỊCH VỤ CÀY THUÊ                                 -->
+        <!-- TRANG 1: DỊCH VỤ BLOX FRUITS (CÀY THUÊ & HỖ TRỢ)         -->
         <!-- ========================================================= -->
         <div id="view-page1" class="space-y-12 sm:space-y-16 transition-opacity duration-300">
             
             <!-- HERO BANNER TRANG 1 -->
-            <section class="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-gradient-to-br from-[#0B152C] via-[#111E3C] to-[#081226] p-6 sm:p-10 md:p-12 shadow-2xl shadow-cyan-950/50">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-amber-500/20 to-transparent rounded-bl-full pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-cyan-500/20 to-transparent rounded-tr-full pointer-events-none"></div>
+            <section class="relative rounded-3xl overflow-hidden border border-rose-500/40 bg-gradient-to-br from-[#140B1E] via-[#111E3C] to-[#081226] p-6 sm:p-10 md:p-12 shadow-2xl shadow-rose-950/40">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-rose-500/20 to-transparent rounded-bl-full pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-amber-500/15 to-transparent rounded-tr-full pointer-events-none"></div>
 
                 <div class="relative z-10 max-w-3xl space-y-4">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-semibold tracking-wide">
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                        TRANG 1 • DỊCH VỤ CÀY THUÊ UY TÍN
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/15 border border-rose-400/40 text-rose-300 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+                        TRANG 1 • DỊCH VỤ BLOX FRUITS UY TÍN
                     </div>
 
                     <h1 class="font-gaming text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                        <span class="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent drop-shadow-sm">
-                            BLOX FRUITS SHOP
-                        </span>
+                        <span class="text-rose-500 drop-shadow-sm">red</span><span class="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent drop-shadow-sm">KAI Rshop</span>
                     </h1>
 
                     <p class="font-gaming text-base sm:text-xl md:text-2xl font-bold text-cyan-300 tracking-wider uppercase">
-                        CÀY THUÊ – HỖ TRỢ – DỊCH VỤ BLOX FRUITS
+                        CÀY THUÊ – TÀI KHOẢN – DỊCH VỤ ROBLOX
                     </p>
 
                     <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                        Chọn các gói cày thuê bên dưới hoặc chuyển sang tab <button type="button" onclick="switchPage('page2')" class="text-purple-300 underline font-semibold hover:text-purple-200">Tài khoản & trò chơi</button> để xem Túi Mù & Treo VPN. Tất cả đơn hàng được cộng dồn tự động!
+                        Chọn các gói cày thuê Blox Fruits bên dưới hoặc chuyển sang tab <button type="button" onclick="switchPage('page2')" class="text-purple-300 underline font-semibold hover:text-purple-200">Tài khoản & trò chơi</button> để xem Túi Mù & Treo VPN. Tất cả đơn hàng được cộng dồn tự động!
                     </p>
 
                     <div class="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
-                        <a href="#dich-vu-cay-thue" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/30 transition-all active:scale-95">
+                        <a href="#dich-vu-cay-thue" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-rose-500/30 transition-all active:scale-95">
                             <i class="fa-solid fa-bolt"></i>
                             Chọn Gói Cày Ngay
                         </a>
@@ -520,6 +519,12 @@
                                 <span>Xu TikTok</span>
                             </button>
                         </div>
+
+                        <!-- Ghi chú nổi bật về Xu TikTok -->
+                        <div id="xu-tiktok-note-box" class="p-3 rounded-xl bg-amber-500/10 border border-amber-400/40 flex items-center gap-2.5 text-amber-300 text-xs sm:text-sm">
+                            <i class="fa-brands fa-tiktok text-base text-rose-400 shrink-0"></i>
+                            <span class="font-semibold">Xu TikTok: Giá không cố định (nhắn riêng với shop để hỗ trợ)</span>
+                        </div>
                     </div>
                 </div>
 
@@ -538,7 +543,7 @@
 
                     <div class="space-y-2.5">
                         <button type="button" onclick="copyOrderAndOpenTikTok()"
-                            class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 transition-all active:scale-95">
+                            class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-rose-500 via-amber-500 to-yellow-500 hover:from-rose-400 hover:to-yellow-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all active:scale-95">
                             <i class="fa-solid fa-copy"></i>
                             Sao chép đơn hàng & Mở TikTok
                         </button>
@@ -554,115 +559,34 @@
             </div>
         </section>
 
-        <!-- MỤC IV: PHƯƠNG THỨC THANH TOÁN -->
-        <section id="thanh-toan" class="scroll-mt-24 rounded-3xl bg-[#0B152C] border border-cyan-500/30 p-6 sm:p-8 space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-                <h2 class="font-gaming text-xl sm:text-2xl font-bold text-amber-400 flex items-center gap-2.5">
-                    <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-sm">IV</span>
-                    PHƯƠNG THỨC THANH TOÁN
-                </h2>
-                <span class="text-xs font-semibold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
-                    Shop hiện chỉ nhận 3 hình thức
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <!-- Thẻ cào Viettel -->
-                <div class="p-4 rounded-2xl bg-[#111E3C] border border-emerald-500/30 flex items-center sm:flex-col sm:text-center gap-3.5 hover:border-emerald-400 transition-colors">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl shrink-0">
-                        <i class="fa-solid fa-sim-card"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white text-base">Thẻ cào Viettel</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Gửi mã thẻ + Seri cho shop</p>
-                    </div>
-                </div>
-
-                <!-- Thẻ Zing -->
-                <div class="p-4 rounded-2xl bg-[#111E3C] border border-sky-500/30 flex items-center sm:flex-col sm:text-center gap-3.5 hover:border-sky-400 transition-colors">
-                    <div class="w-12 h-12 rounded-2xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-2xl shrink-0">
-                        <i class="fa-solid fa-credit-card"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white text-base">Thẻ Zing</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Gửi mã thẻ + Seri cho shop</p>
-                    </div>
-                </div>
-
-                <!-- Xu TikTok -->
-                <div class="p-4 rounded-2xl bg-[#111E3C] border border-amber-500/30 flex items-center sm:flex-col sm:text-center gap-3.5 hover:border-amber-400 transition-colors">
-                    <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl shrink-0">
-                        <i class="fa-brands fa-tiktok"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white text-base">Xu TikTok</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">Tặng quà / Chuyển xu trực tiếp</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- MỤC V: THÔNG TIN LIÊN HỆ CHỦ SHOP -->
-        <section id="lien-he" class="scroll-mt-24 rounded-3xl bg-gradient-to-r from-[#0B152C] via-[#132247] to-[#0B152C] border border-amber-500/40 p-6 sm:p-10 text-center space-y-6 shadow-xl">
-            <div class="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
-                <span>V. THÔNG TIN LIÊN HỆ CHỦ SHOP</span>
-            </div>
-
-            <div class="space-y-2">
-                <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white">
-                    KẾT NỐI TRỰC TIẾP VỚI CHỦ SHOP
-                </h2>
-                <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
-                    Nhắn tin ngay qua kênh TikTok chính chủ duy nhất bên dưới để được hỗ trợ cày thuê, mua túi mù và treo VPN nhanh nhất!
-                </p>
-            </div>
-
-            <div class="max-w-lg mx-auto bg-[#060B19]/90 border border-cyan-500/40 rounded-2xl p-4 sm:p-5 space-y-4">
-                <div class="flex items-center justify-between gap-3 bg-[#0B152C] px-4 py-3 rounded-xl border border-slate-700/80">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 via-slate-900 to-rose-500 p-0.5">
-                            <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center text-white">
-                                <i class="fa-brands fa-tiktok text-lg"></i>
-                            </div>
-                        </div>
-                        <div class="text-left">
-                            <span class="block text-[11px] text-slate-400 uppercase font-semibold">TikTok Chủ Shop</span>
-                            <span class="font-mono text-base sm:text-lg font-bold text-cyan-300">@levutientruong</span>
-                        </div>
-                    </div>
-
-                    <button type="button" onclick="copyTikTokId()"
-                        class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 transition-all active:scale-95">
-                        <i class="fa-regular fa-copy"></i>
-                        <span>Sao chép ID</span>
-                    </button>
-                </div>
-
-                <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
-                    class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2.5 transition-all active:scale-95">
-                    <i class="fa-brands fa-tiktok text-xl"></i>
-                    <span>Liên hệ chủ shop qua TikTok</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
-            </div>
-        </section>
-
     </main>
 
     <!-- FOOTER / LỜI KẾT -->
     <footer class="relative z-10 mt-16 border-t border-slate-800/90 bg-[#040812] py-10 px-4 text-center">
-        <div class="max-w-3xl mx-auto space-y-3">
-            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xl mb-1">
+        <div class="max-w-3xl mx-auto space-y-4">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400 text-xl mb-1">
                 <i class="fa-solid fa-crown"></i>
             </div>
-            <p class="font-gaming text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
-                CẢM ƠN QUÝ KHÁCH ĐÃ TIN TƯỞNG VÀ ỦNG HỘ SHOP!
+            <p class="font-gaming text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-rose-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+                CẢM ƠN QUÝ KHÁCH ĐÃ TIN TƯỞNG VÀ ỦNG HỘ redKAI Rshop!
             </p>
             <p class="text-cyan-300 font-medium text-sm sm:text-base">
                 Chúc quý khách có những trải nghiệm vui vẻ!
             </p>
-            <div class="pt-4 text-xs text-slate-500">
-                &copy; 2026 BLOX FRUITS SHOP • TikTok: @levutientruong
+            <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5">
+                <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 text-xs sm:text-sm font-bold transition-all">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok Chủ Shop: @levutientruong</span>
+                </a>
+                <button type="button" onclick="copyTikTokId()"
+                    class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs sm:text-sm font-semibold transition-all active:scale-95">
+                    <i class="fa-regular fa-copy"></i>
+                    <span>Sao chép ID</span>
+                </button>
+            </div>
+            <div class="pt-2 text-xs text-slate-500">
+                &copy; 2026 redKAI Rshop • TikTok: @levutientruong
             </div>
         </div>
     </footer>
@@ -704,10 +628,10 @@
         ];
 
         const customServices = [
-            { id: 'melee', name: 'Cày võ', icon: 'fa-hand-fist', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).' },
-            { id: 'sword', name: 'Cày kiếm', icon: 'fa-khanda', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).' },
-            { id: 'awaken', name: 'Thức tỉnh trái', icon: 'fa-apple-whole', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).' },
-            { id: 'mastery', name: 'Cày điểm thông thạo trái', icon: 'fa-star', desc: 'Tùy loại trái, mức giá khác nhau (nhắn tin riêng để shop hỗ trợ).' }
+            { id: 'melee', name: 'Cày võ', icon: 'fa-hand-fist', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).', highlight: false },
+            { id: 'sword', name: 'Cày kiếm', icon: 'fa-khanda', desc: 'Giá tùy loại (nhắn riêng để shop hỗ trợ).', highlight: true },
+            { id: 'awaken', name: 'Thức tỉnh trái', icon: 'fa-apple-whole', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).', highlight: false },
+            { id: 'mastery', name: 'Cày điểm thông thạo trái', icon: 'fa-star', desc: 'Tùy loại trái, mức giá khác nhau (nhắn tin riêng để shop hỗ trợ).', highlight: false }
         ];
 
         // ==========================================
@@ -746,7 +670,7 @@
                 page1El.classList.remove('hidden');
                 page2El.classList.add('hidden');
 
-                btn1.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-md shadow-amber-500/25';
+                btn1.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/25';
                 btn2.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70';
             } else {
                 page1El.classList.add('hidden');
@@ -850,33 +774,44 @@
             const container = document.getElementById('custom-services-grid');
             container.innerHTML = customServices.map(item => {
                 const isSelected = selectedIds.has(item.id);
+                const borderClass = isSelected
+                    ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-cyan-400 shadow-lg shadow-cyan-500/15'
+                    : item.highlight
+                        ? 'bg-gradient-to-br from-[#161028] to-[#0B152C] hover:bg-[#141E3D] border-rose-500/50 hover:border-rose-400 shadow-md shadow-rose-950/30'
+                        : 'bg-[#0B152C] hover:bg-[#101E3D] border-slate-800 hover:border-cyan-500/40';
+
                 return `
                     <div onclick="toggleService('${item.id}')"
-                        class="cursor-pointer group rounded-2xl p-5 transition-all duration-200 border flex flex-col justify-between gap-4 ${
-                            isSelected
-                                ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-cyan-400 shadow-lg shadow-cyan-500/15'
-                                : 'bg-[#0B152C] hover:bg-[#101E3D] border-slate-800 hover:border-cyan-500/40'
-                        }">
+                        class="cursor-pointer group rounded-2xl p-5 transition-all duration-200 border flex flex-col justify-between gap-4 ${borderClass}">
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex items-start gap-3.5">
                                 <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 mt-0.5 ${
                                     isSelected
                                         ? 'bg-cyan-400 text-slate-950'
-                                        : 'bg-amber-500/15 text-amber-400'
+                                        : item.highlight
+                                            ? 'bg-rose-500/20 text-rose-400'
+                                            : 'bg-amber-500/15 text-amber-400'
                                 }">
                                     <i class="fa-solid ${item.icon}"></i>
                                 </div>
                                 <div>
-                                    <h3 class="font-gaming font-bold text-lg text-white">${item.name}</h3>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <h3 class="font-gaming font-bold text-lg text-white">${item.name}</h3>
+                                        ${item.highlight ? '<span class="px-2 py-0.5 rounded-md bg-rose-500/20 border border-rose-500/40 text-rose-300 text-[10px] font-bold uppercase tracking-wider">Mới cập nhật</span>' : ''}
+                                    </div>
                                     <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">${item.desc}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 text-xs font-bold">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${
+                                item.highlight
+                                    ? 'bg-rose-500/15 border border-rose-400/40 text-rose-300'
+                                    : 'bg-cyan-500/15 border border-cyan-400/40 text-cyan-300'
+                            } text-xs font-bold">
                                 <i class="fa-regular fa-comment-dots"></i>
-                                Nhắn tin báo giá
+                                Nhắn riêng báo giá
                             </span>
 
                             <button type="button"
@@ -1046,6 +981,14 @@
                     btn.className = 'pay-btn p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-slate-900/80 border-slate-700 text-slate-300 hover:border-cyan-500/50';
                 }
             });
+
+            const xuNoteBox = document.getElementById('xu-tiktok-note-box');
+            if (xuNoteBox) {
+                xuNoteBox.className = method === 'Xu TikTok'
+                    ? 'p-3 rounded-xl bg-rose-500/20 border border-rose-400/60 flex items-center gap-2.5 text-amber-200 text-xs sm:text-sm shadow-md shadow-rose-500/15 transition-all'
+                    : 'p-3 rounded-xl bg-amber-500/10 border border-amber-400/40 flex items-center gap-2.5 text-amber-300 text-xs sm:text-sm transition-all';
+            }
+
             updateOrderSummary();
         }
 
@@ -1170,15 +1113,19 @@
             }
 
             // Tạo nội dung tin nhắn tự động gửi shop
+            const paymentText = selectedPayment === 'Xu TikTok'
+                ? 'Xu TikTok (Giá không cố định - nhờ shop hỗ trợ báo giá)'
+                : selectedPayment;
+
             if (chosenItems.length === 0) {
-                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ tại BLOX FRUITS SHOP:\n- Dịch vụ cần đặt: (Chưa chọn gói)\n- Hình thức thanh toán: ${selectedPayment}\nShop hỗ trợ giúp mình nhé!`;
+                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ tại redKAI Rshop:\n- Dịch vụ cần đặt: (Chưa chọn gói)\n- Hình thức thanh toán: ${paymentText}\nShop hỗ trợ giúp mình nhé!`;
             } else {
                 const lines = chosenItems.map(i => `  + ${i.name} (${i.priceText})`).join('\n');
                 const totalLine = hasCustomService
                     ? `${totalMoney}K + Dịch vụ chờ shop báo giá`
                     : `${totalMoney}K`;
 
-                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ tại BLOX FRUITS SHOP:\n${lines}\n• Tổng tạm tính: ${totalLine}\n• Hình thức thanh toán: ${selectedPayment}\nShop kiểm tra và hỗ trợ giúp mình nhé!`;
+                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ tại redKAI Rshop:\n${lines}\n• Tổng tạm tính: ${totalLine}\n• Hình thức thanh toán: ${paymentText}\nShop kiểm tra và hỗ trợ giúp mình nhé!`;
             }
         }
 
