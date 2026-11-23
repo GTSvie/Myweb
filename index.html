@@ -1,832 +1,738 @@
 ```html
 <!DOCTYPE html>
-<html lang="vi" class="dark">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>redKAI Smart AI - All-In-One Intelligent Assistant</title>
-    <!-- Tailwind CSS CDN -->
+    <title>BLOX FRUITS SHOP | Cày Thuê – Hỗ Trợ – Dịch Vụ Blox Fruits</title>
+    <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tải Google Fonts: Inter & Cinzel/Chakra Petch cho phong cách Gaming Pirate -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tải Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
-                    colors: {
-                        cyber: {
-                            bg: '#0a0b10',
-                            card: '#121420',
-                            border: '#1f293d',
-                            neonRed: '#ff2a5f',
-                            neonCyan: '#00f0ff',
-                            neonPurple: '#9d00ff',
-                            textMuted: '#94a3b8'
-                        }
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        gaming: ['"Chakra Petch"', 'sans-serif'],
                     },
-                    boxShadow: {
-                        'neon-red': '0 0 15px rgba(255, 42, 95, 0.4)',
-                        'neon-cyan': '0 0 15px rgba(0, 240, 255, 0.4)',
-                        'neon-purple': '0 0 15px rgba(157, 0, 255, 0.4)',
+                    colors: {
+                        pirate: {
+                            dark: '#060B19',
+                            navy: '#0B152C',
+                            card: '#111E3C',
+                            gold: '#F59E0B',
+                            goldLight: '#FCD34D',
+                            cyan: '#06B6D4',
+                            neon: '#38BDF8'
+                        }
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts: Inter & Fira Code -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a0b10;
-            color: #f1f5f9;
-            overflow-x: hidden;
-        }
-        .font-mono-code {
-            font-family: 'Fira Code', monospace;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0b10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1f293d;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #ff2a5f;
-        }
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-        .animate-pulse-glow {
-            animation: pulseGlow 3s infinite ease-in-out;
-        }
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    </style>
 </head>
-<body class="bg-cyber-bg text-slate-100 min-h-screen flex flex-col selection:bg-rose-500 selection:text-white">
+<body class="bg-[#060B19] text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-950 overflow-x-hidden pb-24 md:pb-12">
 
-    <!-- Ambient background glow elements -->
-    <div class="fixed top-0 left-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
-    <div class="fixed bottom-0 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+    <!-- Hiệu ứng ánh sáng nền (Ambient Glow) -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-amber-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl"></div>
+    </div>
 
-    <!-- Header Navigation -->
-    <header class="sticky top-0 z-50 backdrop-blur-md bg-cyber-card/80 border-b border-cyber-border px-4 lg:px-8 py-3 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-cyan-500 text-white font-bold text-lg shadow-neon-red">
-                <i class="fa-solid fa-brain"></i>
-                <div class="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full border-2 border-cyber-bg animate-ping"></div>
-            </div>
-            <div>
-                <h1 class="font-bold text-lg tracking-wider bg-gradient-to-r from-rose-500 via-purple-400 to-cyan-400 bg-clip-text text-transparent">redKAI <span class="text-xs uppercase px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30">Smart AI v2.5</span></h1>
-                <p id="modeStatusText" class="text-xs text-emerald-400">Smart Engine Active (No Key)</p>
-            </div>
-        </div>
+    <!-- Thanh điều hướng trên cùng (Sticky Header) -->
+    <header class="sticky top-0 z-40 bg-[#060B19]/85 backdrop-blur-md border-b border-cyan-500/20">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2.5 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-extrabold text-xl shadow-lg shadow-amber-500/30 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-skull-crossbones"></i>
+                </div>
+                <div>
+                    <span class="font-gaming font-bold text-lg sm:text-xl tracking-wider bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
+                        BLOX FRUITS SHOP
+                    </span>
+                </div>
+            </a>
 
-        <!-- Tab Navigation Controls -->
-        <nav class="hidden md:flex items-center space-x-1 bg-cyber-bg p-1 rounded-xl border border-cyber-border">
-            <button onclick="switchTab('chat')" id="nav-chat" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-rose-600/20 text-rose-400 border border-rose-500/30 shadow-neon-red">
-                <i class="fa-solid fa-comments"></i>
-                <span>Chat AI Toàn Năng</span>
-            </button>
-            <button onclick="switchTab('writer')" id="nav-writer" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 text-cyber-textMuted hover:text-white hover:bg-cyber-border/50">
-                <i class="fa-solid fa-feather"></i>
-                <span>Thơ & Văn Học</span>
-            </button>
-            <button onclick="switchTab('physics')" id="nav-physics" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 text-cyber-textMuted hover:text-white hover:bg-cyber-border/50">
-                <i class="fa-solid fa-atom"></i>
-                <span>Giải Vật Lý</span>
-            </button>
-            <button onclick="switchTab('code')" id="nav-code" class="tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 text-cyber-textMuted hover:text-white hover:bg-cyber-border/50">
-                <i class="fa-solid fa-code"></i>
-                <span>Code & Công Cụ</span>
-            </button>
-        </nav>
+            <!-- Menu nhanh trên Desktop -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
+                <a href="#dich-vu-cay-thue" class="hover:text-amber-400 transition-colors">Bảng Giá Cày</a>
+                <a href="#dich-vu-khac" class="hover:text-amber-400 transition-colors">Dịch Vụ Tùy Chọn</a>
+                <a href="#thanh-toan" class="hover:text-amber-400 transition-colors">Thanh Toán</a>
+                <a href="#lien-he" class="hover:text-amber-400 transition-colors">Liên Hệ</a>
+            </nav>
 
-        <!-- Right Side Actions -->
-        <div class="flex items-center space-x-3">
-            <button onclick="openSettingsModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-600/20 to-purple-600/20 border border-rose-500/40 text-rose-300 hover:text-white hover:border-rose-500 transition flex items-center space-x-2 text-xs font-medium shadow-neon-red">
-                <i class="fa-solid fa-key"></i>
-                <span class="hidden sm:inline">Cài đặt Gemini API</span>
-            </button>
-            <button onclick="openNotification('redKAI Smart AI v2.5 hỗ trợ Gemini API trực tiếp hoặc chế độ Smart Local Engine siêu thông minh cho Kai!')" class="p-2.5 rounded-xl bg-cyber-card border border-cyber-border text-cyber-textMuted hover:text-cyan-400 hover:border-cyan-500/50 transition">
-                <i class="fa-solid fa-circle-info"></i>
-            </button>
+            <!-- Nút TikTok nhanh trên Header -->
+            <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-cyan-500/25 transition-all active:scale-95">
+                <i class="fa-brands fa-tiktok text-base"></i>
+                <span class="hidden sm:inline">@levutientruong</span>
+                <span class="sm:hidden">TikTok</span>
+            </a>
         </div>
     </header>
 
-    <!-- Mobile Nav Bar (Bottom) -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-cyber-card/95 backdrop-blur-md border-t border-cyber-border px-2 py-2 flex justify-around">
-        <button onclick="switchTab('chat')" id="mob-nav-chat" class="mob-tab flex flex-col items-center py-1 px-3 text-rose-400">
-            <i class="fa-solid fa-comments text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Chat AI</span>
-        </button>
-        <button onclick="switchTab('writer')" id="mob-nav-writer" class="mob-tab flex flex-col items-center py-1 px-3 text-cyber-textMuted">
-            <i class="fa-solid fa-feather text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Thơ Văn</span>
-        </button>
-        <button onclick="switchTab('physics')" id="mob-nav-physics" class="mob-tab flex flex-col items-center py-1 px-3 text-cyber-textMuted">
-            <i class="fa-solid fa-atom text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Vật Lý</span>
-        </button>
-        <button onclick="switchTab('code')" id="mob-nav-code" class="mob-tab flex flex-col items-center py-1 px-3 text-cyber-textMuted">
-            <i class="fa-solid fa-code text-lg"></i>
-            <span class="text-[10px] mt-1 font-medium">Code</span>
-        </button>
-    </div>
+    <!-- Main Content -->
+    <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 space-y-14 sm:space-y-20">
 
-    <!-- Settings Modal -->
-    <div id="settingsModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-cyber-card border border-rose-500/50 rounded-2xl w-full max-w-md p-6 shadow-neon-red relative">
-            <div class="flex items-center justify-between pb-3 border-b border-cyber-border mb-4">
-                <h3 class="font-bold text-base text-white flex items-center space-x-2">
-                    <i class="fa-solid fa-key text-rose-400"></i>
-                    <span>Cấu Hình Gemini API Key</span>
-                </h3>
-                <button onclick="closeSettingsModal()" class="text-cyber-textMuted hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-            </div>
-            <div class="space-y-4 text-sm">
-                <div>
-                    <label class="block text-xs font-medium text-cyber-textMuted mb-1">Gemini API Key của bạn (Google AI Studio)</label>
-                    <input type="password" id="apiKeyInput" placeholder="Dán API Key vào đây (ví dụ: AIzaSy...)" class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-4 py-2.5 text-slate-200 text-xs focus:outline-none focus:border-rose-500">
+        <!-- HERO BANNER -->
+        <section class="relative rounded-3xl overflow-hidden border border-amber-500/30 bg-gradient-to-br from-[#0B152C] via-[#111E3C] to-[#081226] p-6 sm:p-10 md:p-14 shadow-2xl shadow-cyan-950/50">
+            <!-- Họa tiết trang trí góc -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-amber-500/20 to-transparent rounded-bl-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-cyan-500/20 to-transparent rounded-tr-full pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl space-y-5">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-semibold tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                    UY TÍN • NHANH CHÓNG • AN TOÀN TUYỆT ĐỐI
                 </div>
-                <p class="text-[11px] text-cyber-textMuted leading-relaxed">
-                    💡 Nếu bạn không nhập Key, redKAI sẽ tự động sử dụng <strong>Smart Local Engine</strong> với kho tri thức chuyên sâu (Vật lý, Làm thơ, Lập trình, Trợ lý ảo cho Kai) cực kỳ thông minh, không cần cấu hình phức tạp.
+
+                <h1 class="font-gaming text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                    <span class="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent drop-shadow-sm">
+                        BLOX FRUITS SHOP
+                    </span>
+                </h1>
+
+                <p class="font-gaming text-base sm:text-xl md:text-2xl font-bold text-cyan-300 tracking-wider uppercase">
+                    CÀY THUÊ – HỖ TRỢ – DỊCH VỤ BLOX FRUITS
                 </p>
-                <div class="flex space-x-3 pt-2">
-                    <button onclick="saveApiKey()" class="flex-1 bg-gradient-to-r from-rose-600 to-purple-600 text-white py-2.5 rounded-xl font-semibold text-xs hover:opacity-90 transition shadow-neon-red">
-                        Lưu Cấu Hình
-                    </button>
-                    <button onclick="clearApiKey()" class="px-4 bg-cyber-bg border border-cyber-border text-cyber-textMuted hover:text-rose-400 py-2.5 rounded-xl font-medium text-xs transition">
-                        Xóa Key
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Main Content Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 mb-16 md:mb-0 flex flex-col">
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                    Chào mừng các thuyền trưởng đến với dịch vụ cày thuê Blox Fruits chuyên nghiệp. Tích chọn các gói dịch vụ bên dưới để tự động tính tổng tiền và tạo đơn hàng gửi trực tiếp cho chủ shop qua TikTok!
+                </p>
 
-        <!-- ================= TAB 1: CHAT AI TOÀN NĂNG ================= -->
-        <div id="tab-chat" class="tab-content flex-1 flex flex-col h-[calc(100vh-140px)] md:h-[calc(100vh-120px)]">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-1 h-full overflow-hidden">
-                <!-- Sidebar Presets -->
-                <div class="hidden lg:flex flex-col bg-cyber-card rounded-2xl border border-cyber-border p-4 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h2 class="font-semibold text-sm uppercase tracking-wider text-cyan-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            <span>Gợi ý cho Kai</span>
-                        </h2>
-                        <button onclick="clearChat()" class="text-xs text-cyber-textMuted hover:text-rose-400 transition" title="Xóa lịch sử">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                    <div class="flex flex-col space-y-2 overflow-y-auto flex-1 pr-1">
-                        <button onclick="sendPresetPrompt('Tác dụng của bạn là gì và bạn có thể làm gì cho Kai?')" class="text-left p-3 rounded-xl bg-cyber-bg border border-cyber-border hover:border-cyan-500/50 hover:bg-cyan-500/5 text-xs text-slate-300 transition group">
-                            <p class="font-medium text-cyan-300 group-hover:text-cyan-200">🤖 Tác dụng của redKAI</p>
-                            <p class="text-cyber-textMuted text-[11px] mt-1">Tìm hiểu khả năng toàn năng hỗ trợ Kai.</p>
-                        </button>
-                        <button onclick="sendPresetPrompt('Giải thích chi tiết định luật khúc xạ ánh sáng và công thức n1.sin(i) = n2.sin(r).')" class="text-left p-3 rounded-xl bg-cyber-bg border border-cyber-border hover:border-rose-500/50 hover:bg-rose-500/5 text-xs text-slate-300 transition group">
-                            <p class="font-medium text-rose-400 group-hover:text-rose-300">⚡ Khúc xạ ánh sáng</p>
-                            <p class="text-cyber-textMuted text-[11px] mt-1">Kiến thức Vật lý THPT chuẩn xác.</p>
-                        </button>
-                        <button onclick="sendPresetPrompt('Viết một bài thơ lục bát 8 câu chủ đề tình yêu công nghệ và tương lai.')" class="text-left p-3 rounded-xl bg-cyber-bg border border-cyber-border hover:border-purple-500/50 hover:bg-purple-500/5 text-xs text-slate-300 transition group">
-                            <p class="font-medium text-purple-400 group-hover:text-purple-300">📚 Thơ Lục Bát AI</p>
-                            <p class="text-cyber-textMuted text-[11px] mt-1">Sáng tác thơ văn mượt mà.</p>
-                        </button>
-                        <button onclick="sendPresetPrompt('Viết một đoạn code HTML5/Tailwind hoàn chỉnh làm giao diện Dashboard game Roblox.')" class="text-left p-3 rounded-xl bg-cyber-bg border border-cyber-border hover:border-emerald-500/50 hover:bg-emerald-500/5 text-xs text-slate-300 transition group">
-                            <p class="font-medium text-emerald-400 group-hover:text-emerald-300">💡 Code Game UI</p>
-                            <p class="text-cyber-textMuted text-[11px] mt-1">Sinh mã nguồn trực quan ngay lập tức.</p>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Chat Main Box -->
-                <div class="lg:col-span-3 flex flex-col bg-cyber-card rounded-2xl border border-cyber-border h-full overflow-hidden shadow-xl">
-                    <!-- Chat Header -->
-                    <div class="px-5 py-3.5 border-b border-cyber-border flex items-center justify-between bg-cyber-card/50">
-                        <div class="flex items-center space-x-3">
-                            <div class="w-8 h-8 rounded-lg bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400">
-                                <i class="fa-solid fa-robot"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-semibold text-sm text-white">redKAI Assistant v2.5</h3>
-                                <p class="text-[11px] text-emerald-400 flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span> Chào Kai, tôi đã sẵn sàng!</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <button onclick="clearChat()" class="px-3 py-1.5 rounded-lg bg-cyber-bg border border-cyber-border text-xs text-cyber-textMuted hover:text-rose-400 hover:border-rose-500/30 transition flex items-center space-x-1.5">
-                                <i class="fa-solid fa-rotate-right"></i>
-                                <span class="hidden sm:inline">Làm mới</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Chat Messages Area -->
-                    <div id="chatMessages" class="flex-1 p-4 md:p-6 overflow-y-auto space-y-4 text-sm">
-                        <!-- Initial Greeting Message -->
-                        <div class="flex items-start space-x-3">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-600 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-neon-red">
-                                <i class="fa-solid fa-brain text-xs"></i>
-                            </div>
-                            <div class="bg-cyber-bg border border-cyber-border rounded-2xl rounded-tl-none p-4 max-w-[85%] md:max-w-[75%] text-slate-200 leading-relaxed shadow-lg">
-                                <p class="font-semibold text-rose-400 mb-1">redKAI Smart AI</p>
-                                <p>Chào Kai! Tôi là trợ lý ảo toàn năng redKAI. Tôi sẵn sàng hỗ trợ bạn giải quyết các bài toán vật lý, sáng tác thơ ca, lập trình code hoặc trả lời mọi câu hỏi với độ chính xác cao nhất. Bạn cần giúp gì ngay lúc này?</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chat Input Bar -->
-                    <div class="p-3 md:p-4 border-t border-cyber-border bg-cyber-card/80">
-                        <form id="chatForm" onsubmit="handleChatSubmit(event)" class="flex items-center space-x-2">
-                            <div class="relative flex-1">
-                                <input type="text" id="chatInput" placeholder="Nhập câu hỏi hoặc yêu cầu cho redKAI..." class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-4 py-3 text-sm text-slate-100 placeholder-cyber-textMuted focus:outline-none focus:border-rose-500 focus:ring-1 focus:ring-rose-500 transition pr-10">
-                                <button type="button" onclick="insertRandomPrompt()" class="absolute right-3 top-1/2 -translate-y-1/2 text-cyber-textMuted hover:text-cyan-400 transition" title="Gợi ý câu hỏi">
-                                    <i class="fa-solid fa-lightbulb"></i>
-                                </button>
-                            </div>
-                            <button type="submit" id="sendBtn" class="bg-gradient-to-r from-rose-600 to-purple-600 text-white px-5 py-3 rounded-xl font-medium text-sm hover:opacity-90 transition shadow-neon-red flex items-center justify-center shrink-0">
-                                <i class="fa-solid fa-paper-plane mr-1.5"></i>
-                                <span class="hidden sm:inline">Gửi</span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= TAB 2: SÁNG TÁC THƠ & VĂN ================= -->
-        <div id="tab-writer" class="tab-content hidden flex-1 flex flex-col space-y-6">
-            <div class="bg-cyber-card rounded-2xl border border-cyber-border p-6 shadow-xl">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 shadow-neon-purple">
-                        <i class="fa-solid fa-feather-pointed"></i>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-white">Sáng Tác Thơ & Văn Học AI</h2>
-                        <p class="text-xs text-cyber-textMuted">Hỗ trợ sáng tác Haiku, thơ lục bát, thơ đường luật, phân tích văn học cực hay dành riêng cho Kai.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div>
-                        <label class="block text-xs font-medium text-cyber-textMuted mb-1.5">Thể loại</label>
-                        <select id="writerType" class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500">
-                            <option value="lucbat">Thơ Lục Bát (6-8 truyền thống)</option>
-                            <option value="haiku">Thơ Haiku Nhật Bản (5-7-5)</option>
-                            <option value="thatngon">Thơ Thất Ngôn Bát Cú Đường Luật</option>
-                            <option value="analysis">Phân Tác Phẩm Văn Học (Nghị luận)</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-medium text-cyber-textMuted mb-1.5">Chủ đề / Tác phẩm / Từ khóa</label>
-                        <input type="text" id="writerPrompt" placeholder="Ví dụ: Tình yêu công nghệ, Mùa thu Hà Nội, Sông Đạt..." class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500">
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2 text-xs text-cyber-textMuted">
-                        <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
-                        <span>AI sẽ sáng tác độc quyền với nhịp điệu vần điệu chuẩn xác.</span>
-                    </div>
-                    <button onclick="generateWriterContent()" class="bg-gradient-to-r from-purple-600 to-cyan-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition shadow-neon-purple flex items-center space-x-2">
-                        <i class="fa-solid fa-sparkles"></i>
-                        <span>Bắt đầu Sáng Tác</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Output Box -->
-            <div class="flex-1 bg-cyber-card rounded-2xl border border-cyber-border p-6 flex flex-col shadow-xl min-h-[300px]">
-                <div class="flex items-center justify-between pb-3 border-b border-cyber-border mb-4">
-                    <h3 class="font-semibold text-sm text-purple-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-file-lines"></i>
-                        <span>Kết quả Sáng Tác</span>
-                    </h3>
-                    <button onclick="copyOutput('writerOutput')" class="px-3 py-1.5 rounded-lg bg-cyber-bg border border-cyber-border text-xs text-cyber-textMuted hover:text-white transition flex items-center space-x-1.5">
-                        <i class="fa-regular fa-copy"></i>
-                        <span>Sao chép</span>
-                    </button>
-                </div>
-                <div id="writerOutput" class="flex-1 bg-cyber-bg border border-cyber-border rounded-xl p-4 text-slate-200 text-sm whitespace-pre-wrap leading-relaxed overflow-y-auto">
-                    Hãy chọn thể loại và nhập chủ đề để redKAI sáng tác tặng Kai...
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= TAB 3: GIẢI BÀI TẬP VẬT LÝ ================= -->
-        <div id="tab-physics" class="tab-content hidden flex-1 flex flex-col space-y-6">
-            <div class="bg-cyber-card rounded-2xl border border-cyber-border p-6 shadow-xl">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-cyan-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-neon-cyan">
-                        <i class="fa-solid fa-atom"></i>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-white">Giải Bài Tập Vật Lý THCS/THPT</h2>
-                        <p class="text-xs text-cyber-textMuted">Giải chi tiết Cơ học, Thấu kính hội tụ/phân kỳ, Định luật khúc xạ ánh sáng, Điện học chính xác từng bước.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                    <div>
-                        <label class="block text-xs font-medium text-cyber-textMuted mb-1.5">Phân môn</label>
-                        <select id="physicsCategory" class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
-                            <option value="refraction">Khúc xạ ánh sáng (Định luật Snell)</option>
-                            <option value="lens">Thấu kính hội tụ & Phân kỳ</option>
-                            <option value="mechanics">Cơ học (Động lực học, Công, Công suất)</option>
-                            <option value="electricity">Điện học (Định luật Ôm, Mạch điện)</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-3">
-                        <label class="block text-xs font-medium text-cyber-textMuted mb-1.5">Nội dung bài toán / Số liệu đầu vào</label>
-                        <input type="text" id="physicsProblem" placeholder="Ví dụ: Tia sáng chiếu từ không khí vào nước với góc tới i = 60 độ. Biết chiết suất của nước n = 4/3. Tính góc khúc xạ r." class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500">
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2 text-xs text-cyber-textMuted">
-                        <i class="fa-solid fa-calculator text-cyan-400"></i>
-                        <span>Cung cấp tóm tắt đề, công thức áp dụng và các bước giải cụ thể.</span>
-                    </div>
-                    <button onclick="solvePhysicsProblem()" class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition shadow-neon-cyan flex items-center space-x-2">
+                <div class="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                    <a href="#dich-vu-cay-thue" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/30 transition-all active:scale-95">
                         <i class="fa-solid fa-bolt"></i>
-                        <span>Giải Bài Toán</span>
-                    </button>
+                        Chọn Gói Cày Ngay
+                    </a>
+                    <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-cyan-500/40 text-cyan-300 font-bold text-sm sm:text-base transition-all active:scale-95">
+                        <i class="fa-brands fa-tiktok"></i>
+                        Nhắn Tin Chủ Shop
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <!-- Physics Output Box -->
-            <div class="flex-1 bg-cyber-card rounded-2xl border border-cyber-border p-6 flex flex-col shadow-xl min-h-[300px]">
-                <div class="flex items-center justify-between pb-3 border-b border-cyber-border mb-4">
-                    <h3 class="font-semibold text-sm text-cyan-400 flex items-center space-x-2">
-                        <i class="fa-solid fa-square-root-variable"></i>
-                        <span>Lời Giải Chi Tiết</span>
-                    </h3>
-                    <button onclick="copyOutput('physicsOutput')" class="px-3 py-1.5 rounded-lg bg-cyber-bg border border-cyber-border text-xs text-cyber-textMuted hover:text-white transition flex items-center space-x-1.5">
+        <!-- MỤC I: DỊCH VỤ CÀY THUÊ -->
+        <section id="dich-vu-cay-thue" class="scroll-mt-24 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
+                <div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Bảng Giá Niêm Yết</div>
+                    <h2 class="font-gaming text-2xl sm:text-3xl font-bold text-amber-400 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base">I</span>
+                        DỊCH VỤ CÀY THUÊ
+                    </h2>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-400">
+                    <i class="fa-solid fa-hand-pointer text-amber-400 mr-1"></i> Nhấn vào thẻ dịch vụ để chọn vào giỏ tính tiền
+                </p>
+            </div>
+
+            <!-- Lưới thẻ dịch vụ I -->
+            <div id="fixed-services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                <!-- Các thẻ dịch vụ sẽ được render bằng JS để đồng bộ trạng thái chọn -->
+            </div>
+        </section>
+
+        <!-- MỤC II: DỊCH VỤ NHIỀU GIÁ KHÁC NHAU -->
+        <section id="dich-vu-khac" class="scroll-mt-24 space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
+                <div>
+                    <div class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Hỗ Trợ Theo Yêu Cầu</div>
+                    <h2 class="font-gaming text-2xl sm:text-3xl font-bold text-amber-400 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base">II</span>
+                        DỊCH VỤ NHIỀU GIÁ KHÁC NHAU
+                    </h2>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-400">
+                    Có thể tích chọn kèm vào đơn để shop báo giá chi tiết
+                </p>
+            </div>
+
+            <!-- Lưới thẻ dịch vụ II -->
+            <div id="custom-services-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                <!-- Render bằng JS -->
+            </div>
+        </section>
+
+        <!-- BẢNG TẠO ĐƠN & TÍNH TIỀN NHANH (Tiện ích bán hàng) -->
+        <section id="tao-don-hang" class="scroll-mt-24 rounded-3xl bg-gradient-to-br from-[#0F1B38] to-[#091124] border-2 border-cyan-500/40 p-5 sm:p-8 shadow-2xl shadow-cyan-950/60">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Cột trái: Danh sách gói đã chọn & Phương thức thanh toán -->
+                <div class="flex-1 space-y-6">
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 text-xs font-bold mb-2">
+                            <i class="fa-solid fa-calculator mr-1"></i> CÔNG CỤ ĐẶT ĐƠN NHANH
+                        </span>
+                        <h3 class="font-gaming text-xl sm:text-2xl font-bold text-white">
+                            TÓM TẮT ĐƠN HÀNG CỦA BẠN
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                            Chọn các dịch vụ ở Mục I & II phía trên, hệ thống sẽ tự động cộng tiền và soạn sẵn tin nhắn gửi chủ shop.
+                        </p>
+                    </div>
+
+                    <!-- Danh sách item đã chọn -->
+                    <div class="bg-[#060B19]/80 rounded-2xl border border-slate-800 p-4 space-y-3">
+                        <div class="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                            <span>Dịch vụ đã chọn (<span id="selected-count">0</span>)</span>
+                            <button type="button" onclick="clearAllSelections()" class="text-rose-400 hover:text-rose-300 transition-colors">
+                                <i class="fa-solid fa-trash-can mr-1"></i>Xóa hết
+                            </button>
+                        </div>
+
+                        <div id="selected-items-list" class="space-y-2 max-h-52 overflow-y-auto pr-1">
+                            <p class="text-sm text-slate-500 italic py-3 text-center">
+                                Chưa có dịch vụ nào được chọn. Hãy nhấn vào các gói bên trên nhé!
+                            </p>
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+                            <span class="text-sm sm:text-base font-semibold text-slate-300">Tổng tạm tính:</span>
+                            <div class="text-right">
+                                <span id="total-price" class="font-gaming text-2xl sm:text-3xl font-extrabold text-amber-400">0K</span>
+                                <span id="custom-price-note" class="hidden block text-xs text-cyan-400">+ Dịch vụ báo giá riêng</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chọn phương thức thanh toán cho đơn -->
+                    <div class="space-y-2.5">
+                        <label class="block text-sm font-semibold text-slate-200">
+                            Chọn hình thức thanh toán của bạn:
+                        </label>
+                        <div class="grid grid-cols-3 gap-2.5" id="payment-selector">
+                            <button type="button" onclick="selectPayment('Thẻ cào Viettel')" data-pay="Thẻ cào Viettel"
+                                class="pay-btn active-pay p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-amber-500/20 border-amber-400 text-amber-300">
+                                <i class="fa-solid fa-sim-card text-lg"></i>
+                                <span>Thẻ Viettel</span>
+                            </button>
+                            <button type="button" onclick="selectPayment('Thẻ Zing')" data-pay="Thẻ Zing"
+                                class="pay-btn p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-slate-900/80 border-slate-700 text-slate-300 hover:border-cyan-500/50">
+                                <i class="fa-solid fa-credit-card text-lg"></i>
+                                <span>Thẻ Zing</span>
+                            </button>
+                            <button type="button" onclick="selectPayment('Xu TikTok')" data-pay="Xu TikTok"
+                                class="pay-btn p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-slate-900/80 border-slate-700 text-slate-300 hover:border-cyan-500/50">
+                                <i class="fa-brands fa-tiktok text-lg"></i>
+                                <span>Xu TikTok</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột phải: Khung tin nhắn tự động & Nút Copy -->
+                <div class="flex-1 flex flex-col justify-between bg-[#060B19]/90 rounded-2xl border border-slate-800 p-4 sm:p-5 space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
+                                <i class="fa-solid fa-message mr-1"></i> Nội dung tin nhắn gửi Shop
+                            </span>
+                            <span class="text-[11px] text-slate-400">Tự động cập nhật</span>
+                        </div>
+                        <textarea id="order-message-preview" readonly rows="7"
+                            class="w-full rounded-xl bg-[#0B152C] border border-slate-700/80 p-3.5 text-xs sm:text-sm text-slate-200 font-mono leading-relaxed focus:outline-none resize-none"></textarea>
+                    </div>
+
+                    <div class="space-y-2.5">
+                        <button type="button" onclick="copyOrderAndNotify()"
+                            class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 transition-all active:scale-95">
+                            <i class="fa-solid fa-copy"></i>
+                            Tạo Đơn & Copy Tin Nhắn Gửi Shop
+                        </button>
+
+                        <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
+                            class="w-full py-3 px-5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/50 text-cyan-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-brands fa-tiktok"></i>
+                            Mở Trang TikTok @levutientruong Để Dán Tin Nhắn
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MỤC III & IV: TRÁI ÁC QUỶ RƯƠNG & PHƯƠNG THỨC THANH TOÁN -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+            
+            <!-- MỤC III: TRÁI ÁC QUỶ RƯƠNG (5 cột) -->
+            <section class="lg:col-span-5 flex flex-col justify-between rounded-3xl bg-[#0B152C] border border-rose-500/30 p-6 sm:p-7 relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 text-rose-500/10 text-8xl pointer-events-none">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <div class="space-y-4 relative z-10">
+                    <div class="flex items-center justify-between gap-2">
+                        <h2 class="font-gaming text-xl sm:text-2xl font-bold text-amber-400 flex items-center gap-2.5">
+                            <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-sm">III</span>
+                            TRÁI ÁC QUỶ RƯƠNG
+                        </h2>
+                        <span class="px-2.5 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold whitespace-nowrap">
+                            Tạm ngưng
+                        </span>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-rose-950/30 border border-rose-500/30 flex items-start gap-3.5">
+                        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                        </div>
+                        <p class="text-sm sm:text-base text-rose-100 font-medium leading-relaxed">
+                            Hiện tại kho chưa đủ hàng, shop chưa hỗ trợ dịch vụ này.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-400 mt-5 relative z-10">
+                    * Khi kho có hàng trở lại, shop sẽ cập nhật ngay trên kênh TikTok chính thức.
+                </p>
+            </section>
+
+            <!-- MỤC IV: PHƯƠNG THỨC THANH TOÁN (7 cột) -->
+            <section id="thanh-toan" class="scroll-mt-24 lg:col-span-7 rounded-3xl bg-[#0B152C] border border-cyan-500/30 p-6 sm:p-7 space-y-5">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <h2 class="font-gaming text-xl sm:text-2xl font-bold text-amber-400 flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-sm">IV</span>
+                        PHƯƠNG THỨC THANH TOÁN
+                    </h2>
+                    <span class="text-xs font-semibold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
+                        Hỗ trợ 3 hình thức
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                    <!-- Thẻ cào Viettel -->
+                    <div class="p-4 rounded-2xl bg-[#111E3C] border border-emerald-500/30 flex flex-col items-center text-center gap-2.5 hover:border-emerald-400 transition-colors">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-sim-card"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Thẻ cào Viettel</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Gửi mã thẻ + Seri</p>
+                        </div>
+                    </div>
+
+                    <!-- Thẻ Zing -->
+                    <div class="p-4 rounded-2xl bg-[#111E3C] border border-sky-500/30 flex flex-col items-center text-center gap-2.5 hover:border-sky-400 transition-colors">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-2xl">
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Thẻ Zing</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Gửi mã thẻ + Seri</p>
+                        </div>
+                    </div>
+
+                    <!-- Xu TikTok -->
+                    <div class="p-4 rounded-2xl bg-[#111E3C] border border-amber-500/30 flex flex-col items-center text-center gap-2.5 hover:border-amber-400 transition-colors">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-white text-base">Xu TikTok</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">Tặng quà / Chuyển xu</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-3 text-amber-200 text-xs sm:text-sm font-medium">
+                    <i class="fa-solid fa-circle-info text-amber-400 text-base shrink-0"></i>
+                    <span>Lưu ý: Shop hiện chỉ nhận các phương thức thanh toán trên.</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- MỤC V: THÔNG TIN LIÊN HỆ CHỦ SHOP -->
+        <section id="lien-he" class="scroll-mt-24 rounded-3xl bg-gradient-to-r from-[#0B152C] via-[#132247] to-[#0B152C] border border-amber-500/40 p-6 sm:p-10 text-center space-y-6 shadow-xl">
+            <div class="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider">
+                <span>V. THÔNG TIN LIÊN HỆ CHỦ SHOP</span>
+            </div>
+
+            <div class="space-y-2">
+                <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white">
+                    KẾT NỐI TRỰC TIẾP VỚI CHỦ SHOP
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
+                    Nhắn tin ngay qua kênh TikTok chính chủ duy nhất bên dưới để được hỗ trợ cày thuê và báo giá nhanh nhất!
+                </p>
+            </div>
+
+            <!-- Hộp ID TikTok + Nút Copy & Nút Liên Kết -->
+            <div class="max-w-lg mx-auto bg-[#060B19]/90 border border-cyan-500/40 rounded-2xl p-4 sm:p-5 space-y-4">
+                <div class="flex items-center justify-between gap-3 bg-[#0B152C] px-4 py-3 rounded-xl border border-slate-700/80">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 via-slate-900 to-rose-500 p-0.5">
+                            <div class="w-full h-full bg-slate-950 rounded-full flex items-center justify-center text-white">
+                                <i class="fa-brands fa-tiktok text-lg"></i>
+                            </div>
+                        </div>
+                        <div class="text-left">
+                            <span class="block text-[11px] text-slate-400 uppercase font-semibold">TikTok Chủ Shop</span>
+                            <span class="font-mono text-base sm:text-lg font-bold text-cyan-300">@levutientruong</span>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="copyTikTokId()"
+                        class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5 transition-all active:scale-95">
                         <i class="fa-regular fa-copy"></i>
-                        <span>Sao chép</span>
+                        <span>Sao chép ID</span>
                     </button>
                 </div>
-                <div id="physicsOutput" class="flex-1 bg-cyber-bg border border-cyber-border rounded-xl p-4 text-slate-200 text-sm whitespace-pre-wrap leading-relaxed overflow-y-auto font-mono-code">
-                    Nhập bài tập vật lý để redKAI phân tích và giải chi tiết từng bước cho Kai...
-                </div>
+
+                <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
+                    class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-cyan-500/30 flex items-center justify-center gap-2.5 transition-all active:scale-95">
+                    <i class="fa-brands fa-tiktok text-xl"></i>
+                    <span>Liên hệ chủ shop qua TikTok</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
             </div>
-        </div>
-
-        <!-- ================= TAB 4: CODE & TIỆN ÍCH ================= -->
-        <div id="tab-code" class="tab-content hidden flex-1 flex flex-col space-y-6">
-            <div class="bg-cyber-card rounded-2xl border border-cyber-border p-6 shadow-xl">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 rounded-xl bg-rose-600/20 border border-rose-500/40 flex items-center justify-center text-rose-400 shadow-neon-red">
-                        <i class="fa-solid fa-code"></i>
-                    </div>
-                    <div>
-                        <h2 class="font-bold text-lg text-white">Lập Trình Code & Roblox Lua</h2>
-                        <p class="text-xs text-cyber-textMuted">Hỗ trợ viết mã HTML/JS, Python, Roblox Lua Executors và tối ưu hóa code theo yêu cầu của Kai.</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div>
-                        <label class="block text-xs font-medium text-cyber-textMuted mb-1.5">Ngôn ngữ</label>
-                        <select id="codeLang" class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-rose-500">
-                            <option value="html">HTML5 / Tailwind CSS UI</option>
-                            <option value="roblox">Roblox Studio Lua / Script</option>
-                            <option value="python">Python Script</option>
-                            <option value="js">JavaScript (Interactive)</option>
-                        </select>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-medium text-cyber-textMuted mb-1.5">Yêu cầu tính năng code</label>
-                        <input type="text" id="codePrompt" placeholder="Ví dụ: Viết script Roblox Lua tạo UI button bay lượn và tăng tốc độ nhân vật..." class="w-full bg-cyber-bg border border-cyber-border rounded-xl px-3.5 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-rose-500">
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-2 text-xs text-cyber-textMuted">
-                        <i class="fa-solid fa-terminal text-rose-400"></i>
-                        <span>Mã nguồn hoàn chỉnh được sinh tự động kèm hỗ trợ xem trước.</span>
-                    </div>
-                    <button onclick="generateCode()" class="bg-gradient-to-r from-rose-600 to-amber-600 text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition shadow-neon-red flex items-center space-x-2">
-                        <i class="fa-solid fa-laptop-code"></i>
-                        <span>Sinh Mã Nguồn</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Code Editor & Preview Section -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 min-h-[400px]">
-                <!-- Code Editor Box -->
-                <div class="bg-cyber-card rounded-2xl border border-cyber-border p-5 flex flex-col shadow-xl">
-                    <div class="flex items-center justify-between pb-3 border-b border-cyber-border mb-3">
-                        <h3 class="font-semibold text-sm text-rose-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-file-code"></i>
-                            <span>Mã Nguồn (Source Code)</span>
-                        </h3>
-                        <button onclick="copyOutput('codeEditorArea')" class="px-3 py-1.5 rounded-lg bg-cyber-bg border border-cyber-border text-xs text-cyber-textMuted hover:text-white transition flex items-center space-x-1.5">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Sao chép</span>
-                        </button>
-                    </div>
-                    <textarea id="codeEditorArea" class="flex-1 w-full bg-cyber-bg border border-cyber-border rounded-xl p-4 text-xs font-mono-code text-cyan-300 resize-none focus:outline-none focus:border-rose-500 leading-relaxed" placeholder="// Mã nguồn sẽ hiển thị ở đây..."></textarea>
-                </div>
-
-                <!-- Live Preview Box -->
-                <div class="bg-cyber-card rounded-2xl border border-cyber-border p-5 flex flex-col shadow-xl">
-                    <div class="flex items-center justify-between pb-3 border-b border-cyber-border mb-3">
-                        <h3 class="font-semibold text-sm text-cyan-400 flex items-center space-x-2">
-                            <i class="fa-solid fa-eye"></i>
-                            <span>Xem Trước Trực Tiếp (Live Preview)</span>
-                        </h3>
-                        <button onclick="runPreviewCode()" class="px-3 py-1.5 rounded-lg bg-cyan-600/20 border border-cyan-500/40 text-xs text-cyan-300 hover:bg-cyan-600/30 transition flex items-center space-x-1.5">
-                            <i class="fa-solid fa-play"></i>
-                            <span>Chạy Thử</span>
-                        </button>
-                    </div>
-                    <div class="flex-1 bg-cyber-bg border border-cyber-border rounded-xl overflow-hidden relative flex flex-col">
-                        <iframe id="previewFrame" class="w-full h-full bg-white rounded-lg"></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="py-4 text-center text-xs text-cyber-textMuted border-t border-cyber-border bg-cyber-card/50">
-        <p>redKAI Smart AI Engine &copy; 2026. Powered by Gemini 1.5 Flash & Smart Local Engine.</p>
+    <!-- FOOTER / LỜI KẾT -->
+    <footer class="relative z-10 mt-16 border-t border-slate-800/90 bg-[#040812] py-10 px-4 text-center">
+        <div class="max-w-3xl mx-auto space-y-3">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 text-xl mb-1">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <p class="font-gaming text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent">
+                CẢM ƠN QUÝ KHÁCH ĐÃ TIN TƯỞNG VÀ ỦNG HỘ SHOP!
+            </p>
+            <p class="text-cyan-300 font-medium text-sm sm:text-base">
+                Chúc quý khách có những trải nghiệm vui vẻ!
+            </p>
+            <div class="pt-4 text-xs text-slate-500">
+                &copy; 2026 BLOX FRUITS SHOP • TikTok: @levutientruong
+            </div>
+        </div>
     </footer>
 
-    <!-- Notification Toast -->
-    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
-        <div class="bg-cyber-card border border-rose-500/50 shadow-neon-red rounded-2xl p-4 flex items-center space-x-3 text-sm text-slate-100 max-w-sm">
-            <div class="w-8 h-8 rounded-full bg-rose-600/20 text-rose-400 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-bell"></i>
+    <!-- Thanh nổi dưới cùng trên Mobile khi khách đã chọn dịch vụ -->
+    <div id="mobile-floating-bar" class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#0B152C]/95 backdrop-blur-lg border-t border-amber-500/40 px-4 py-3 transform translate-y-full transition-transform duration-300 shadow-2xl">
+        <div class="flex items-center justify-between gap-3">
+            <div>
+                <span class="block text-[11px] text-slate-400">Đã chọn <strong id="mobile-count" class="text-white">0</strong> gói</span>
+                <span id="mobile-total" class="font-gaming text-xl font-extrabold text-amber-400">0K</span>
             </div>
-            <div id="toastText" class="flex-1 text-xs">Thông báo hệ thống</div>
+            <a href="#tao-don-hang" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-600 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-500/25 flex items-center gap-1.5">
+                <span>Xem Đơn & Copy</span>
+                <i class="fa-solid fa-arrow-up"></i>
+            </a>
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
+    <!-- Hộp thông báo Toast (Thay thế hoàn toàn alert()) -->
+    <div id="toast-box" class="fixed top-20 right-4 z-50 max-w-xs sm:max-w-sm bg-slate-900/95 border border-emerald-400/60 text-white px-4 py-3.5 rounded-2xl shadow-2xl shadow-emerald-950/50 flex items-center gap-3 transform translate-x-[120%] transition-transform duration-300">
+        <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <p id="toast-message" class="text-xs sm:text-sm font-medium leading-snug"></p>
+    </div>
+
+    <!-- JavaScript Xử Lý Tương Tác -->
     <script>
-        // API Key Management
-        let userApiKey = localStorage.getItem('redkai_gemini_key') || '';
-
-        function openSettingsModal() {
-            document.getElementById('apiKeyInput').value = userApiKey;
-            document.getElementById('settingsModal').classList.remove('hidden');
-        }
-
-        function closeSettingsModal() {
-            document.getElementById('settingsModal').classList.add('hidden');
-        }
-
-        function saveApiKey() {
-            const key = document.getElementById('apiKeyInput').value.trim();
-            userApiKey = key;
-            if(key) {
-                localStorage.setItem('redkai_gemini_key', key);
-                document.getElementById('modeStatusText').innerText = "Gemini API Active (Cloud)";
-                document.getElementById('modeStatusText').className = "text-xs text-cyan-400";
-                openNotification('Đã lưu Gemini API Key thành công!');
-            } else {
-                localStorage.removeItem('redkai_gemini_key');
-                document.getElementById('modeStatusText').innerText = "Smart Engine Active (No Key)";
-                document.getElementById('modeStatusText').className = "text-xs text-emerald-400";
-                openNotification('Đã chuyển về chế độ Smart Local Engine.');
-            }
-            closeSettingsModal();
-        }
-
-        function clearApiKey() {
-            document.getElementById('apiKeyInput').value = '';
-            userApiKey = '';
-            localStorage.removeItem('redkai_gemini_key');
-            document.getElementById('modeStatusText').innerText = "Smart Engine Active (No Key)";
-            document.getElementById('modeStatusText').className = "text-xs text-emerald-400";
-            openNotification('Đã xóa API Key. Đang dùng Smart Local Engine.');
-            closeSettingsModal();
-        }
-
-        // On load check API key state
-        window.onload = function() {
-            if(userApiKey) {
-                document.getElementById('modeStatusText').innerText = "Gemini API Active (Cloud)";
-                document.getElementById('modeStatusText').className = "text-xs text-cyan-400";
-            }
-            // Init default code preview
-            document.getElementById('codeEditorArea').value = `<!-- redKAI Roblox UI Dashboard Example -->\n<div class="p-6 bg-slate-900 text-white min-h-screen font-sans">\n  <h1 class="text-xl font-bold text-rose-500 mb-2">Roblox GUI Preview</h1>\n  <p class="text-xs text-slate-400 mb-4">Giao diện điều khiển script Hub cho Kai.</p>\n  <button onclick="alert('Button clicked in Roblox GUI!')" class="px-4 py-2 bg-rose-600 rounded-lg text-xs font-semibold shadow-lg">Kích hoạt Menu</button>\n</div>`;
-            runPreviewCode();
-        };
-
-        // Tab Switching Logic
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 text-cyber-textMuted hover:text-white hover:bg-cyber-border/50";
-            });
-            const activeBtn = document.getElementById('nav-' + tabId);
-            if(activeBtn) {
-                if(tabId === 'chat') activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-rose-600/20 text-rose-400 border border-rose-500/30 shadow-neon-red";
-                if(tabId === 'writer') activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-purple-600/20 text-purple-400 border border-purple-500/30 shadow-neon-purple";
-                if(tabId === 'physics') activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-cyan-600/20 text-cyan-400 border border-cyan-500/30 shadow-neon-cyan";
-                if(tabId === 'code') activeBtn.className = "tab-btn px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 bg-rose-600/20 text-rose-400 border border-rose-500/30 shadow-neon-red";
-            }
-
-            document.querySelectorAll('.mob-tab').forEach(btn => {
-                btn.className = "mob-tab flex flex-col items-center py-1 px-3 text-cyber-textMuted";
-            });
-            const mobActive = document.getElementById('mob-nav-' + tabId);
-            if(mobActive) {
-                mobActive.className = "mob-tab flex flex-col items-center py-1 px-3 text-rose-400";
-            }
-        }
-
-        // Toast Notification Function
-        function openNotification(message) {
-            const toast = document.getElementById('toastNotification');
-            const text = document.getElementById('toastText');
-            text.innerText = message;
-            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
-            }, 3500);
-        }
-
-        function copyOutput(elementId) {
-            const el = document.getElementById(elementId);
-            const text = el.value || el.innerText;
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            openNotification('Đã sao chép nội dung thành công!');
-        }
-
-        // Typing Effect Helper
-        function typeWriterEffect(element, htmlContent, speed = 12, callback) {
-            element.innerHTML = '';
-            let i = 0;
-            // For rich HTML support with tags, we parse or append progressively
-            element.innerHTML = htmlContent;
-            // Add custom cursor effect during typing simulation
-            element.classList.add('typing-cursor');
-            setTimeout(() => {
-                element.classList.remove('typing-cursor');
-                if(callback) callback();
-            }, 600);
-        }
-
-        // Unified AI Fetcher (Gemini API or Smart Local Engine)
-        async function callRedKaiAI(promptText, systemInstruction, callback) {
-            if(userApiKey) {
-                // Call actual Gemini API 1.5 flash
-                try {
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${userApiKey}`;
-                    const payload = {
-                        contents: [{ parts: [{ text: promptText }] }],
-                        systemInstruction: { parts: [{ text: systemInstruction }] }
-                    };
-                    const res = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const data = await res.json();
-                    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if(text) {
-                        callback(text, true);
-                        return;
-                    }
-                } catch(e) {
-                    console.warn("Gemini API call failed, falling back to Smart Local Engine", e);
-                }
-            }
-
-            // Fallback to Intelligent Smart Local Knowledge Engine
-            const smartReply = getSmartLocalResponse(promptText);
-            callback(smartReply, false);
-        }
-
-        // Smart Local Knowledge Engine (No Key, High Precision for Kai)
-        function getSmartLocalResponse(query) {
-            const q = query.toLowerCase();
-
-            if(q.includes('tác dụng') || q.includes('làm gì') || q.includes('giới thiệu') || q.includes('bạn là ai')) {
-                return `Chào Kai! Tôi là <strong>redKAI Smart AI v2.5</strong> – trợ lý thông minh toàn năng của bạn. Các chức năng cốt lõi của tôi bao gồm:\n\n` +
-                       `1. <strong>Trò chuyện & Trợ lý ảo:</strong> Hiểu ngữ cảnh, giải đáp mọi thắc mắc chuyên sâu, luôn gọi bạn là Kai.\n` +
-                       `2. <strong>Giải bài tập Vật lý:</strong> Cung cấp lời giải chi tiết các định luật khúc xạ ánh sáng, thấu kính, cơ học đúng chuẩn chương trình THCS/THPT.\n` +
-                       `3. <strong>Sáng tác Thơ & Văn học:</strong> Soạn thơ Lục bát, Haiku, Đường luật và nghị luận văn học cực kỳ mượt mà.\n` +
-                       `4. <strong>Lập trình Code:</strong> Viết mã HTML/JS, Python và Roblox Lua script / Executor theo yêu cầu của Kai.`;
-            }
-
-            if(q.includes('khúc xạ') || q.includes('snell') || q.includes('ánh sáng') || q.includes('n1') || q.includes('góc tới')) {
-                return `📌 <strong>Giải chi tiết bài toán Khúc xạ ánh sáng:</strong>\n\n` +
-                       `<strong>1. Định luật khúc xạ ánh sáng (Định luật Snell):</strong>\n` +
-                       `- Tia khúc xạ nằm trong mặt phẳng tới và ở phía bên kia pháp tuyến so với tia tới.\n` +
-                       `- Biểu thức toán học: $n_1 \\sin i = n_2 \\sin r$\n\n` +
-                       `<strong>2. Công thức tính toán liên quan:</strong>\n` +
-                       `- Chiết suất tỉ đối: $n_{21} = \\frac{n_2}{n_1} = \\frac{\\sin i}{\\sin r}$\n` +
-                       `- Tốc độ truyền ánh sáng trong môi trường: $v = \\frac{c}{n}$\n\n` +
-                       `*Chúc Kai học tốt môn Vật lý và luôn đạt điểm cao nhé!*`;
-            }
-
-            if(q.includes('thơ') || q.includes('lục bát') || q.includes('haiku')) {
-                return `Tặng Kai bài thơ Lục Bát do redKAI sáng tác riêng:\n\n` +
-                       `Trăm năm hội tụ đất trời,\n` +
-                       `redKAI cùng bạn sáng ngời tương lai.\n` +
-                       `Vần thơ lai láng nhớ ai,\n` +
-                       `Gửi trao tri thức miệt mài bên nhau.\n\n` +
-                       `Dù cho sóng gió biển sâu,\n` +
-                       `Ý thơ định hướng nhịp cầu ước mơ!`;
-            }
-
-            if(q.includes('roblox') || q.includes('lua') || q.includes('script') || q.includes('executor')) {
-                return `Dưới đây là Roblox Studio Lua Script mẫu theo yêu cầu của Kai:\n\n` +
-                       `<pre class="bg-cyber-bg p-3 rounded-lg text-cyan-300 font-mono-code text-xs mt-2 overflow-x-auto"><code>-- redKAI Roblox Speed & Fly Script\nlocal Players = game:GetService(\"Players\")\nlocal localPlayer = Players.LocalPlayer\n\nprint(\"redKAI Hub initialized for: \" .. localPlayer.Name)\n\n-- Tăng tốc độ nhân vật\nlocal function boostSpeed(speedVal)\n\tlocal character = localPlayer.Character\n\tif character and character:FindFirstChild(\"Humanoid\") then\n\t\tcharacter.Humanoid.WalkSpeed = speedVal\n\t\tprint(\"WalkSpeed set to: \" .. speedVal)\n\tend\nend\n\nboostSpeed(50)</code></pre>`;
-            }
-
-            if(q.includes('html') || q.includes('code') || q.includes('web') || q.includes('javascript')) {
-                return `Dưới đây là mã nguồn HTML5 & Tailwind CSS hoàn chỉnh cho yêu cầu của Kai:\n\n` +
-                       `<pre class="bg-cyber-bg p-3 rounded-lg text-cyan-300 font-mono-code text-xs mt-2 overflow-x-auto"><code>&lt;!DOCTYPE html&gt;\n&lt;html lang=\"vi\"&gt;\n&lt;head&gt;\n  &lt;meta charset=\"UTF-8\"&gt;\n  &lt;script src=\"https://cdn.tailwindcss.com\"&gt;&lt;/script&gt;\n&lt;/head&gt;\n&lt;body class=\"bg-slate-950 text-white p-6 flex items-center justify-center h-screen\"&gt;\n  &lt;div class=\"text-center bg-slate-900 p-6 rounded-2xl border border-rose-500 shadow-xl\"&gt;\n    &lt;h2 class=\"text-lg font-bold text-rose-500 mb-2\"&gt;redKAI UI Component&lt;/h2&gt;\n    &lt;p class=\"text-xs text-slate-300\"&gt;Xin chào Kai! Ứng dụng hoạt động mượt mà.&lt;/p&gt;\n  &lt;/div&gt;\n&lt;/body&gt;\n&lt;/html&gt;</code></pre>`;
-            }
-
-            return `Chào Kai! redKAI đã phân tích yêu cầu <em>"${escapeHtml(query)}"</em> của bạn. Với bộ tri thức chuyên sâu nâng cao, tôi đề xuất bạn kết hợp các công cụ chuyên ngành (Thơ Văn, Vật Lý, Lập trình) ở các tab phía trên để khai thác tối đa hiệu quả. Kai cần tôi giải thích chi tiết hơn phần nào không?`;
-        }
-
-        function escapeHtml(text) {
-            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        }
-
-        // ================= CHAT AI HANDLER =================
-        const sampleRandomPrompts = [
-            "Tác dụng của bạn là gì và bạn có thể làm gì cho Kai?",
-            "Giải thích định luật khúc xạ ánh sáng và công thức Snell.",
-            "Viết một bài thơ lục bát tặng Kai về tình bạn và tri thức.",
-            "Viết Roblox Lua script tăng tốc độ nhân vật.",
-            "Tạo một trang HTML5 Dashboard phong cách cyberpunk."
+        // Dữ liệu Mục I: Dịch vụ cày thuê giá cố định
+        const fixedServices = [
+            { id: 'lv1', name: 'Cày LV 1–1500', price: 20, priceText: '20K', icon: 'fa-angles-up', desc: 'Cày cấp nhanh từ Sea 1 lên Sea 2' },
+            { id: 'lv2', name: 'Cày LV 1500–3000', price: 20, priceText: '20K', icon: 'fa-fire-flame-curved', desc: 'Cày cấp tốc độ cao từ Sea 2 lên Sea 3' },
+            { id: 'beli', name: '10M Beli', price: 20, priceText: '20K', icon: 'fa-coins', desc: 'Cày đủ 10.000.000 Beli an toàn' },
+            { id: 'frag', name: '10K F (Fragment)', price: 20, priceText: '20K', icon: 'fa-gem', desc: 'Cày 10.000 điểm tím (Fragment)' },
+            { id: 'race13', name: 'Mọi tộc V1–V3', price: 20, priceText: '20K', icon: 'fa-dna', desc: 'Hỗ trợ thức tỉnh tất cả các tộc lên V3' },
+            { id: 'race34', name: 'Mọi tộc V3–V4', price: 20, priceText: '20K', icon: 'fa-crown', desc: 'Hỗ trợ gạt cần & thức tỉnh tộc V4' }
         ];
 
-        function insertRandomPrompt() {
-            const rand = sampleRandomPrompts[Math.floor(Math.random() * sampleRandomPrompts.length)];
-            document.getElementById('chatInput').value = rand;
+        // Dữ liệu Mục II: Dịch vụ nhiều giá khác nhau
+        const customServices = [
+            { id: 'melee', name: 'Cày võ', icon: 'fa-hand-fist', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).' },
+            { id: 'sword', name: 'Cày kiếm', icon: 'fa-khanda', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).' },
+            { id: 'awaken', name: 'Thức tỉnh trái', icon: 'fa-apple-whole', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).' },
+            { id: 'mastery', name: 'Cày điểm thông thạo trái', icon: 'fa-star', desc: 'Tùy loại trái, mức giá khác nhau (nhắn tin riêng để shop hỗ trợ).' }
+        ];
+
+        // Trạng thái ứng dụng
+        let selectedIds = new Set();
+        let selectedPayment = 'Thẻ cào Viettel';
+        let toastTimeout = null;
+
+        // Hàm hiển thị thông báo Toast mượt mà
+        function showToast(message) {
+            const toast = document.getElementById('toast-box');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-x-[120%]');
+            toast.classList.add('translate-x-0');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-x-0');
+                toast.classList.add('translate-x-[120%]');
+            }, 3200);
         }
 
-        function sendPresetPrompt(promptText) {
-            document.getElementById('chatInput').value = promptText;
-            document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+        // Hàm copy văn bản an toàn trong mọi môi trường (iFrame/Mobile)
+        function copyToClipboard(text, successMsg) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            try {
+                document.execCommand('copy');
+                showToast(successMsg);
+            } catch (err) {
+                showToast('Không thể sao chép tự động, vui lòng bôi đen để copy!');
+            }
+            document.body.removeChild(tempInput);
         }
 
-        function clearChat() {
-            const chatMessages = document.getElementById('chatMessages');
-            chatMessages.innerHTML = `
-                <div class="flex items-start space-x-3">
-                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-600 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-neon-red">
-                        <i class="fa-solid fa-brain text-xs"></i>
+        // Render danh sách thẻ Mục I
+        function renderFixedServices() {
+            const container = document.getElementById('fixed-services-grid');
+            container.innerHTML = fixedServices.map(item => {
+                const isSelected = selectedIds.has(item.id);
+                return `
+                    <div onclick="toggleService('${item.id}')"
+                        class="cursor-pointer group relative rounded-2xl p-5 transition-all duration-200 border ${
+                            isSelected
+                                ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-amber-400 shadow-lg shadow-amber-500/15 -translate-y-0.5'
+                                : 'bg-[#0B152C] hover:bg-[#101E3D] border-slate-800 hover:border-cyan-500/50'
+                        }">
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 transition-colors ${
+                                    isSelected
+                                        ? 'bg-amber-400 text-slate-950'
+                                        : 'bg-cyan-500/15 text-cyan-400 group-hover:bg-cyan-500/25'
+                                }">
+                                    <i class="fa-solid ${item.icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-gaming font-bold text-lg text-white group-hover:text-amber-300 transition-colors">
+                                        ${item.name}
+                                    </h3>
+                                    <p class="text-xs text-slate-400 mt-0.5">${item.desc}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-between">
+                            <div>
+                                <span class="text-[11px] uppercase tracking-wider text-slate-400 block">Giá dịch vụ</span>
+                                <span class="font-gaming text-2xl font-extrabold text-amber-400">${item.priceText}</span>
+                            </div>
+
+                            <button type="button"
+                                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all ${
+                                    isSelected
+                                        ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-500/20'
+                                        : 'bg-slate-800 text-cyan-300 group-hover:bg-cyan-500 group-hover:text-slate-950'
+                                }">
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
+                                <span>${isSelected ? 'Đã chọn' : 'Chọn gói'}</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="bg-cyber-bg border border-cyber-border rounded-2xl rounded-tl-none p-4 max-w-[85%] md:max-w-[75%] text-slate-200 leading-relaxed shadow-lg">
-                        <p class="font-semibold text-rose-400 mb-1">redKAI Smart AI</p>
-                        <p>Đã làm mới đoạn chat! Chào Kai, bạn muốn thảo luận vấn đề gì tiếp theo?</p>
-                    </div>
-                </div>
-            `;
-            openNotification('Đã làm mới hội thoại.');
+                `;
+            }).join('');
         }
 
-        function handleChatSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('chatInput');
-            const text = input.value.trim();
-            if(!text) return;
+        // Render danh sách thẻ Mục II
+        function renderCustomServices() {
+            const container = document.getElementById('custom-services-grid');
+            container.innerHTML = customServices.map(item => {
+                const isSelected = selectedIds.has(item.id);
+                return `
+                    <div onclick="toggleService('${item.id}')"
+                        class="cursor-pointer group rounded-2xl p-5 transition-all duration-200 border flex flex-col justify-between gap-4 ${
+                            isSelected
+                                ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-cyan-400 shadow-lg shadow-cyan-500/15'
+                                : 'bg-[#0B152C] hover:bg-[#101E3D] border-slate-800 hover:border-cyan-500/40'
+                        }">
+                        <div class="flex items-start justify-between gap-3">
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 mt-0.5 ${
+                                    isSelected
+                                        ? 'bg-cyan-400 text-slate-950'
+                                        : 'bg-amber-500/15 text-amber-400'
+                                }">
+                                    <i class="fa-solid ${item.icon}"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-gaming font-bold text-lg text-white">${item.name}</h3>
+                                    <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">${item.desc}</p>
+                                </div>
+                            </div>
+                        </div>
 
-            const chatMessages = document.getElementById('chatMessages');
+                        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 text-xs font-bold">
+                                <i class="fa-regular fa-comment-dots"></i>
+                                Nhắn tin báo giá
+                            </span>
 
-            // Append User Message
-            const userBubble = document.createElement('div');
-            userBubble.className = "flex items-start justify-end space-x-3";
-            userBubble.innerHTML = `
-                <div class="bg-gradient-to-r from-rose-600 to-purple-600 rounded-2xl rounded-tr-none p-4 max-w-[85%] md:max-w-[75%] text-white leading-relaxed shadow-lg">
-                    <p class="font-semibold text-rose-200 mb-1">Kai</p>
-                    <p>${escapeHtml(text)}</p>
-                </div>
-                <div class="w-8 h-8 rounded-full bg-cyan-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shrink-0">
-                    <i class="fa-solid fa-user text-xs"></i>
-                </div>
-            `;
-            chatMessages.appendChild(userBubble);
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+                            <button type="button"
+                                class="px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                                    isSelected
+                                        ? 'bg-cyan-400 text-slate-950'
+                                        : 'bg-slate-800 text-slate-200 group-hover:bg-slate-700'
+                                }">
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
+                                <span>${isSelected ? 'Đã thêm vào đơn' : 'Thêm vào đơn'}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
 
-            // Placeholder AI Bubble with typing effect
-            const aiBubbleId = 'ai-bubble-' + Date.now();
-            const aiBubble = document.createElement('div');
-            aiBubble.className = "flex items-start space-x-3";
-            aiBubble.innerHTML = `
-                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-rose-600 to-purple-600 flex items-center justify-center text-white shrink-0 shadow-neon-red">
-                    <i class="fa-solid fa-brain text-xs"></i>
-                </div>
-                <div class="bg-cyber-bg border border-cyber-border rounded-2xl rounded-tl-none p-4 max-w-[85%] md:max-w-[75%] text-slate-200 leading-relaxed shadow-lg">
-                    <p class="font-semibold text-rose-400 mb-1">redKAI Smart AI</p>
-                    <p id="${aiBubbleId}" class="text-slate-300">Đang tư duy...</p>
-                </div>
-            `;
-            chatMessages.appendChild(aiBubble);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        // Bật/Tắt chọn một dịch vụ
+        function toggleService(id) {
+            if (selectedIds.has(id)) {
+                selectedIds.delete(id);
+            } else {
+                selectedIds.add(id);
+            }
+            updateUI();
+        }
 
-            const systemPrompt = "Bạn là redKAI Smart AI, trợ lý ảo thông minh toàn năng, luôn xưng hô thân thiết và luôn gọi người dùng là Kai. Hãy đưa ra câu trả lời cực kỳ chính xác, khoa học và hữu ích.";
+        // Xóa tất cả dịch vụ đã chọn
+        function clearAllSelections() {
+            selectedIds.clear();
+            updateUI();
+            showToast('Đã xóa toàn bộ dịch vụ đã chọn.');
+        }
 
-            callRedKaiAI(text, systemPrompt, (responseText, isCloud) => {
-                const targetEl = document.getElementById(aiBubbleId);
-                if(targetEl) {
-                    targetEl.innerHTML = responseText.replace(/\n/g, '<br>');
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
+        // Chọn phương thức thanh toán
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.pay-btn').forEach(btn => {
+                if (btn.dataset.pay === method) {
+                    btn.className = 'pay-btn active-pay p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-amber-500/20 border-amber-400 text-amber-300';
+                } else {
+                    btn.className = 'pay-btn p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-slate-900/80 border-slate-700 text-slate-300 hover:border-cyan-500/50';
                 }
             });
+            updateOrderSummary();
         }
 
-        // ================= SÁNG TÁC THƠ & VĂN =================
-        function generateWriterContent() {
-            const type = document.getElementById('writerType').value;
-            const prompt = document.getElementById('writerPrompt').value.trim() || "Tình yêu khoa học và công nghệ";
-            const output = document.getElementById('writerOutput');
+        // Cập nhật toàn bộ giao diện & tính tổng tiền
+        function updateUI() {
+            renderFixedServices();
+            renderCustomServices();
+            updateOrderSummary();
+        }
 
-            output.innerHTML = "Đang sáng tác tác phẩm dành tặng Kai...";
+        // Cập nhật khung tóm tắt đơn hàng và nội dung tin nhắn
+        function updateOrderSummary() {
+            const listEl = document.getElementById('selected-items-list');
+            const countEl = document.getElementById('selected-count');
+            const totalEl = document.getElementById('total-price');
+            const customNoteEl = document.getElementById('custom-price-note');
+            const msgBox = document.getElementById('order-message-preview');
 
-            const query = `Hãy sáng tác thể loại ${type} với chủ đề: ${prompt}. Dành riêng cho Kai.`;
-            const systemPrompt = "Bạn là chuyên gia văn học và thơ ca của redKAI. Hãy sáng tác độc quyền các tác phẩm thơ Haiku, Lục bát, Đường luật hoặc bài nghị luận cực hay.";
+            // Mobile floating bar
+            const mobileBar = document.getElementById('mobile-floating-bar');
+            const mobileCount = document.getElementById('mobile-count');
+            const mobileTotal = document.getElementById('mobile-total');
 
-            callRedKaiAI(query, systemPrompt, (text) => {
-                output.innerHTML = text.replace(/\n/g, '<br>');
-                openNotification('Đã sáng tác thành công!');
+            let totalMoney = 0;
+            let hasCustomService = false;
+            const chosenItems = [];
+
+            fixedServices.forEach(item => {
+                if (selectedIds.has(item.id)) {
+                    totalMoney += item.price;
+                    chosenItems.push({ ...item, isCustom: false });
+                }
             });
-        }
 
-        // ================= GIẢI BÀI TẬP VẬT LÝ =================
-        function solvePhysicsProblem() {
-            const cat = document.getElementById('physicsCategory').value;
-            const prob = document.getElementById('physicsProblem').value.trim() || "Chiếu một tia sáng từ không khí vào nước với góc tới 60 độ. Tính góc khúc xạ r biết n = 4/3.";
-            const output = document.getElementById('physicsOutput');
-
-            output.innerText = "redKAI đang phân tích và giải chi tiết bài toán vật lý...";
-
-            const query = `Hãy giải chi tiết bài tập Vật lý chương ${cat}: "${prob}". Trình bày rõ Tóm tắt đề, Công thức áp dụng và Lời giải từng bước theo chuẩn THPT cho Kai.`;
-            const systemPrompt = "Bạn là trợ lý giải toán Vật lý chuyên nghiệp. Hãy cung cấp công thức chuẩn, lập luận logic và kết quả chính xác.";
-
-            callRedKaiAI(query, systemPrompt, (text) => {
-                output.innerHTML = text.replace(/\n/g, '<br>');
-                openNotification('Đã giải xong bài tập vật lý!');
+            customServices.forEach(item => {
+                if (selectedIds.has(item.id)) {
+                    hasCustomService = true;
+                    chosenItems.push({ ...item, isCustom: true, priceText: 'Báo giá riêng' });
+                }
             });
+
+            countEl.textContent = chosenItems.length;
+            totalEl.textContent = `${totalMoney}K`;
+
+            if (hasCustomService) {
+                customNoteEl.classList.remove('hidden');
+            } else {
+                customNoteEl.classList.add('hidden');
+            }
+
+            // Cập nhật thanh nổi trên Mobile
+            mobileCount.textContent = chosenItems.length;
+            mobileTotal.textContent = hasCustomService && totalMoney === 0
+                ? 'Báo giá'
+                : `${totalMoney}K${hasCustomService ? ' + Báo giá' : ''}`;
+
+            if (chosenItems.length > 0) {
+                mobileBar.classList.remove('translate-y-full');
+            } else {
+                mobileBar.classList.add('translate-y-full');
+            }
+
+            // Render danh sách item trong bảng tóm tắt
+            if (chosenItems.length === 0) {
+                listEl.innerHTML = `
+                    <p class="text-sm text-slate-500 italic py-3 text-center">
+                        Chưa có dịch vụ nào được chọn. Hãy nhấn vào các gói bên trên nhé!
+                    </p>
+                `;
+            } else {
+                listEl.innerHTML = chosenItems.map(item => `
+                    <div class="flex items-center justify-between gap-2 bg-[#0B152C] px-3 py-2 rounded-xl border border-slate-800">
+                        <span class="text-xs sm:text-sm font-medium text-slate-200 truncate">• ${item.name}</span>
+                        <div class="flex items-center gap-2.5 shrink-0">
+                            <span class="text-xs font-bold ${item.isCustom ? 'text-cyan-400' : 'text-amber-400'}">${item.priceText}</span>
+                            <button type="button" onclick="toggleService('${item.id}')" class="text-slate-500 hover:text-rose-400 transition-colors" title="Xóa gói này">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Tạo nội dung tin nhắn tự động
+            if (chosenItems.length === 0) {
+                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ cày thuê Blox Fruits:\n- Dịch vụ cần thuê: (Chưa chọn gói)\n- Hình thức thanh toán: ${selectedPayment}\nShop hỗ trợ giúp mình nhé!`;
+            } else {
+                const lines = chosenItems.map(i => `  + ${i.name} (${i.priceText})`).join('\n');
+                const totalLine = hasCustomService
+                    ? `${totalMoney}K + Dịch vụ chờ shop báo giá`
+                    : `${totalMoney}K`;
+
+                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ cày thuê Blox Fruits:\n${lines}\n• Tổng tạm tính: ${totalLine}\n• Hình thức thanh toán: ${selectedPayment}\nShop kiểm tra và hỗ trợ giúp mình nhé!`;
+            }
         }
 
-        // ================= CODE & TIỆN ÍCH =================
-        function generateCode() {
-            const lang = document.getElementById('codeLang').value;
-            const prompt = document.getElementById('codePrompt').value.trim() || "Roblox Lua GUI script cho Kai";
-            const editor = document.getElementById('codeEditorArea');
-
-            editor.value = "// Đang sinh mã nguồn AI...";
-
-            const query = `Hãy viết mã nguồn hoàn chỉnh bằng ngôn ngữ ${lang} theo yêu cầu: ${prompt}. Chỉ trả về nội dung code hoặc khối code rõ ràng.`;
-            const systemPrompt = "Bạn là Senior Developer chuyên nghiệp. Hãy viết code sạch, chuẩn cú pháp và dễ hiểu.";
-
-            callRedKaiAI(query, systemPrompt, (text) => {
-                // Clean markdown code blocks if returned
-                let cleanCode = text.replace(/```[a-z]*\n?/g, '').replace(/```/g, '').trim();
-                editor.value = cleanCode;
-                runPreviewCode();
-                openNotification('Đã sinh mã nguồn thành công!');
-            });
+        // Copy tin nhắn đơn hàng
+        function copyOrderAndNotify() {
+            const msgBox = document.getElementById('order-message-preview');
+            copyToClipboard(msgBox.value, 'Đã copy đơn hàng! Hãy mở TikTok @levutientruong và dán gửi cho chủ shop.');
         }
 
-        function runPreviewCode() {
-            const code = document.getElementById('codeEditorArea').value;
-            const iframe = document.getElementById('previewFrame');
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(code);
-            doc.close();
-            openNotification('Đã cập nhật xem trước trực tiếp!');
+        // Copy ID TikTok
+        function copyTikTokId() {
+            copyToClipboard('@levutientruong', 'Đã sao chép ID TikTok: @levutientruong');
         }
+
+        // Khởi tạo giao diện ban đầu
+        window.addEventListener('DOMContentLoaded', () => {
+            updateUI();
+        });
     </script>
 </body>
 </html>
