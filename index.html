@@ -7,13 +7,13 @@
     <title>redKAI Rshop | Cày Thuê – Tài Khoản – Dịch Vụ Roblox</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tải Google Fonts: Inter & Cinzel/Chakra Petch cho phong cách Gaming Pirate -->
+    <!-- Tải Google Fonts: Inter & Chakra Petch -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Tải Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -21,19 +21,6 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         gaming: ['"Chakra Petch"', 'sans-serif'],
-                    },
-                    colors: {
-                        pirate: {
-                            dark: '#060B19',
-                            navy: '#0B152C',
-                            card: '#111E3C',
-                            red: '#EF4444',
-                            gold: '#F59E0B',
-                            goldLight: '#FCD34D',
-                            cyan: '#06B6D4',
-                            neon: '#38BDF8',
-                            purple: '#A855F7'
-                        }
                     }
                 }
             }
@@ -46,12 +33,176 @@
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <div class="absolute -top-40 -left-40 w-96 h-96 bg-rose-600/15 rounded-full blur-3xl"></div>
         <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-amber-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
     </div>
 
-    <!-- Thanh điều hướng trên cùng (Sticky Header + Chuyển 2 Trang) -->
-    <header class="sticky top-0 z-40 bg-[#060B19]/90 backdrop-blur-md border-b border-rose-500/30 shadow-lg shadow-black/40">
-        <div class="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:h-16 flex flex-wrap items-center justify-between gap-2.5">
+    <!-- ========================================================= -->
+    <!-- LUỒNG MỞ ĐẦU (ONBOARDING OVERLAY: ROBOT -> LANG -> GUIDE) -->
+    <!-- ========================================================= -->
+    <div id="onboarding-overlay" class="fixed inset-0 z-50 bg-[#050914]/95 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
+        <div class="w-full max-w-2xl my-auto">
+            
+            <!-- BƯỚC 1: XÁC MINH "BẠN CÓ PHẢI ROBOT KHÔNG?" -->
+            <div id="ob-step-robot" class="rounded-3xl bg-gradient-to-br from-[#120B1F] via-[#0E1833] to-[#081024] border-2 border-rose-500/50 p-6 sm:p-10 shadow-2xl shadow-rose-950/60 space-y-6 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-500 via-red-600 to-amber-500 text-white text-3xl shadow-lg shadow-rose-500/30">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="font-gaming text-sm font-bold tracking-widest uppercase text-rose-400">
+                        SECURITY VERIFICATION • redKAI Rshop
+                    </div>
+                    <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white">
+                        Bạn có phải robot không?
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400">
+                        Are you a robot? — Vui lòng xác minh bên dưới để tiếp tục truy cập shop.
+                    </p>
+                </div>
+
+                <!-- Hộp Captcha Gaming -->
+                <div class="max-w-md mx-auto">
+                    <button type="button" id="robot-check-btn" onclick="verifyNotRobot()"
+                        class="w-full p-4 sm:p-5 rounded-2xl bg-[#070D1D] hover:bg-[#0D1730] border-2 border-slate-700 hover:border-rose-400/70 flex items-center justify-between gap-4 transition-all group cursor-pointer">
+                        <div class="flex items-center gap-4">
+                            <!-- Ô vuông checkbox / spinner / tick -->
+                            <div id="robot-checkbox-box" class="w-8 h-8 rounded-lg border-2 border-slate-500 group-hover:border-amber-400 bg-[#0B152C] flex items-center justify-center transition-all">
+                                <i id="robot-spinner" class="fa-solid fa-circle-notch fa-spin text-amber-400 text-lg hidden"></i>
+                                <i id="robot-checkmark" class="fa-solid fa-check text-emerald-400 text-xl hidden"></i>
+                            </div>
+                            <div class="text-left">
+                                <span id="robot-label-vi" class="block text-sm sm:text-base font-bold text-white">Tôi không phải là robot</span>
+                                <span id="robot-label-en" class="block text-xs text-slate-400">I am not a robot</span>
+                            </div>
+                        </div>
+
+                        <div class="text-right shrink-0">
+                            <i class="fa-solid fa-robot text-rose-400/80 text-xl block"></i>
+                            <span class="text-[10px] font-gaming uppercase tracking-wider text-slate-500">redKAI Guard</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="pt-1">
+                    <button type="button" id="robot-continue-btn" disabled onclick="goToLanguageStep()"
+                        class="px-7 py-3.5 rounded-xl font-gaming font-extrabold text-sm sm:text-base transition-all bg-slate-800 text-slate-500 cursor-not-allowed">
+                        Tiếp tục / Continue <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- BƯỚC 2: CHỌN NGÔN NGỮ (CHỈ HỖ TRỢ VIE & ENG) -->
+            <div id="ob-step-lang" class="hidden rounded-3xl bg-gradient-to-br from-[#120B1F] via-[#0E1833] to-[#081024] border-2 border-amber-500/50 p-6 sm:p-10 shadow-2xl shadow-amber-950/50 space-y-7 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-400/50 text-amber-300 text-3xl">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+
+                <div class="space-y-2">
+                    <span class="inline-block px-3 py-1 rounded-full bg-rose-500/15 border border-rose-400/40 text-rose-300 text-xs font-bold uppercase tracking-wider">
+                        Chỉ hỗ trợ / Supported Languages: VIE & ENG
+                    </span>
+                    <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white">
+                        Chọn ngôn ngữ của bạn
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400">
+                        Select your preferred language to continue
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+                    <!-- Nút Tiếng Việt (VIE) -->
+                    <button type="button" onclick="chooseOnboardingLanguage('vi')"
+                        class="group p-5 rounded-2xl bg-[#070D1D] hover:bg-gradient-to-br hover:from-rose-600/25 hover:to-amber-500/20 border-2 border-slate-700 hover:border-rose-400 transition-all flex flex-col items-center gap-2.5 active:scale-95">
+                        <span class="px-3 py-1 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-300 font-gaming font-extrabold text-sm">
+                            VIE
+                        </span>
+                        <span class="font-gaming text-xl font-extrabold text-white group-hover:text-amber-300">
+                            Tiếng Việt
+                        </span>
+                        <span class="text-xs text-slate-400">Giao diện & đơn hàng Tiếng Việt</span>
+                    </button>
+
+                    <!-- Nút English (ENG) -->
+                    <button type="button" onclick="chooseOnboardingLanguage('en')"
+                        class="group p-5 rounded-2xl bg-[#070D1D] hover:bg-gradient-to-br hover:from-cyan-600/25 hover:to-amber-500/20 border-2 border-slate-700 hover:border-cyan-400 transition-all flex flex-col items-center gap-2.5 active:scale-95">
+                        <span class="px-3 py-1 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 font-gaming font-extrabold text-sm">
+                            ENG
+                        </span>
+                        <span class="font-gaming text-xl font-extrabold text-white group-hover:text-cyan-300">
+                            English
+                        </span>
+                        <span class="text-xs text-slate-400">English UI & Order Message</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- BƯỚC 3A: HỎI "BẠN CẦN HƯỚNG DẪN KHÔNG?" -->
+            <div id="ob-step-ask-guide" class="hidden rounded-3xl bg-gradient-to-br from-[#120B1F] via-[#0E1833] to-[#081024] border-2 border-cyan-500/50 p-6 sm:p-10 shadow-2xl shadow-cyan-950/50 space-y-7 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 text-3xl">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+
+                <div class="space-y-2">
+                    <h2 id="ask-guide-title" class="font-gaming text-2xl sm:text-4xl font-extrabold text-white">
+                        Bạn cần hướng dẫn không?
+                    </h2>
+                    <p id="ask-guide-sub" class="text-xs sm:text-sm text-slate-300 max-w-md mx-auto">
+                        Nếu bạn lần đầu đặt dịch vụ tại redKAI Rshop, hãy chọn "Có" để xem hướng dẫn 5 bước cực nhanh nhé!
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto">
+                    <button type="button" onclick="showGuideSteps()"
+                        class="p-4 rounded-2xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-gaming font-extrabold text-base sm:text-lg shadow-lg shadow-rose-500/30 flex items-center justify-center gap-2 transition-all active:scale-95">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span id="ask-guide-yes">Có, xem hướng dẫn</span>
+                    </button>
+
+                    <button type="button" onclick="enterMainShop()"
+                        class="p-4 rounded-2xl bg-slate-800/90 hover:bg-slate-700 border border-slate-600 text-slate-200 font-gaming font-extrabold text-base sm:text-lg flex items-center justify-center gap-2 transition-all active:scale-95">
+                        <i class="fa-solid fa-door-open text-amber-400"></i>
+                        <span id="ask-guide-no">Không, vào thẳng shop</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- BƯỚC 3B: HƯỚNG DẪN ĐẶT ĐƠN – redKAI Rshop (5 BƯỚC) -->
+            <div id="ob-step-guide-detail" class="hidden rounded-3xl bg-gradient-to-br from-[#120B1F] via-[#0E1833] to-[#081024] border-2 border-amber-400/60 p-5 sm:p-8 shadow-2xl shadow-amber-950/60 space-y-6">
+                <div class="flex items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div>
+                        <span id="guide-badge" class="text-xs font-bold uppercase tracking-widest text-rose-400">Quy trình 5 bước đơn giản</span>
+                        <h2 id="guide-heading" class="font-gaming text-xl sm:text-3xl font-extrabold text-amber-400 mt-0.5">
+                            HƯỚNG DẪN ĐẶT ĐƠN – redKAI Rshop
+                        </h2>
+                    </div>
+                    <div class="w-11 h-11 rounded-xl bg-amber-500/20 border border-amber-400/40 text-amber-300 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                </div>
+
+                <!-- Danh sách 5 bước -->
+                <div id="guide-steps-container" class="space-y-3"></div>
+
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <span id="guide-footer-note" class="text-xs text-slate-400">
+                        Bạn có thể mở lại hướng dẫn này bất cứ lúc nào trên thanh menu.
+                    </span>
+                    <button type="button" onclick="enterMainShop()"
+                        class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-rose-500 via-amber-500 to-yellow-500 hover:from-rose-400 hover:to-yellow-400 text-slate-950 font-gaming font-extrabold text-sm sm:text-base shadow-lg shadow-amber-500/30 flex items-center justify-center gap-2 transition-all active:scale-95">
+                        <span id="guide-enter-btn">Vào trang chính Shop ngay</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- THANH ĐIỀU HƯỚNG TRÊN CÙNG (STICKY HEADER)                -->
+    <!-- ========================================================= -->
+    <header class="sticky top-0 z-40 bg-[#060B19]/92 backdrop-blur-md border-b border-rose-500/30 shadow-lg shadow-black/40">
+        <div class="max-w-6xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex flex-wrap items-center justify-between gap-2.5">
             <!-- Logo thương hiệu redKAI Rshop -->
             <a href="#top" onclick="switchPage('page1')" class="flex items-center gap-2.5 group">
                 <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-rose-500 via-red-600 to-amber-500 flex items-center justify-center text-white font-extrabold text-lg sm:text-xl shadow-lg shadow-rose-500/30 group-hover:scale-105 transition-transform">
@@ -64,43 +215,73 @@
                 </div>
             </a>
 
-            <!-- Nút TikTok nhanh trên Header -->
-            <div class="flex items-center gap-2 sm:order-3">
-                <a href="#tao-don-hang" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-rose-500/40 text-amber-300 text-xs font-bold transition-all">
+            <!-- Cụm nút bên phải: Chuyển ngôn ngữ VIE/ENG + Xem hướng dẫn + Giỏ đơn + TikTok -->
+            <div class="flex items-center gap-1.5 sm:gap-2 lg:order-3">
+                <!-- Nút chọn ngôn ngữ VIE / ENG -->
+                <div class="inline-flex items-center p-0.5 rounded-xl bg-[#0B152C] border border-slate-700" title="Chỉ hỗ trợ VIE và ENG">
+                    <button type="button" id="lang-btn-vi" onclick="setLanguage('vi')"
+                        class="px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-gaming font-extrabold transition-all bg-rose-500 text-white">
+                        VIE
+                    </button>
+                    <button type="button" id="lang-btn-en" onclick="setLanguage('en')"
+                        class="px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-gaming font-extrabold transition-all text-slate-400 hover:text-white">
+                        ENG
+                    </button>
+                </div>
+
+                <!-- Nút mở lại Hướng dẫn -->
+                <button type="button" onclick="openGuideModalFromHeader()"
+                    class="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition-all"
+                    title="Hướng dẫn đặt đơn">
+                    <i class="fa-solid fa-circle-question text-cyan-400"></i>
+                    <span class="hidden md:inline" id="hdr-guide-text">Hướng dẫn</span>
+                </button>
+
+                <!-- Nút Giỏ đơn -->
+                <a href="#tao-don-hang" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-rose-500/40 text-amber-300 text-xs sm:text-sm font-bold transition-all">
                     <i class="fa-solid fa-cart-shopping text-rose-400"></i>
-                    <span>Đơn (<span id="header-cart-count">0</span>)</span>
+                    <span><span id="hdr-cart-label">Đơn</span> (<span id="header-cart-count">0</span>)</span>
                 </a>
+
+                <!-- Nút TikTok -->
                 <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
-                   class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white text-xs sm:text-sm font-bold shadow-lg shadow-rose-500/25 transition-all active:scale-95">
+                   class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white text-xs sm:text-sm font-bold shadow-lg shadow-rose-500/25 transition-all active:scale-95">
                     <i class="fa-brands fa-tiktok text-base"></i>
-                    <span class="hidden sm:inline">@levutientruong</span>
-                    <span class="sm:hidden">TikTok</span>
+                    <span class="hidden xl:inline">@levutientruong</span>
+                    <span class="xl:hidden">TikTok</span>
                 </a>
             </div>
 
-            <!-- Thanh chuyển đổi 2 Trang (SPA Page Switcher) -->
-            <nav aria-label="Chuyển trang dịch vụ" class="w-full sm:w-auto sm:order-2 grid grid-cols-2 sm:flex items-center gap-1.5 p-1 rounded-2xl bg-[#0B152C] border border-slate-700/80">
+            <!-- Thanh chuyển đổi 3 Trang (SPA Page Switcher) -->
+            <nav aria-label="Chuyển trang dịch vụ" class="w-full lg:w-auto lg:order-2 grid grid-cols-3 sm:flex items-center gap-1.5 p-1 rounded-2xl bg-[#0B152C] border border-slate-700/80">
                 <button type="button" id="tab-btn-page1" onclick="switchPage('page1')"
-                    class="px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/25">
+                    class="px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/25">
                     <i class="fa-solid fa-khanda"></i>
-                    <span>Dịch vụ cày thuê</span>
+                    <span id="nav-tab-1">Blox Fruits</span>
                 </button>
                 <button type="button" id="tab-btn-page2" onclick="switchPage('page2')"
-                    class="px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70">
+                    class="px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70">
+                    <i class="fa-solid fa-tree text-emerald-400"></i>
+                    <span id="nav-tab-2">99 Nights & Evade</span>
+                </button>
+                <button type="button" id="tab-btn-page3" onclick="switchPage('page3')"
+                    class="px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70">
                     <i class="fa-solid fa-box-open text-purple-400"></i>
-                    <span>Tài khoản & trò chơi</span>
+                    <span id="nav-tab-3">Túi mù, VPN & Chơi chung</span>
                 </button>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
+    <!-- ========================================================= -->
+    <!-- MAIN CONTENT (3 TRANG DỊCH VỤ + GIỎ HÀNG ĐỒNG BỘ)         -->
+    <!-- ========================================================= -->
     <main id="top" class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-12 sm:space-y-16">
 
         <!-- ========================================================= -->
-        <!-- TRANG 1: DỊCH VỤ BLOX FRUITS (CÀY THUÊ & HỖ TRỢ)         -->
+        <!-- TRANG 1: BLOX FRUITS                                      -->
         <!-- ========================================================= -->
-        <div id="view-page1" class="space-y-12 sm:space-y-16 transition-opacity duration-300">
+        <div id="view-page1" class="space-y-12 sm:space-y-14 transition-opacity duration-300">
             
             <!-- HERO BANNER TRANG 1 -->
             <section class="relative rounded-3xl overflow-hidden border border-rose-500/40 bg-gradient-to-br from-[#140B1E] via-[#111E3C] to-[#081226] p-6 sm:p-10 md:p-12 shadow-2xl shadow-rose-950/40">
@@ -110,73 +291,72 @@
                 <div class="relative z-10 max-w-3xl space-y-4">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/15 border border-rose-400/40 text-rose-300 text-xs sm:text-sm font-semibold tracking-wide">
                         <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
-                        TRANG 1 • DỊCH VỤ BLOX FRUITS UY TÍN
+                        <span id="p1-badge">TRANG 1 • DỊCH VỤ BLOX FRUITS UY TÍN</span>
                     </div>
 
                     <h1 class="font-gaming text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
                         <span class="text-rose-500 drop-shadow-sm">red</span><span class="bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 bg-clip-text text-transparent drop-shadow-sm">KAI Rshop</span>
                     </h1>
 
-                    <p class="font-gaming text-base sm:text-xl md:text-2xl font-bold text-cyan-300 tracking-wider uppercase">
+                    <p id="p1-subtitle" class="font-gaming text-base sm:text-xl md:text-2xl font-bold text-cyan-300 tracking-wider uppercase">
                         CÀY THUÊ – TÀI KHOẢN – DỊCH VỤ ROBLOX
                     </p>
 
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                        Chọn các gói cày thuê Blox Fruits bên dưới hoặc chuyển sang tab <button type="button" onclick="switchPage('page2')" class="text-purple-300 underline font-semibold hover:text-purple-200">Tài khoản & trò chơi</button> để xem Túi Mù & Treo VPN. Tất cả đơn hàng được cộng dồn tự động!
+                    <p id="p1-desc" class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                        Chọn các gói cày thuê Blox Fruits bên dưới hoặc chuyển sang các danh mục khác. Tất cả đơn hàng được cộng dồn tự động!
                     </p>
 
-                    <div class="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
-                        <a href="#dich-vu-cay-thue" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-rose-500/30 transition-all active:scale-95">
+                    <div class="pt-2 flex flex-wrap items-center gap-3">
+                        <a href="#bf-cay-thue" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-rose-500 via-red-600 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-rose-500/30 transition-all active:scale-95">
                             <i class="fa-solid fa-bolt"></i>
-                            Chọn Gói Cày Ngay
+                            <span id="p1-cta-1">Chọn Gói Cày Ngay</span>
                         </a>
-                        <button type="button" onclick="switchPage('page2')" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-purple-600/25 hover:bg-purple-600/40 border border-purple-400/50 text-purple-200 font-bold text-sm sm:text-base transition-all active:scale-95">
-                            <i class="fa-solid fa-gift"></i>
-                            Xem Túi Mù & Treo VPN
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        <button type="button" onclick="switchPage('page2')" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/50 text-emerald-200 font-bold text-sm transition-all active:scale-95">
+                            <i class="fa-solid fa-tree"></i>
+                            <span id="p1-cta-2">99 Nights & Evade</span>
+                        </button>
+                        <button type="button" onclick="switchPage('page3')" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-purple-600/25 hover:bg-purple-600/40 border border-purple-400/50 text-purple-200 font-bold text-sm transition-all active:scale-95">
+                            <i class="fa-solid fa-box-open"></i>
+                            <span id="p1-cta-3">Túi mù, VPN & Chơi chung</span>
                         </button>
                     </div>
                 </div>
             </section>
 
             <!-- MỤC I: DỊCH VỤ CÀY THUÊ -->
-            <section id="dich-vu-cay-thue" class="scroll-mt-24 space-y-6">
+            <section id="bf-cay-thue" class="scroll-mt-24 space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
                     <div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Bảng Giá Niêm Yết</div>
+                        <div id="bf-s1-tag" class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Bảng Giá Niêm Yết • Đồng Giá 20K</div>
                         <h2 class="font-gaming text-2xl sm:text-3xl font-bold text-amber-400 flex items-center gap-3">
                             <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base">I</span>
-                            DỊCH VỤ CÀY THUÊ
+                            <span id="bf-s1-title">DỊCH VỤ CÀY THUÊ</span>
                         </h2>
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-400">
-                        <i class="fa-solid fa-hand-pointer text-amber-400 mr-1"></i> Nhấn vào thẻ dịch vụ để chọn vào giỏ tính tiền
+                    <p id="bf-s1-hint" class="text-xs sm:text-sm text-slate-400">
+                        <i class="fa-solid fa-hand-pointer text-amber-400 mr-1"></i> Nhấn vào thẻ dịch vụ để thêm vào giỏ hàng
                     </p>
                 </div>
 
-                <div id="fixed-services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-                    <!-- Render bằng JS -->
-                </div>
+                <div id="bf-fixed-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"></div>
             </section>
 
             <!-- MỤC II: DỊCH VỤ NHIỀU GIÁ KHÁC NHAU -->
-            <section id="dich-vu-khac" class="scroll-mt-24 space-y-6">
+            <section id="bf-dich-vu-khac" class="scroll-mt-24 space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
                     <div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Hỗ Trợ Theo Yêu Cầu</div>
+                        <div id="bf-s2-tag" class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Hỗ Trợ Theo Yêu Cầu</div>
                         <h2 class="font-gaming text-2xl sm:text-3xl font-bold text-amber-400 flex items-center gap-3">
                             <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base">II</span>
-                            DỊCH VỤ NHIỀU GIÁ KHÁC NHAU
+                            <span id="bf-s2-title">DỊCH VỤ NHIỀU GIÁ KHÁC NHAU</span>
                         </h2>
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-400">
-                        Có thể tích chọn kèm vào đơn để shop báo giá chi tiết
+                    <p id="bf-s2-hint" class="text-xs sm:text-sm text-slate-400">
+                        Thêm vào giỏ hàng để shop báo giá chi tiết
                     </p>
                 </div>
 
-                <div id="custom-services-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-                    <!-- Render bằng JS -->
-                </div>
+                <div id="bf-custom-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5"></div>
             </section>
 
             <!-- MỤC III: TRÁI ÁC QUỶ RƯƠNG -->
@@ -189,9 +369,9 @@
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <h2 class="font-gaming text-xl sm:text-2xl font-bold text-amber-400 flex items-center gap-2.5">
                             <span class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-sm">III</span>
-                            TRÁI ÁC QUỶ RƯƠNG
+                            <span id="bf-s3-title">TRÁI ÁC QUỶ RƯƠNG</span>
                         </h2>
-                        <span class="px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold whitespace-nowrap">
+                        <span id="bf-s3-badge" class="px-3 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-xs font-bold whitespace-nowrap">
                             Tạm ngưng hỗ trợ
                         </span>
                     </div>
@@ -201,10 +381,10 @@
                             <i class="fa-solid fa-triangle-exclamation text-lg"></i>
                         </div>
                         <div>
-                            <p class="text-sm sm:text-base text-rose-100 font-medium leading-relaxed">
+                            <p id="bf-s3-msg" class="text-sm sm:text-base text-rose-100 font-medium leading-relaxed">
                                 Hiện tại kho chưa đủ hàng, shop chưa hỗ trợ dịch vụ này.
                             </p>
-                            <p class="text-xs text-slate-400 mt-1">
+                            <p id="bf-s3-sub" class="text-xs text-slate-400 mt-1">
                                 * Khi kho có hàng trở lại, shop sẽ cập nhật ngay trên kênh TikTok chính thức.
                             </p>
                         </div>
@@ -214,11 +394,191 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- TRANG 2: TÀI KHOẢN VÀ TRÒ CHƠI                            -->
+        <!-- TRANG 2: 99 NIGHTS IN THE FOREST & EVADE                  -->
         <!-- ========================================================= -->
         <div id="view-page2" class="hidden space-y-12 sm:space-y-16 transition-opacity duration-300">
             
             <!-- HERO BANNER TRANG 2 -->
+            <section class="relative rounded-3xl overflow-hidden border border-emerald-500/40 bg-gradient-to-br from-[#071D1B] via-[#0F1E3A] to-[#081226] p-6 sm:p-10 md:p-12 shadow-2xl shadow-emerald-950/40">
+                <div class="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-emerald-500/20 to-transparent rounded-bl-full pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-tr from-cyan-500/15 to-transparent rounded-tr-full pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span id="p2-badge">TRANG 2 • DỊCH VỤ CÀY THUÊ CHUYÊN SÂU</span>
+                    </div>
+
+                    <h1 class="font-gaming text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        <span class="bg-gradient-to-r from-emerald-300 via-teal-300 to-amber-300 bg-clip-text text-transparent">
+                            99 NIGHTS & EVADE
+                        </span>
+                    </h1>
+
+                    <p id="p2-subtitle" class="font-gaming text-base sm:text-xl font-bold text-cyan-300 tracking-wider uppercase">
+                        CÀY DAYS – KIM CƯƠNG – CHUỖI WIN – LEVEL – CASH
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap items-center gap-3">
+                        <a href="#sec-99-nights" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all active:scale-95">
+                            <i class="fa-solid fa-tree"></i>
+                            <span>99 Nights in the Forest</span>
+                        </a>
+                        <a href="#sec-evade" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-cyan-500/40 text-cyan-300 font-bold text-sm sm:text-base transition-all active:scale-95">
+                            <i class="fa-solid fa-person-running"></i>
+                            <span id="p2-cta-2">Dịch vụ Evade</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KHU VỰC A: 🌲 DỊCH VỤ 99 NIGHTS IN THE FOREST -->
+            <section id="sec-99-nights" class="scroll-mt-24 rounded-3xl bg-[#0B152C]/90 border border-emerald-500/35 p-5 sm:p-8 space-y-8 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/25 shrink-0">
+                            🌲
+                        </div>
+                        <div>
+                            <span id="n99-area" class="text-xs font-bold uppercase tracking-widest text-emerald-400">Khu Vực A</span>
+                            <h2 id="n99-title" class="font-gaming text-2xl sm:text-3xl font-extrabold text-white">
+                                DỊCH VỤ 99 NIGHTS IN THE FOREST
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- I. Cày ngày (Days) -->
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-gaming text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2.5">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center text-xs">I</span>
+                            <span id="n99-s1-title">Cày ngày (Days)</span>
+                        </h3>
+                        <span id="n99-s1-note" class="text-xs font-semibold text-emerald-300 bg-emerald-500/15 px-3 py-1 rounded-full border border-emerald-500/30">
+                            Mỗi 100 Days cộng thêm 20.000 VNĐ
+                        </span>
+                    </div>
+
+                    <div id="nights-days-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+                </div>
+
+                <!-- II. Cày kim cương (Diamonds) -->
+                <div class="space-y-4 pt-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-gaming text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2.5">
+                            <span class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-xs">II</span>
+                            <span id="n99-s2-title">Cày kim cương (Diamonds)</span>
+                        </h3>
+                    </div>
+
+                    <div id="nights-diamonds-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+                </div>
+
+                <!-- Hộp ⚠️ LƯU Ý nổi bật 99 Nights -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-rose-500/15 to-amber-500/15 border-2 border-amber-400/50 flex items-start gap-3.5 shadow-lg">
+                    <div class="w-11 h-11 rounded-xl bg-amber-500/25 text-amber-300 flex items-center justify-center text-xl shrink-0 mt-0.5">
+                        ⚠️
+                    </div>
+                    <div class="space-y-1.5">
+                        <p id="n99-warn-title" class="font-gaming text-sm sm:text-base font-extrabold text-amber-300 uppercase tracking-wide">
+                            LƯU Ý QUAN TRỌNG
+                        </p>
+                        <p id="n99-warn-1" class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                            Thời gian hoàn thành dịch vụ có thể khá lâu vì shop hiện chỉ có 1 người cày, đồng thời người cày còn phải đi học.
+                        </p>
+                        <p id="n99-warn-2" class="text-xs sm:text-sm text-emerald-300 font-medium leading-relaxed">
+                            Mong khách hàng thông cảm và kiên nhẫn chờ đợi. Shop sẽ cố gắng hoàn thành đơn hàng trong khả năng sớm nhất!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KHU VỰC B: 🏃 DỊCH VỤ EVADE -->
+            <section id="sec-evade" class="scroll-mt-24 rounded-3xl bg-[#0B152C]/90 border border-cyan-500/35 p-5 sm:p-8 space-y-8 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-cyan-500/25 shrink-0">
+                            🏃
+                        </div>
+                        <div>
+                            <span id="ev-area" class="text-xs font-bold uppercase tracking-widest text-cyan-400">Khu Vực B</span>
+                            <h2 id="ev-title" class="font-gaming text-2xl sm:text-3xl font-extrabold text-white">
+                                DỊCH VỤ EVADE
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- I. Cày chuỗi Win -->
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-gaming text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2.5">
+                            <span class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-xs">I</span>
+                            <span id="ev-s1-title">Cày chuỗi Win</span>
+                        </h3>
+                        <span id="ev-s1-note" class="text-xs font-semibold text-cyan-300 bg-cyan-500/15 px-3 py-1 rounded-full border border-cyan-500/30">
+                            Mỗi 50 chuỗi Win cộng thêm 20.000 VNĐ
+                        </span>
+                    </div>
+
+                    <div id="evade-win-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+                </div>
+
+                <!-- II. Cày cấp độ (Level) -->
+                <div class="space-y-4 pt-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-gaming text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2.5">
+                            <span class="w-7 h-7 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 flex items-center justify-center text-xs">II</span>
+                            <span id="ev-s2-title">Cày cấp độ (Level)</span>
+                        </h3>
+                        <span id="ev-s2-note" class="text-xs font-semibold text-amber-300 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-500/30">
+                            Đồng giá 20.000 VNĐ / mốc
+                        </span>
+                    </div>
+
+                    <div id="evade-level-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+                </div>
+
+                <!-- III. Cày tiền (Cash) -->
+                <div class="space-y-4 pt-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <h3 class="font-gaming text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2.5">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center text-xs">III</span>
+                            <span id="ev-s3-title">Cày tiền (Cash)</span>
+                        </h3>
+                        <span id="ev-s3-note" class="text-xs font-semibold text-emerald-300 bg-emerald-500/15 px-3 py-1 rounded-full border border-emerald-500/30">
+                            Mỗi 10.000 Cash cộng thêm 20.000 VNĐ
+                        </span>
+                    </div>
+
+                    <div id="evade-cash-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+                </div>
+
+                <!-- Hộp ⚠️ LƯU Ý nổi bật Evade -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-cyan-500/10 to-amber-500/15 border-2 border-amber-400/50 flex items-start sm:items-center gap-3.5 shadow-lg">
+                    <div class="w-11 h-11 rounded-xl bg-amber-500/25 text-amber-300 flex items-center justify-center text-xl shrink-0">
+                        ⚠️
+                    </div>
+                    <div>
+                        <p id="ev-warn-title" class="font-gaming text-sm sm:text-base font-extrabold text-amber-300 uppercase tracking-wide">
+                            LƯU Ý
+                        </p>
+                        <p id="ev-warn-1" class="text-xs sm:text-sm text-slate-200 mt-0.5 leading-relaxed">
+                            Thời gian hoàn thành có thể thay đổi tùy theo tình trạng tài khoản và lượng đơn hàng. Mong khách hàng thông cảm và kiên nhẫn chờ đợi!
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- TRANG 3: TÚI MÙ, TREO VPN & THUÊ CHƠI GAME CHUNG           -->
+        <!-- (Đưa Túi mù & Treo VPN lên đầu Trang 3 để thấy ngay!)     -->
+        <!-- ========================================================= -->
+        <div id="view-page3" class="hidden space-y-12 sm:space-y-16 transition-opacity duration-300">
+            
+            <!-- HERO BANNER TRANG 3 -->
             <section class="relative rounded-3xl overflow-hidden border border-purple-500/40 bg-gradient-to-br from-[#120D2B] via-[#17153B] to-[#0B152C] p-6 sm:p-10 md:p-12 shadow-2xl shadow-purple-950/50">
                 <div class="absolute top-0 right-0 w-72 h-72 bg-gradient-to-bl from-purple-500/25 to-transparent rounded-bl-full pointer-events-none"></div>
                 <div class="absolute bottom-0 left-0 w-56 h-56 bg-gradient-to-tr from-amber-500/15 to-transparent rounded-tr-full pointer-events-none"></div>
@@ -226,48 +586,48 @@
                 <div class="relative z-10 max-w-3xl space-y-4">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/20 border border-purple-400/40 text-purple-300 text-xs sm:text-sm font-semibold tracking-wide">
                         <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
-                        TRANG 2 • TÀI KHOẢN & TRÒ CHƠI
+                        <span id="p3-badge">TRANG 3 • TÀI KHOẢN, VPN & CHƠI GAME CHUNG</span>
                     </div>
 
                     <h1 class="font-gaming text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-                        <span class="bg-gradient-to-r from-purple-300 via-fuchsia-300 to-amber-300 bg-clip-text text-transparent">
-                            TÀI KHOẢN & TRÒ CHƠI
+                        <span id="p3-title" class="bg-gradient-to-r from-purple-300 via-fuchsia-300 to-amber-300 bg-clip-text text-transparent">
+                            TÚI MÙ, VPN & CHƠI CHUNG
                         </span>
                     </h1>
 
-                    <p class="font-gaming text-base sm:text-xl font-bold text-cyan-300 tracking-wider uppercase">
-                        TÚI MÙ ACC – DỊCH VỤ CHUYỂN VÙNG VPN
-                    </p>
-
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-                        Thử vận may với các gói Túi mù Blox Fruit, Steal an Egg hoặc sử dụng dịch vụ Treo VPN chuyển vùng VNG sang Quốc tế. Đọc kỹ các lưu ý trước khi đặt hàng!
+                    <p id="p3-subtitle" class="font-gaming text-base sm:text-xl font-bold text-cyan-300 tracking-wider uppercase">
+                        TÚI MÙ BLOX FRUIT – STEAL AN EGG – TREO VPN – CHƠI GAME CHUNG
                     </p>
 
                     <div class="pt-2 flex flex-wrap items-center gap-3">
                         <a href="#tui-mu-section" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-400 hover:to-fuchsia-500 text-white font-extrabold text-sm sm:text-base shadow-lg shadow-purple-500/30 transition-all active:scale-95">
                             <i class="fa-solid fa-box-open"></i>
-                            Chọn Túi Mù Ngay
+                            <span id="p3-cta-1">Túi Mù Tài Khoản</span>
                         </a>
                         <a href="#treo-vpn-section" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-cyan-500/40 text-cyan-300 font-bold text-sm sm:text-base transition-all active:scale-95">
                             <i class="fa-solid fa-globe"></i>
-                            Dịch Vụ Treo VPN
+                            <span id="p3-cta-2">Treo VPN VNG -> Quốc tế</span>
+                        </a>
+                        <a href="#sec-choi-chung" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-500/25 transition-all active:scale-95">
+                            <i class="fa-solid fa-gamepad"></i>
+                            <span id="p3-cta-3">Thuê Chơi Game Chung</span>
                         </a>
                     </div>
                 </div>
             </section>
 
-            <!-- MỤC I (TRANG 2): TÚI MÙ TÀI KHOẢN -->
+            <!-- I. TÚI MÙ TÀI KHOẢN (Nằm ngay đầu Trang 3 để thấy liền!) -->
             <section id="tui-mu-section" class="scroll-mt-24 space-y-8">
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
                     <div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-purple-400 mb-1">Gacha Mystery Box</div>
+                        <div id="tm-tag" class="text-xs font-bold uppercase tracking-widest text-purple-400 mb-1">Mục I • Gacha Mystery Box</div>
                         <h2 class="font-gaming text-2xl sm:text-3xl font-bold text-amber-400 flex items-center gap-3">
                             <span class="w-8 h-8 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 flex items-center justify-center text-base">I</span>
-                            TÚI MÙ TÀI KHOẢN
+                            <span id="tm-title">TÚI MÙ TÀI KHOẢN</span>
                         </h2>
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-400">
-                        Nhấn chọn mệnh giá túi mù muốn mua để thêm vào đơn
+                    <p id="tm-hint" class="text-xs sm:text-sm text-slate-400">
+                        Nhấn chọn mệnh giá túi mù muốn mua để thêm vào giỏ hàng
                     </p>
                 </div>
 
@@ -279,26 +639,22 @@
                                 <i class="fa-solid fa-fire"></i>
                             </div>
                             <div>
-                                <h3 class="font-gaming text-xl sm:text-2xl font-extrabold text-white">
+                                <h3 id="tm-bf-title" class="font-gaming text-xl sm:text-2xl font-extrabold text-white">
                                     1. Túi mù Blox Fruit
                                 </h3>
-                                <p class="text-xs sm:text-sm text-slate-400">Ngẫu nhiên tài khoản Blox Fruits theo các mốc giá</p>
+                                <p id="tm-bf-sub" class="text-xs sm:text-sm text-slate-400">Ngẫu nhiên tài khoản Blox Fruits theo các mốc giá</p>
                             </div>
                         </div>
 
-                        <!-- Hộp cảnh báo nổi bật: KHÔNG CÓ TRÁI VĨNH VIỄN -->
                         <div class="px-4 py-2.5 rounded-xl bg-rose-500/15 border border-rose-500/50 flex items-center gap-2.5 text-rose-300">
                             <i class="fa-solid fa-triangle-exclamation text-rose-400 text-base shrink-0"></i>
-                            <span class="text-xs sm:text-sm font-extrabold tracking-wide uppercase">
+                            <span id="tm-bf-warn" class="text-xs sm:text-sm font-extrabold tracking-wide uppercase">
                                 LƯU Ý: KHÔNG CÓ TRÁI VĨNH VIỄN
                             </span>
                         </div>
                     </div>
 
-                    <!-- 3 mức giá Túi mù Blox Fruit -->
-                    <div id="blindbox-bf-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <!-- Render bằng JS -->
-                    </div>
+                    <div id="blindbox-bf-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
                 </div>
 
                 <!-- 2. Túi mù Steal an Egg -->
@@ -309,41 +665,37 @@
                                 <i class="fa-solid fa-egg"></i>
                             </div>
                             <div>
-                                <h3 class="font-gaming text-xl sm:text-2xl font-extrabold text-white">
+                                <h3 id="tm-egg-title" class="font-gaming text-xl sm:text-2xl font-extrabold text-white">
                                     2. Túi mù Steal an Egg
                                 </h3>
-                                <p class="text-xs sm:text-sm text-slate-400">Ngẫu nhiên tài khoản Steal an Egg theo các mốc giá</p>
+                                <p id="tm-egg-sub" class="text-xs sm:text-sm text-slate-400">Ngẫu nhiên tài khoản Steal an Egg theo các mốc giá</p>
                             </div>
                         </div>
 
-                        <!-- Hộp cảnh báo nổi bật: KHÔNG CÓ NẠP BẤT KỲ ROBUX NÀO -->
                         <div class="px-4 py-2.5 rounded-xl bg-rose-500/15 border border-rose-500/50 flex items-center gap-2.5 text-rose-300">
                             <i class="fa-solid fa-ban text-rose-400 text-base shrink-0"></i>
-                            <span class="text-xs sm:text-sm font-extrabold tracking-wide uppercase">
+                            <span id="tm-egg-warn" class="text-xs sm:text-sm font-extrabold tracking-wide uppercase">
                                 LƯU Ý: KHÔNG CÓ NẠP BẤT KỲ ROBUX NÀO
                             </span>
                         </div>
                     </div>
 
-                    <!-- 3 mức giá Túi mù Steal an Egg -->
-                    <div id="blindbox-egg-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <!-- Render bằng JS -->
-                    </div>
+                    <div id="blindbox-egg-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
                 </div>
             </section>
 
-            <!-- MỤC II (TRANG 2): TREO VPN ĐỂ VNG QUA QUỐC TẾ -->
+            <!-- II. TREO VPN ĐỂ VNG QUA QUỐC TẾ -->
             <section id="treo-vpn-section" class="scroll-mt-24 space-y-6">
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800 pb-4">
                     <div>
-                        <div class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Hỗ Trợ Chuyển Vùng Tài Khoản</div>
+                        <div id="vpn-tag" class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-1">Mục II • Chuyển Vùng Tài Khoản</div>
                         <h2 class="font-gaming text-2xl sm:text-3xl font-bold text-amber-400 flex items-center gap-3">
                             <span class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-base">II</span>
-                            TREO VPN ĐỂ VNG QUA QUỐC TẾ
+                            <span id="vpn-title">TREO VPN ĐỂ VNG QUA QUỐC TẾ</span>
                         </h2>
                     </div>
-                    <span class="text-xs font-semibold text-amber-300 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-500/30">
-                        Giá tăng +20K mỗi 7 ngày
+                    <span id="vpn-note-pill" class="text-xs font-semibold text-amber-300 bg-amber-500/15 px-3 py-1 rounded-full border border-amber-500/30">
+                        Giá tăng +20.000 VNĐ mỗi 7 ngày
                     </span>
                 </div>
 
@@ -353,36 +705,36 @@
                         <i class="fa-solid fa-triangle-exclamation"></i>
                     </div>
                     <div>
-                        <p class="font-gaming text-sm sm:text-base font-extrabold text-amber-300 uppercase tracking-wide">
-                            LƯU Ý: TỶ LỆ THÀNH CÔNG THẤP (~14% - 20%)
+                        <p id="vpn-warn-title" class="font-gaming text-sm sm:text-base font-extrabold text-amber-300 uppercase tracking-wide">
+                            LƯU Ý: TỶ LỆ THÀNH CÔNG THẤP (~14% - 20%~)
                         </p>
-                        <p class="text-xs sm:text-sm text-slate-300 mt-0.5">
+                        <p id="vpn-warn-sub" class="text-xs sm:text-sm text-slate-300 mt-0.5">
                             Quý khách vui lòng cân nhắc kỹ tỷ lệ chuyển vùng thành công trước khi đăng ký dịch vụ treo VPN.
                         </p>
                     </div>
                 </div>
 
-                <!-- Các gói cố định + Bộ chọn số tuần tùy chỉnh -->
+                <!-- Các gói VPN cố định + Bộ chọn số tuần tùy chỉnh -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <!-- Gói 1: Treo 7 ngày -->
                     <div id="vpn-card-1w" onclick="toggleService('vpn_7d')"
                         class="cursor-pointer rounded-2xl p-5 bg-[#0B152C] border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between gap-4">
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 text-xs font-bold">Gói Cơ Bản</span>
+                                <span id="vpn-1w-badge" class="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 text-xs font-bold">Gói Cơ Bản</span>
                                 <i class="fa-solid fa-shield-halved text-cyan-400 text-lg"></i>
                             </div>
-                            <h3 class="font-gaming text-xl font-bold text-white pt-1">Treo 7 ngày (1 tuần)</h3>
-                            <p class="text-xs text-slate-400">Duy trì treo VPN liên tục trong 7 ngày.</p>
+                            <h3 id="vpn-1w-title" class="font-gaming text-xl font-bold text-white pt-1">Treo 7 ngày (1 tuần)</h3>
+                            <p id="vpn-1w-desc" class="text-xs text-slate-400">Duy trì treo VPN liên tục trong 7 ngày.</p>
                         </div>
 
                         <div class="pt-3.5 border-t border-slate-800 flex items-center justify-between">
                             <div>
-                                <span class="text-[11px] text-slate-400 block">Chi phí</span>
-                                <span class="font-gaming text-2xl font-extrabold text-amber-400">20K</span>
+                                <span id="vpn-1w-cost-lbl" class="text-[11px] text-slate-400 block">Chi phí</span>
+                                <span class="font-gaming text-2xl font-extrabold text-amber-400">20.000 VNĐ</span>
                             </div>
                             <span id="vpn-btn-1w" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-800 text-cyan-300 flex items-center gap-1.5">
-                                <i class="fa-solid fa-plus"></i> Chọn gói
+                                <i class="fa-solid fa-plus"></i> Thêm vào giỏ
                             </span>
                         </div>
                     </div>
@@ -392,20 +744,20 @@
                         class="cursor-pointer rounded-2xl p-5 bg-[#0B152C] border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between gap-4">
                         <div class="space-y-2">
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-300 text-xs font-bold">Gói Phổ Biến</span>
+                                <span id="vpn-2w-badge" class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-300 text-xs font-bold">Gói Phổ Biến</span>
                                 <i class="fa-solid fa-globe text-amber-400 text-lg"></i>
                             </div>
-                            <h3 class="font-gaming text-xl font-bold text-white pt-1">Treo 2 tuần (14 ngày)</h3>
-                            <p class="text-xs text-slate-400">Duy trì treo VPN liên tục trong 14 ngày.</p>
+                            <h3 id="vpn-2w-title" class="font-gaming text-xl font-bold text-white pt-1">Treo 2 tuần (14 ngày)</h3>
+                            <p id="vpn-2w-desc" class="text-xs text-slate-400">Duy trì treo VPN liên tục trong 14 ngày.</p>
                         </div>
 
                         <div class="pt-3.5 border-t border-slate-800 flex items-center justify-between">
                             <div>
-                                <span class="text-[11px] text-slate-400 block">Chi phí</span>
-                                <span class="font-gaming text-2xl font-extrabold text-amber-400">40K</span>
+                                <span id="vpn-2w-cost-lbl" class="text-[11px] text-slate-400 block">Chi phí</span>
+                                <span class="font-gaming text-2xl font-extrabold text-amber-400">40.000 VNĐ</span>
                             </div>
                             <span id="vpn-btn-2w" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-800 text-cyan-300 flex items-center gap-1.5">
-                                <i class="fa-solid fa-plus"></i> Chọn gói
+                                <i class="fa-solid fa-plus"></i> Thêm vào giỏ
                             </span>
                         </div>
                     </div>
@@ -415,21 +767,20 @@
                         class="rounded-2xl p-5 bg-gradient-to-br from-[#0F1E3D] to-[#0B152C] border border-cyan-500/40 flex flex-col justify-between gap-4">
                         <div class="space-y-2.5">
                             <div class="flex items-center justify-between">
-                                <span class="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 text-xs font-bold">Tùy Chọn Dài Ngày</span>
-                                <span class="text-xs text-slate-400">+20K / 7 ngày</span>
+                                <span id="vpn-c-badge" class="px-2.5 py-1 rounded-lg bg-purple-500/20 text-purple-300 text-xs font-bold">Tùy Chọn Dài Ngày</span>
+                                <span id="vpn-c-rate" class="text-xs text-slate-400">+20K / 7 ngày</span>
                             </div>
-                            <h3 class="font-gaming text-lg font-bold text-white">Chọn số tuần treo thêm</h3>
+                            <h3 id="vpn-c-title" class="font-gaming text-lg font-bold text-white">Chọn số tuần treo thêm</h3>
                             
-                            <!-- Bộ tăng giảm số tuần -->
                             <div class="flex items-center justify-between bg-[#060B19] p-2 rounded-xl border border-slate-700">
-                                <button type="button" onclick="changeCustomVpnWeeks(-1)"
+                                <button type="button" onclick="changeStepper('vpn', -1)"
                                     class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center active:scale-90">
                                     <i class="fa-solid fa-minus"></i>
                                 </button>
                                 <div class="text-center">
                                     <span id="custom-vpn-weeks-label" class="font-gaming font-bold text-base text-cyan-300">3 tuần (21 ngày)</span>
                                 </div>
-                                <button type="button" onclick="changeCustomVpnWeeks(1)"
+                                <button type="button" onclick="changeStepper('vpn', 1)"
                                     class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center active:scale-90">
                                     <i class="fa-solid fa-plus"></i>
                                 </button>
@@ -438,92 +789,135 @@
 
                         <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
                             <div>
-                                <span class="text-[11px] text-slate-400 block">Thành tiền</span>
-                                <span id="custom-vpn-price-label" class="font-gaming text-2xl font-extrabold text-amber-400">60K</span>
+                                <span id="vpn-c-total-lbl" class="text-[11px] text-slate-400 block">Thành tiền</span>
+                                <span id="custom-vpn-price-label" class="font-gaming text-2xl font-extrabold text-amber-400">60.000 VNĐ</span>
                             </div>
                             <button type="button" id="vpn-btn-custom" onclick="toggleService('vpn_custom')"
                                 class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center gap-1.5 transition-all active:scale-95">
                                 <i class="fa-solid fa-plus"></i>
-                                <span>Chọn gói</span>
+                                <span>Thêm vào giỏ</span>
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
+
+            <!-- III. 🎮 DỊCH VỤ THUÊ CHƠI GAME CHUNG -->
+            <section id="sec-choi-chung" class="scroll-mt-24 rounded-3xl bg-[#0B152C] border border-emerald-500/35 p-5 sm:p-8 space-y-6 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-600 text-slate-950 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/25 shrink-0">
+                            🎮
+                        </div>
+                        <div>
+                            <span id="coop-tag" class="text-xs font-bold uppercase tracking-widest text-emerald-400">Mục III • Co-op Gaming</span>
+                            <h2 id="coop-title" class="font-gaming text-2xl sm:text-3xl font-extrabold text-white">
+                                DỊCH VỤ THUÊ CHƠI GAME CHUNG
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1. Bảng giá -->
+                <div class="space-y-4">
+                    <h3 class="font-gaming text-lg sm:text-xl font-bold text-amber-400 flex items-center gap-2.5">
+                        <span class="w-7 h-7 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 flex items-center justify-center text-xs">1</span>
+                        <span id="coop-s1-title">Bảng giá thuê chơi game chung</span>
+                    </h3>
+
+                    <div id="coop-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5"></div>
+                </div>
+
+                <!-- 2. Quy định dịch vụ (khung nổi bật) -->
+                <div class="rounded-2xl bg-[#060B19]/90 border-2 border-cyan-500/40 p-5 sm:p-6 space-y-3">
+                    <h3 class="font-gaming text-base sm:text-lg font-extrabold text-cyan-300 flex items-center gap-2 uppercase tracking-wide">
+                        <span class="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center text-xs">2</span>
+                        <span id="coop-s2-title">Quy định dịch vụ</span>
+                    </h3>
+                    <ul id="coop-rules-list" class="space-y-2.5 text-xs sm:text-sm text-slate-200">
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-clock text-emerald-400 mt-1 shrink-0"></i>
+                            <span>Thời gian thuê được tính <strong>liên tục</strong> kể từ khi bắt đầu chơi.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-ban text-rose-400 mt-1 shrink-0"></i>
+                            <span>Shop <strong>không nhận</strong> yêu cầu chơi liên tục quá <strong>3 giờ</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-shield-halved text-amber-400 mt-1 shrink-0"></i>
+                            <span>Thời gian chơi cần tuân thủ quy định của nền tảng và các quy định pháp luật hiện hành.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </div>
 
         <!-- ========================================================= -->
-        <!-- PHẦN CHUNG CHO CẢ 2 TRANG: GIỎ HÀNG, THANH TOÁN & LIÊN HỆ -->
+        <!-- BẢNG TẠO ĐƠN & TÍNH TIỀN NHANH (ĐỒNG BỘ CẢ 3 TRANG)       -->
         <!-- ========================================================= -->
-
-        <!-- BẢNG TẠO ĐƠN & TÍNH TIỀN NHANH (Đồng bộ cả 2 trang) -->
         <section id="tao-don-hang" class="scroll-mt-24 rounded-3xl bg-gradient-to-br from-[#0F1B38] to-[#091124] border-2 border-cyan-500/40 p-5 sm:p-8 shadow-2xl shadow-cyan-950/60">
             <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Cột trái: Danh sách gói đã chọn & Phương thức thanh toán -->
+                <!-- Cột trái: Danh sách gói đã chọn & Hình thức thanh toán -->
                 <div class="flex-1 space-y-6">
                     <div>
-                        <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 text-xs font-bold mb-2">
-                            <i class="fa-solid fa-calculator mr-1"></i> CÔNG CỤ ĐẶT ĐƠN ĐỒNG BỘ 2 TRANG
+                        <span id="cart-badge" class="inline-block px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 text-xs font-bold mb-2">
+                            <i class="fa-solid fa-calculator mr-1"></i> GIỎ HÀNG & TẠO ĐƠN ĐỒNG BỘ
                         </span>
-                        <h3 class="font-gaming text-xl sm:text-2xl font-bold text-white">
-                            TÓM TẮT ĐƠN HÀNG CỦA BẠN
+                        <h3 id="cart-title" class="font-gaming text-xl sm:text-2xl font-bold text-white">
+                            TÓM TẮT GIỎ HÀNG CỦA BẠN
                         </h3>
-                        <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                            Bạn có thể chọn cùng lúc dịch vụ ở <strong>Trang 1 (Cày thuê)</strong> và <strong>Trang 2 (Túi mù / Treo VPN)</strong>, hệ thống sẽ tự cộng tổng tiền.
+                        <p id="cart-desc" class="text-xs sm:text-sm text-slate-400 mt-1">
+                            Kiểm tra lại các dịch vụ đã chọn và tổng tiền trước khi tạo đơn hàng gửi qua TikTok.
                         </p>
                     </div>
 
                     <!-- Danh sách item đã chọn -->
                     <div class="bg-[#060B19]/80 rounded-2xl border border-slate-800 p-4 space-y-3">
                         <div class="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                            <span>Dịch vụ đã chọn (<span id="selected-count">0</span>)</span>
+                            <span><span id="cart-selected-lbl">Dịch vụ đã chọn</span> (<span id="selected-count">0</span>)</span>
                             <button type="button" onclick="clearAllSelections()" class="text-rose-400 hover:text-rose-300 transition-colors">
-                                <i class="fa-solid fa-trash-can mr-1"></i>Xóa hết
+                                <i class="fa-solid fa-trash-can mr-1"></i><span id="cart-clear-lbl">Xóa hết</span>
                             </button>
                         </div>
 
-                        <div id="selected-items-list" class="space-y-2 max-h-56 overflow-y-auto pr-1">
-                            <p class="text-sm text-slate-500 italic py-3 text-center">
-                                Chưa có dịch vụ nào được chọn. Hãy nhấn vào các gói bên trên nhé!
-                            </p>
-                        </div>
+                        <div id="selected-items-list" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
 
                         <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
-                            <span class="text-sm sm:text-base font-semibold text-slate-300">Tổng tạm tính:</span>
+                            <span id="cart-total-lbl" class="text-sm sm:text-base font-semibold text-slate-300">Tổng tạm tính:</span>
                             <div class="text-right">
-                                <span id="total-price" class="font-gaming text-2xl sm:text-3xl font-extrabold text-amber-400">0K</span>
+                                <span id="total-price" class="font-gaming text-2xl sm:text-3xl font-extrabold text-amber-400">0 VNĐ</span>
                                 <span id="custom-price-note" class="hidden block text-xs text-cyan-400">+ Dịch vụ báo giá riêng</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Chọn phương thức thanh toán cho đơn -->
+                    <!-- Chọn hình thức thanh toán -->
                     <div class="space-y-2.5">
-                        <label class="block text-sm font-semibold text-slate-200">
+                        <label id="pay-select-lbl" class="block text-sm font-semibold text-slate-200">
                             Chọn hình thức thanh toán của bạn:
                         </label>
                         <div class="grid grid-cols-3 gap-2.5" id="payment-selector">
                             <button type="button" onclick="selectPayment('Thẻ cào Viettel')" data-pay="Thẻ cào Viettel"
                                 class="pay-btn active-pay p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-amber-500/20 border-amber-400 text-amber-300">
                                 <i class="fa-solid fa-sim-card text-lg"></i>
-                                <span>Thẻ Viettel</span>
+                                <span id="pay-opt-1">Thẻ Viettel</span>
                             </button>
                             <button type="button" onclick="selectPayment('Thẻ Zing')" data-pay="Thẻ Zing"
                                 class="pay-btn p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-slate-900/80 border-slate-700 text-slate-300 hover:border-cyan-500/50">
                                 <i class="fa-solid fa-credit-card text-lg"></i>
-                                <span>Thẻ Zing</span>
+                                <span id="pay-opt-2">Thẻ Zing</span>
                             </button>
                             <button type="button" onclick="selectPayment('Xu TikTok')" data-pay="Xu TikTok"
                                 class="pay-btn p-3 rounded-xl border text-xs sm:text-sm font-bold flex flex-col items-center justify-center gap-1.5 transition-all bg-slate-900/80 border-slate-700 text-slate-300 hover:border-cyan-500/50">
                                 <i class="fa-brands fa-tiktok text-lg"></i>
-                                <span>Xu TikTok</span>
+                                <span id="pay-opt-3">Xu TikTok</span>
                             </button>
                         </div>
 
                         <!-- Ghi chú nổi bật về Xu TikTok -->
                         <div id="xu-tiktok-note-box" class="p-3 rounded-xl bg-amber-500/10 border border-amber-400/40 flex items-center gap-2.5 text-amber-300 text-xs sm:text-sm">
                             <i class="fa-brands fa-tiktok text-base text-rose-400 shrink-0"></i>
-                            <span class="font-semibold">Xu TikTok: Giá không cố định (nhắn riêng với shop để hỗ trợ)</span>
+                            <span id="xu-tiktok-note-text" class="font-semibold">Xu TikTok: Giá không cố định (nhắn riêng với shop để hỗ trợ)</span>
                         </div>
                     </div>
                 </div>
@@ -532,12 +926,12 @@
                 <div class="flex-1 flex flex-col justify-between bg-[#060B19]/90 rounded-2xl border border-slate-800 p-4 sm:p-5 space-y-4">
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
-                                <i class="fa-solid fa-message mr-1"></i> Nội dung tin nhắn gửi Shop
+                            <span id="msg-box-title" class="text-xs font-bold uppercase tracking-wider text-amber-400">
+                                <i class="fa-solid fa-message mr-1"></i> Nội dung đơn hàng gửi Shop
                             </span>
-                            <span class="text-[11px] text-slate-400">Tự động cập nhật</span>
+                            <span id="msg-auto-lbl" class="text-[11px] text-slate-400">Tự động cập nhật</span>
                         </div>
-                        <textarea id="order-message-preview" readonly rows="8"
+                        <textarea id="order-message-preview" readonly rows="9"
                             class="w-full rounded-xl bg-[#0B152C] border border-slate-700/80 p-3.5 text-xs sm:text-sm text-slate-200 font-mono leading-relaxed focus:outline-none resize-none"></textarea>
                     </div>
 
@@ -545,13 +939,13 @@
                         <button type="button" onclick="copyOrderAndOpenTikTok()"
                             class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-rose-500 via-amber-500 to-yellow-500 hover:from-rose-400 hover:to-yellow-400 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg shadow-rose-500/25 flex items-center justify-center gap-2 transition-all active:scale-95">
                             <i class="fa-solid fa-copy"></i>
-                            Sao chép đơn hàng & Mở TikTok
+                            <span id="btn-create-copy">Tạo đơn hàng & Sao chép nội dung</span>
                         </button>
 
                         <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
                             class="w-full py-3 px-5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/50 text-cyan-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all">
                             <i class="fa-brands fa-tiktok"></i>
-                            Truy cập trực tiếp TikTok @levutientruong
+                            <span id="btn-open-tiktok">Mở TikTok nhắn tin cho @levutientruong</span>
                             <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
                         </a>
                     </div>
@@ -567,26 +961,26 @@
             <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-400 text-xl mb-1">
                 <i class="fa-solid fa-crown"></i>
             </div>
-            <p class="font-gaming text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-rose-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
-                CẢM ƠN QUÝ KHÁCH ĐÃ TIN TƯỞNG VÀ ỦNG HỘ redKAI Rshop!
+            <p id="footer-thanks" class="font-gaming text-lg sm:text-2xl font-extrabold bg-gradient-to-r from-rose-400 via-amber-300 to-amber-500 bg-clip-text text-transparent">
+                Cảm ơn khách hàng đã tin tưởng và sử dụng dịch vụ của redKAI Rshop!
             </p>
-            <p class="text-cyan-300 font-medium text-sm sm:text-base">
+            <p id="footer-wish" class="text-cyan-300 font-medium text-sm sm:text-base">
                 Chúc quý khách có những trải nghiệm vui vẻ!
             </p>
             <div class="pt-2 flex flex-wrap items-center justify-center gap-2.5">
                 <a href="https://www.tiktok.com/@levutientruong" target="_blank" rel="noopener noreferrer"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 text-xs sm:text-sm font-bold transition-all">
                     <i class="fa-brands fa-tiktok"></i>
-                    <span>TikTok Chủ Shop: @levutientruong</span>
+                    <span>TikTok: @levutientruong</span>
                 </a>
                 <button type="button" onclick="copyTikTokId()"
                     class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs sm:text-sm font-semibold transition-all active:scale-95">
                     <i class="fa-regular fa-copy"></i>
-                    <span>Sao chép ID</span>
+                    <span id="footer-copy-id">Sao chép ID</span>
                 </button>
             </div>
             <div class="pt-2 text-xs text-slate-500">
-                &copy; 2026 redKAI Rshop • TikTok: @levutientruong
+                &copy; 2026 redKAI Rshop • VIE & ENG Only
             </div>
         </div>
     </footer>
@@ -595,11 +989,11 @@
     <div id="mobile-floating-bar" class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-[#0B152C]/95 backdrop-blur-lg border-t border-amber-500/40 px-4 py-3 transform translate-y-full transition-transform duration-300 shadow-2xl">
         <div class="flex items-center justify-between gap-3">
             <div>
-                <span class="block text-[11px] text-slate-400">Đã chọn <strong id="mobile-count" class="text-white">0</strong> gói</span>
-                <span id="mobile-total" class="font-gaming text-xl font-extrabold text-amber-400">0K</span>
+                <span class="block text-[11px] text-slate-400"><span id="mob-selected-lbl">Đã chọn</span> <strong id="mobile-count" class="text-white">0</strong> <span id="mob-pkg-lbl">gói</span></span>
+                <span id="mobile-total" class="font-gaming text-lg font-extrabold text-amber-400">0 VNĐ</span>
             </div>
             <a href="#tao-don-hang" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-600 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-amber-500/25 flex items-center gap-1.5">
-                <span>Xem Đơn & Copy</span>
+                <span id="mob-view-btn">Xem Giỏ & Tạo Đơn</span>
                 <i class="fa-solid fa-arrow-up"></i>
             </a>
         </div>
@@ -613,78 +1007,676 @@
         <p id="toast-message" class="text-xs sm:text-sm font-medium leading-snug"></p>
     </div>
 
-    <!-- JavaScript Xử Lý Chuyển Trang & Đơn Hàng -->
+    <!-- ========================================================= -->
+    <!-- JAVASCRIPT: ONBOARDING + SONG NGỮ VIE/ENG + GIỎ HÀNG      -->
+    <!-- ========================================================= -->
     <script>
-        // ==========================================
-        // DỮ LIỆU TRANG 1: DỊCH VỤ CÀY THUÊ
-        // ==========================================
-        const fixedServices = [
-            { id: 'lv1', name: 'Cày LV 1–1500', price: 20, priceText: '20K', icon: 'fa-angles-up', desc: 'Cày cấp nhanh từ Sea 1 lên Sea 2', page: 'Cày thuê' },
-            { id: 'lv2', name: 'Cày LV 1500–3000', price: 20, priceText: '20K', icon: 'fa-fire-flame-curved', desc: 'Cày cấp tốc độ cao từ Sea 2 lên Sea 3', page: 'Cày thuê' },
-            { id: 'beli', name: '10M Beli', price: 20, priceText: '20K', icon: 'fa-coins', desc: 'Cày đủ 10.000.000 Beli an toàn', page: 'Cày thuê' },
-            { id: 'frag', name: '10K F (Fragment)', price: 20, priceText: '20K', icon: 'fa-gem', desc: 'Cày 10.000 điểm tím (Fragment)', page: 'Cày thuê' },
-            { id: 'race13', name: 'Mọi tộc V1–V3', price: 20, priceText: '20K', icon: 'fa-dna', desc: 'Hỗ trợ thức tỉnh tất cả các tộc lên V3', page: 'Cày thuê' },
-            { id: 'race34', name: 'Mọi tộc V3–V4', price: 20, priceText: '20K', icon: 'fa-crown', desc: 'Hỗ trợ gạt cần & thức tỉnh tộc V4', page: 'Cày thuê' }
-        ];
-
-        const customServices = [
-            { id: 'melee', name: 'Cày võ', icon: 'fa-hand-fist', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).', highlight: false },
-            { id: 'sword', name: 'Cày kiếm', icon: 'fa-khanda', desc: 'Giá tùy loại (nhắn riêng để shop hỗ trợ).', highlight: true },
-            { id: 'awaken', name: 'Thức tỉnh trái', icon: 'fa-apple-whole', desc: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).', highlight: false },
-            { id: 'mastery', name: 'Cày điểm thông thạo trái', icon: 'fa-star', desc: 'Tùy loại trái, mức giá khác nhau (nhắn tin riêng để shop hỗ trợ).', highlight: false }
-        ];
-
-        // ==========================================
-        // DỮ LIỆU TRANG 2: TÚI MÙ & TREO VPN
-        // ==========================================
-        const blindBoxBloxFruit = [
-            { id: 'bf_box_20', name: 'Túi mù Blox Fruit (20K)', tier: 'Gói Khởi Đầu', price: 20, priceText: '20K', badge: 'Phổ thông' },
-            { id: 'bf_box_50', name: 'Túi mù Blox Fruit (50K)', tier: 'Gói Tầm Trung', price: 50, priceText: '50K', badge: 'Hot' },
-            { id: 'bf_box_70', name: 'Túi mù Blox Fruit (70K)', tier: 'Gói VIP', price: 70, priceText: '70K', badge: 'Tỷ lệ cao' }
-        ];
-
-        const blindBoxStealEgg = [
-            { id: 'egg_box_20', name: 'Túi mù Steal an Egg (20K)', tier: 'Gói Khởi Đầu', price: 20, priceText: '20K', badge: 'Phổ thông' },
-            { id: 'egg_box_50', name: 'Túi mù Steal an Egg (50K)', tier: 'Gói Tầm Trung', price: 50, priceText: '50K', badge: 'Hot' },
-            { id: 'egg_box_70', name: 'Túi mù Steal an Egg (70K)', tier: 'Gói VIP', price: 70, priceText: '70K', badge: 'Tỷ lệ cao' }
-        ];
-
-        // Trạng thái ứng dụng
+        let currentLang = 'vi'; // 'vi' (VIE) hoặc 'en' (ENG)
+        let isRobotVerified = false;
+        let isRobotVerifying = false;
         let currentPage = 'page1';
         let selectedIds = new Set();
         let selectedPayment = 'Thẻ cào Viettel';
-        let customVpnWeeks = 3; // Mặc định 3 tuần = 60K (tăng +20K mỗi 7 ngày)
         let toastTimeout = null;
 
+        const steppers = {
+            days: 4,   // 400 Days = 80.000 VNĐ
+            win: 4,    // 200 Win = 80.000 VNĐ
+            cash: 4,   // 40.000 Cash = 80.000 VNĐ
+            vpn: 3     // 3 tuần = 60.000 VNĐ
+        };
+
+        function formatVND(amount) {
+            return amount.toLocaleString('vi-VN') + ' VNĐ';
+        }
+
         // ==========================================
-        // CHUYỂN ĐỔI 2 TRANG (SPA TAB SWITCHER)
+        // TỪ ĐIỂN DỊCH CHUẨN XÁC VIE & ENG
+        // ==========================================
+        const i18n = {
+            vi: {
+                // Onboarding Step 3A & 3B
+                askGuideTitle: 'Bạn cần hướng dẫn không?',
+                askGuideSub: 'Nếu bạn lần đầu đặt dịch vụ tại redKAI Rshop, hãy chọn "Có" để xem hướng dẫn 5 bước cực nhanh nhé!',
+                askGuideYes: 'Có, xem hướng dẫn',
+                askGuideNo: 'Không, vào thẳng shop',
+                guideBadge: 'Quy trình 5 bước đơn giản',
+                guideHeading: 'HƯỚNG DẪN ĐẶT ĐƠN – redKAI Rshop',
+                guideFooterNote: 'Bạn có thể mở lại hướng dẫn này bất cứ lúc nào trên thanh menu.',
+                guideEnterBtn: 'Vào trang chính Shop ngay',
+                guideSteps: [
+                    { step: 'Bước 1: Chọn danh mục dịch vụ', desc: 'Chọn danh mục mà bạn muốn sử dụng.' },
+                    { step: 'Bước 2: Chọn dịch vụ', desc: 'Xem thông tin và giá tiền của dịch vụ. Sau đó nhấn nút thêm vào giỏ hàng.' },
+                    { step: 'Bước 3: Kiểm tra giỏ hàng', desc: 'Kiểm tra lại các dịch vụ đã chọn và tổng tiền trước khi tạo đơn.' },
+                    { step: 'Bước 4: Tạo đơn hàng', desc: 'Nhấn nút tạo đơn hàng, sau đó sao chép nội dung đơn hàng.' },
+                    { step: 'Bước 5: Gửi đơn cho shop', desc: 'Mở TikTok, nhắn tin cho redKAI Rshop và gửi nội dung đơn hàng đã sao chép. Chờ shop xác nhận đơn.' }
+                ],
+
+                // Header & Tabs
+                hdrGuide: 'Hướng dẫn',
+                hdrCart: 'Đơn',
+                navTab1: 'Blox Fruits',
+                navTab2: '99 Nights & Evade',
+                navTab3: 'Túi mù, VPN & Chơi chung',
+
+                // Page 1
+                p1Badge: 'TRANG 1 • DỊCH VỤ BLOX FRUITS UY TÍN',
+                p1Subtitle: 'CÀY THUÊ – TÀI KHOẢN – DỊCH VỤ ROBLOX',
+                p1Desc: 'Chọn các gói cày thuê Blox Fruits bên dưới hoặc chuyển sang các danh mục khác. Tất cả đơn hàng được cộng dồn tự động!',
+                p1Cta1: 'Chọn Gói Cày Ngay',
+                p1Cta2: '99 Nights & Evade',
+                p1Cta3: 'Túi mù, VPN & Chơi chung',
+                bfS1Tag: 'Bảng Giá Niêm Yết • Đồng Giá 20K',
+                bfS1Title: 'DỊCH VỤ CÀY THUÊ',
+                bfS1Hint: 'Nhấn vào thẻ dịch vụ để thêm vào giỏ hàng',
+                bfS2Tag: 'Hỗ Trợ Theo Yêu Cầu',
+                bfS2Title: 'DỊCH VỤ NHIỀU GIÁ KHÁC NHAU',
+                bfS2Hint: 'Thêm vào giỏ hàng để shop báo giá chi tiết',
+                bfS3Title: 'TRÁI ÁC QUỶ RƯƠNG',
+                bfS3Badge: 'Tạm ngưng hỗ trợ',
+                bfS3Msg: 'Hiện tại kho chưa đủ hàng, shop chưa hỗ trợ dịch vụ này.',
+                bfS3Sub: '* Khi kho có hàng trở lại, shop sẽ cập nhật ngay trên kênh TikTok chính thức.',
+
+                // Page 2
+                p2Badge: 'TRANG 2 • DỊCH VỤ CÀY THUÊ CHUYÊN SÂU',
+                p2Subtitle: 'CÀY DAYS – KIM CƯƠNG – CHUỖI WIN – LEVEL – CASH',
+                p2Cta2: 'Dịch vụ Evade',
+                n99Area: 'Khu Vực A',
+                n99Title: 'DỊCH VỤ 99 NIGHTS IN THE FOREST',
+                n99S1Title: 'Cày ngày (Days)',
+                n99S1Note: 'Mỗi 100 Days cộng thêm 20.000 VNĐ',
+                n99S2Title: 'Cày kim cương (Diamonds)',
+                n99WarnTitle: 'LƯU Ý QUAN TRỌNG',
+                n99Warn1: 'Thời gian hoàn thành dịch vụ có thể khá lâu vì shop hiện chỉ có 1 người cày, đồng thời người cày còn phải đi học.',
+                n99Warn2: 'Mong khách hàng thông cảm và kiên nhẫn chờ đợi. Shop sẽ cố gắng hoàn thành đơn hàng trong khả năng sớm nhất!',
+                evArea: 'Khu Vực B',
+                evTitle: 'DỊCH VỤ EVADE',
+                evS1Title: 'Cày chuỗi Win',
+                evS1Note: 'Mỗi 50 chuỗi Win cộng thêm 20.000 VNĐ',
+                evS2Title: 'Cày cấp độ (Level)',
+                evS2Note: 'Đồng giá 20.000 VNĐ / mốc',
+                evS3Title: 'Cày tiền (Cash)',
+                evS3Note: 'Mỗi 10.000 Cash cộng thêm 20.000 VNĐ',
+                evWarnTitle: 'LƯU Ý',
+                evWarn1: 'Thời gian hoàn thành có thể thay đổi tùy theo tình trạng tài khoản và lượng đơn hàng. Mong khách hàng thông cảm và kiên nhẫn chờ đợi!',
+
+                // Page 3
+                p3Badge: 'TRANG 3 • TÀI KHOẢN, VPN & CHƠI GAME CHUNG',
+                p3Title: 'TÚI MÙ, VPN & CHƠI CHUNG',
+                p3Subtitle: 'TÚI MÙ BLOX FRUIT – STEAL AN EGG – TREO VPN – CHƠI GAME CHUNG',
+                p3Cta1: 'Túi Mù Tài Khoản',
+                p3Cta2: 'Treo VPN VNG -> Quốc tế',
+                p3Cta3: 'Thuê Chơi Game Chung',
+                tmTag: 'Mục I • Gacha Mystery Box',
+                tmTitle: 'TÚI MÙ TÀI KHOẢN',
+                tmHint: 'Nhấn chọn mệnh giá túi mù muốn mua để thêm vào giỏ hàng',
+                tmBfTitle: '1. Túi mù Blox Fruit',
+                tmBfSub: 'Ngẫu nhiên tài khoản Blox Fruits theo các mốc giá',
+                tmBfWarn: 'LƯU Ý: KHÔNG CÓ TRÁI VĨNH VIỄN',
+                tmEggTitle: '2. Túi mù Steal an Egg',
+                tmEggSub: 'Ngẫu nhiên tài khoản Steal an Egg theo các mốc giá',
+                tmEggWarn: 'LƯU Ý: KHÔNG CÓ NẠP BẤT KỲ ROBUX NÀO',
+                vpnTag: 'Mục II • Chuyển Vùng Tài Khoản',
+                vpnTitle: 'TREO VPN ĐỂ VNG QUA QUỐC TẾ',
+                vpnNotePill: 'Giá tăng +20.000 VNĐ mỗi 7 ngày',
+                vpnWarnTitle: 'LƯU Ý: TỶ LỆ THÀNH CÔNG THẤP (~14% - 20%~)',
+                vpnWarnSub: 'Quý khách vui lòng cân nhắc kỹ tỷ lệ chuyển vùng thành công trước khi đăng ký dịch vụ treo VPN.',
+                vpn1wBadge: 'Gói Cơ Bản',
+                vpn1wTitle: 'Treo 7 ngày (1 tuần)',
+                vpn1wDesc: 'Duy trì treo VPN liên tục trong 7 ngày.',
+                vpn2wBadge: 'Gói Phổ Biến',
+                vpn2wTitle: 'Treo 2 tuần (14 ngày)',
+                vpn2wDesc: 'Duy trì treo VPN liên tục trong 14 ngày.',
+                vpnCostLbl: 'Chi phí',
+                vpnCBadge: 'Tùy Chọn Dài Ngày',
+                vpnCRate: '+20K / 7 ngày',
+                vpnCTitle: 'Chọn số tuần treo thêm',
+                vpnCTotalLbl: 'Thành tiền',
+                coopTag: 'Mục III • Co-op Gaming',
+                coopTitle: 'DỊCH VỤ THUÊ CHƠI GAME CHUNG',
+                coopS1Title: 'Bảng giá thuê chơi game chung',
+                coopS2Title: 'Quy định dịch vụ',
+                coopRules: [
+                    'Thời gian thuê được tính <strong>liên tục</strong> kể từ khi bắt đầu chơi.',
+                    'Shop <strong>không nhận</strong> yêu cầu chơi liên tục quá <strong>3 giờ</strong>.',
+                    'Thời gian chơi cần tuân thủ quy định của nền tảng và các quy định pháp luật hiện hành.'
+                ],
+
+                // Common card buttons & labels
+                btnAddCart: 'Thêm vào giỏ hàng',
+                btnAddedCart: 'Đã thêm vào giỏ',
+                fixedPkgTag: 'Gói cố định',
+                customPkgTag: 'Tùy chỉnh',
+                servicePriceLbl: 'Giá dịch vụ',
+                totalItemLbl: 'Thành tiền',
+                customQuoteBadge: 'Nhắn riêng báo giá',
+                featuredBadge: 'Nổi bật',
+                blindboxPriceLbl: 'Giá túi mù',
+
+                // Cart & Order
+                cartBadge: 'GIỎ HÀNG & TẠO ĐƠN ĐỒNG BỘ',
+                cartTitle: 'TÓM TẮT GIỎ HÀNG CỦA BẠN',
+                cartDesc: 'Kiểm tra lại các dịch vụ đã chọn và tổng tiền trước khi tạo đơn hàng gửi qua TikTok.',
+                cartSelectedLbl: 'Dịch vụ đã chọn',
+                cartClearLbl: 'Xóa hết',
+                cartEmpty: 'Chưa có dịch vụ nào được chọn. Hãy nhấn "Thêm vào giỏ hàng" ở các gói bên trên nhé!',
+                cartTotalLbl: 'Tổng tạm tính:',
+                cartCustomNote: '+ Dịch vụ báo giá riêng',
+                paySelectLbl: 'Chọn hình thức thanh toán của bạn:',
+                payOpt1: 'Thẻ Viettel',
+                payOpt2: 'Thẻ Zing',
+                payOpt3: 'Xu TikTok',
+                xuTiktokNote: 'Xu TikTok: Giá không cố định (nhắn riêng với shop để hỗ trợ)',
+                msgBoxTitle: 'Nội dung đơn hàng gửi Shop',
+                msgAutoLbl: 'Tự động cập nhật',
+                btnCreateCopy: 'Tạo đơn hàng & Sao chép nội dung',
+                btnOpenTiktok: 'Mở TikTok nhắn tin cho @levutientruong',
+                footerThanks: 'Cảm ơn khách hàng đã tin tưởng và sử dụng dịch vụ của redKAI Rshop!',
+                footerWish: 'Chúc quý khách có những trải nghiệm vui vẻ!',
+                footerCopyId: 'Sao chép ID',
+                mobSelectedLbl: 'Đã chọn',
+                mobPkgLbl: 'gói',
+                mobViewBtn: 'Xem Giỏ & Tạo Đơn',
+                toastCleared: 'Đã xóa toàn bộ dịch vụ trong giỏ hàng.',
+                toastCopiedOrder: 'Đã tạo đơn & sao chép nội dung! Đang mở TikTok @levutientruong...',
+                toastCopiedId: 'Đã sao chép ID TikTok: @levutientruong',
+                toastLangSwitched: 'Đã chuyển ngôn ngữ sang Tiếng Việt (VIE).'
+            },
+            en: {
+                // Onboarding Step 3A & 3B
+                askGuideTitle: 'Do you need a guide?',
+                askGuideSub: 'If this is your first time ordering at redKAI Rshop, select "Yes" to view our quick 5-step ordering guide!',
+                askGuideYes: 'Yes, show guide',
+                askGuideNo: 'No, go to shop',
+                guideBadge: 'Simple 5-Step Process',
+                guideHeading: 'ORDER GUIDE – redKAI Rshop',
+                guideFooterNote: 'You can reopen this guide anytime from the top navigation bar.',
+                guideEnterBtn: 'Enter Main Shop Now',
+                guideSteps: [
+                    { step: 'Step 1: Choose service category', desc: 'Select the category you want to use.' },
+                    { step: 'Step 2: Select service', desc: 'Check service details and pricing, then click Add to Cart.' },
+                    { step: 'Step 3: Review cart', desc: 'Double-check your selected services and total amount before creating the order.' },
+                    { step: 'Step 4: Create order', desc: 'Click the Create Order button, then copy the generated order message.' },
+                    { step: 'Step 5: Send order to shop', desc: 'Open TikTok, message redKAI Rshop (@levutientruong) with the copied order, and wait for confirmation.' }
+                ],
+
+                // Header & Tabs
+                hdrGuide: 'Guide',
+                hdrCart: 'Cart',
+                navTab1: 'Blox Fruits',
+                navTab2: '99 Nights & Evade',
+                navTab3: 'Mystery Box, VPN & Co-op',
+
+                // Page 1
+                p1Badge: 'PAGE 1 • TRUSTED BLOX FRUITS BOOSTING',
+                p1Subtitle: 'BOOSTING – ACCOUNTS – ROBLOX SERVICES',
+                p1Desc: 'Select Blox Fruits boosting packages below or switch categories. All selected items automatically combine in your cart!',
+                p1Cta1: 'Browse Boosting',
+                p1Cta2: '99 Nights & Evade',
+                p1Cta3: 'Mystery Box, VPN & Co-op',
+                bfS1Tag: 'Fixed Price List • Flat 20K VND',
+                bfS1Title: 'BOOSTING SERVICES',
+                bfS1Hint: 'Click any service card to add to your cart',
+                bfS2Tag: 'Custom Quote Services',
+                bfS2Title: 'VARIABLE PRICE SERVICES',
+                bfS2Hint: 'Add to cart and DM shop for exact pricing',
+                bfS3Title: 'CHEST DEVIL FRUITS',
+                bfS3Badge: 'Temporarily Unavailable',
+                bfS3Msg: 'Currently out of stock; this service is temporarily unavailable.',
+                bfS3Sub: '* We will announce on our official TikTok once restocked.',
+
+                // Page 2
+                p2Badge: 'PAGE 2 • DEDICATED GAME BOOSTING',
+                p2Subtitle: 'DAYS – DIAMONDS – WIN STREAKS – LEVEL – CASH',
+                p2Cta2: 'Evade Services',
+                n99Area: 'Section A',
+                n99Title: '99 NIGHTS IN THE FOREST SERVICES',
+                n99S1Title: 'Days Grinding',
+                n99S1Note: '+20,000 VND per additional 100 Days',
+                n99S2Title: 'Diamonds Grinding',
+                n99WarnTitle: 'IMPORTANT NOTICE',
+                n99Warn1: 'Completion time may take a while since the shop currently has only 1 booster who also attends school.',
+                n99Warn2: 'Thank you for your patience and understanding. We will complete your order as fast as possible!',
+                evArea: 'Section B',
+                evTitle: 'EVADE SERVICES',
+                evS1Title: 'Win Streak Grinding',
+                evS1Note: '+20,000 VND per additional 50 Win Streaks',
+                evS2Title: 'Level Grinding',
+                evS2Note: 'Flat 20,000 VND per tier',
+                evS3Title: 'Cash Grinding',
+                evS3Note: '+20,000 VND per additional 10,000 Cash',
+                evWarnTitle: 'NOTICE',
+                evWarn1: 'Completion time may vary depending on account status and order queue. Thank you for your patience!',
+
+                // Page 3
+                p3Badge: 'PAGE 3 • ACCOUNTS, VPN & CO-OP PLAY',
+                p3Title: 'MYSTERY BOX, VPN & CO-OP',
+                p3Subtitle: 'BLOX FRUIT BOX – STEAL AN EGG – VPN – CO-OP PLAY',
+                p3Cta1: 'Mystery Boxes',
+                p3Cta2: 'VPN VNG -> Global',
+                p3Cta3: 'Co-op Play Rental',
+                tmTag: 'Section I • Gacha Mystery Box',
+                tmTitle: 'ACCOUNT MYSTERY BOXES',
+                tmHint: 'Select a mystery box tier to add it to your cart',
+                tmBfTitle: '1. Blox Fruit Mystery Box',
+                tmBfSub: 'Random Blox Fruits account by price tier',
+                tmBfWarn: 'NOTE: NO PERMANENT FRUITS INCLUDED',
+                tmEggTitle: '2. Steal an Egg Mystery Box',
+                tmEggSub: 'Random Steal an Egg account by price tier',
+                tmEggWarn: 'NOTE: NO ROBUX TOP-UP INCLUDED',
+                vpnTag: 'Section II • Account Region Transfer',
+                vpnTitle: 'VPN HOSTING (VNG TO GLOBAL)',
+                vpnNotePill: '+20,000 VND per additional 7 days',
+                vpnWarnTitle: 'NOTE: LOW SUCCESS RATE (~14% - 20%~)',
+                vpnWarnSub: 'Please consider the low region-transfer success rate carefully before ordering VPN hosting.',
+                vpn1wBadge: 'Basic Plan',
+                vpn1wTitle: '7 Days Hosting (1 Week)',
+                vpn1wDesc: 'Continuous VPN hosting for 7 days.',
+                vpn2wBadge: 'Popular Plan',
+                vpn2wTitle: '2 Weeks Hosting (14 Days)',
+                vpn2wDesc: 'Continuous VPN hosting for 14 days.',
+                vpnCostLbl: 'Price',
+                vpnCBadge: 'Custom Duration',
+                vpnCRate: '+20K / 7 days',
+                vpnCTitle: 'Select extra weeks',
+                vpnCTotalLbl: 'Subtotal',
+                coopTag: 'Section III • Co-op Gaming',
+                coopTitle: 'CO-OP PLAY RENTAL SERVICE',
+                coopS1Title: 'Co-op Play Pricing',
+                coopS2Title: 'Service Rules',
+                coopRules: [
+                    'Rental time is counted <strong>continuously</strong> from the moment gameplay starts.',
+                    'We do <strong>not</strong> accept continuous sessions exceeding <strong>3 hours</strong>.',
+                    'Gameplay must comply with platform rules and applicable laws.'
+                ],
+
+                // Common card buttons & labels
+                btnAddCart: 'Add to Cart',
+                btnAddedCart: 'Added to Cart',
+                fixedPkgTag: 'Fixed Package',
+                customPkgTag: 'Custom',
+                servicePriceLbl: 'Price',
+                totalItemLbl: 'Subtotal',
+                customQuoteBadge: 'DM for quote',
+                featuredBadge: 'Featured',
+                blindboxPriceLbl: 'Box Price',
+
+                // Cart & Order
+                cartBadge: 'SYNCED CART & ORDER GENERATOR',
+                cartTitle: 'YOUR CART SUMMARY',
+                cartDesc: 'Review your selected services and total amount before creating your order for TikTok.',
+                cartSelectedLbl: 'Selected items',
+                cartClearLbl: 'Clear all',
+                cartEmpty: 'Your cart is empty. Click "Add to Cart" on any service above!',
+                cartTotalLbl: 'Estimated Total:',
+                cartCustomNote: '+ Custom quoted services',
+                paySelectLbl: 'Choose your payment method:',
+                payOpt1: 'Viettel Card',
+                payOpt2: 'Zing Card',
+                payOpt3: 'TikTok Coins',
+                xuTiktokNote: 'TikTok Coins: Price is not fixed (DM shop for support)',
+                msgBoxTitle: 'Order Message for Shop',
+                msgAutoLbl: 'Auto-updated',
+                btnCreateCopy: 'Create Order & Copy Message',
+                btnOpenTiktok: 'Open TikTok to DM @levutientruong',
+                footerThanks: 'Thank you for trusting and supporting redKAI Rshop!',
+                footerWish: 'Wishing you an awesome gaming experience!',
+                footerCopyId: 'Copy ID',
+                mobSelectedLbl: 'Selected',
+                mobPkgLbl: 'items',
+                mobViewBtn: 'View Cart & Order',
+                toastCleared: 'All items removed from cart.',
+                toastCopiedOrder: 'Order created & copied! Opening TikTok @levutientruong...',
+                toastCopiedId: 'Copied TikTok ID: @levutientruong',
+                toastLangSwitched: 'Language switched to English (ENG).'
+            }
+        };
+
+        // ==========================================
+        // DỮ LIỆU DỊCH VỤ SONG NGỮ (VIE / ENG)
+        // ==========================================
+        const bfFixedServices = [
+            { id: 'bf_lv1', name_vi: 'Cày LV 1–1500', name_en: 'Level Boost 1–1500', price: 20000, priceLabel: '20K', icon: 'fa-angles-up', desc_vi: 'Cày cấp nhanh từ Sea 1 lên Sea 2', desc_en: 'Fast level grinding from Sea 1 to Sea 2' },
+            { id: 'bf_lv2', name_vi: 'Cày LV 1500–3000', name_en: 'Level Boost 1500–3000', price: 20000, priceLabel: '20K', icon: 'fa-fire-flame-curved', desc_vi: 'Cày cấp tốc độ cao từ Sea 2 lên Sea 3', desc_en: 'High-speed leveling from Sea 2 to Sea 3' },
+            { id: 'bf_beli', name_vi: '10M Beli', name_en: '10M Beli Farm', price: 20000, priceLabel: '20K', icon: 'fa-coins', desc_vi: 'Cày đủ 10.000.000 Beli an toàn', desc_en: 'Safe 10,000,000 Beli farming' },
+            { id: 'bf_frag', name_vi: '10K F (Fragment)', name_en: '10K Fragments', price: 20000, priceLabel: '20K', icon: 'fa-gem', desc_vi: 'Cày 10.000 điểm tím (Fragment)', desc_en: 'Farm 10,000 purple Fragments' },
+            { id: 'bf_race13', name_vi: 'Mọi tộc V1–V3', name_en: 'All Races V1–V3', price: 20000, priceLabel: '20K', icon: 'fa-dna', desc_vi: 'Hỗ trợ thức tỉnh tất cả các tộc lên V3', desc_en: 'Awaken any race from V1 to V3' },
+            { id: 'bf_race34', name_vi: 'Mọi tộc V3–V4', name_en: 'All Races V3–V4', price: 20000, priceLabel: '20K', icon: 'fa-crown', desc_vi: 'Hỗ trợ gạt cần & thức tỉnh tộc V4', desc_en: 'Lever pull & Race V4 awakening' }
+        ];
+
+        const bfCustomServices = [
+            { id: 'bf_sword', name_vi: 'Cày kiếm', name_en: 'Sword Grinding', icon: 'fa-khanda', desc_vi: 'Giá tùy loại (nhắn riêng để shop hỗ trợ).', desc_en: 'Price varies by sword (DM shop for support).', highlight: true },
+            { id: 'bf_melee', name_vi: 'Cày võ', name_en: 'Fighting Style Grinding', icon: 'fa-hand-fist', desc_vi: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).', desc_en: 'Price varies by style (DM shop for support).', highlight: false },
+            { id: 'bf_awaken', name_vi: 'Thức tỉnh trái', name_en: 'Fruit Awakening', icon: 'fa-apple-whole', desc_vi: 'Giá tùy loại (nhắn tin riêng để shop hỗ trợ).', desc_en: 'Price varies by fruit (DM shop for support).', highlight: false },
+            { id: 'bf_mastery', name_vi: 'Cày điểm thông thạo trái', name_en: 'Fruit Mastery Grinding', icon: 'fa-star', desc_vi: 'Tùy loại trái, mức giá khác nhau (nhắn tin riêng để shop hỗ trợ).', desc_en: 'Different rates depending on fruit (DM shop for support).', highlight: false }
+        ];
+
+        const nightsDaysPackages = [
+            { id: '99n_days_100', name_vi: '99 Nights: 100 Days', name_en: '99 Nights: 100 Days', title_vi: '100 Days', title_en: '100 Days', price: 20000 },
+            { id: '99n_days_200', name_vi: '99 Nights: 200 Days', name_en: '99 Nights: 200 Days', title_vi: '200 Days', title_en: '200 Days', price: 40000 },
+            { id: '99n_days_300', name_vi: '99 Nights: 300 Days', name_en: '99 Nights: 300 Days', title_vi: '300 Days', title_en: '300 Days', price: 60000 }
+        ];
+
+        const nightsDiamondsPackages = [
+            { id: '99n_dia_50', name_vi: '99 Nights: 50 Kim cương', name_en: '99 Nights: 50 Diamonds', title_vi: '50 Kim cương', title_en: '50 Diamonds', price: 20000, badge_vi: null, badge_en: null },
+            { id: '99n_dia_100', name_vi: '99 Nights: 100 Kim cương', name_en: '99 Nights: 100 Diamonds', title_vi: '100 Kim cương', title_en: '100 Diamonds', price: 40000, badge_vi: null, badge_en: null },
+            { id: '99n_dia_150', name_vi: '99 Nights: 150 Kim cương', name_en: '99 Nights: 150 Diamonds', title_vi: '150 Kim cương', title_en: '150 Diamonds', price: 50000, badge_vi: 'SIÊU ƯU ĐÃI', badge_en: 'SUPER DEAL' }
+        ];
+
+        const evadeWinPackages = [
+            { id: 'evade_win_50', name_vi: 'Evade: 50 chuỗi Win', name_en: 'Evade: 50 Win Streaks', title_vi: '50 chuỗi Win', title_en: '50 Win Streaks', price: 20000 },
+            { id: 'evade_win_100', name_vi: 'Evade: 100 chuỗi Win', name_en: 'Evade: 100 Win Streaks', title_vi: '100 chuỗi Win', title_en: '100 Win Streaks', price: 40000 },
+            { id: 'evade_win_150', name_vi: 'Evade: 150 chuỗi Win', name_en: 'Evade: 150 Win Streaks', title_vi: '150 chuỗi Win', title_en: '150 Win Streaks', price: 60000 }
+        ];
+
+        const evadeLevelPackages = [
+            { id: 'evade_lv_1_50', name_vi: 'Evade: Level 1 → 50', name_en: 'Evade: Level 1 → 50', title_vi: 'Level 1 → 50', title_en: 'Level 1 → 50', price: 20000 },
+            { id: 'evade_lv_50_80', name_vi: 'Evade: Level 50 → 80', name_en: 'Evade: Level 50 → 80', title_vi: 'Level 50 → 80', title_en: 'Level 50 → 80', price: 20000 },
+            { id: 'evade_lv_80_100', name_vi: 'Evade: Level 80 → 100', name_en: 'Evade: Level 80 → 100', title_vi: 'Level 80 → 100', title_en: 'Level 80 → 100', price: 20000 }
+        ];
+
+        const evadeCashPackages = [
+            { id: 'evade_cash_10k', name_vi: 'Evade: 10.000 Cash', name_en: 'Evade: 10,000 Cash', title_vi: '10.000 Cash', title_en: '10,000 Cash', price: 20000 },
+            { id: 'evade_cash_20k', name_vi: 'Evade: 20.000 Cash', name_en: 'Evade: 20,000 Cash', title_vi: '20.000 Cash', title_en: '20,000 Cash', price: 40000 },
+            { id: 'evade_cash_30k', name_vi: 'Evade: 30.000 Cash', name_en: 'Evade: 30,000 Cash', title_vi: '30.000 Cash', title_en: '30,000 Cash', price: 60000 }
+        ];
+
+        const coopPackages = [
+            { id: 'coop_1h', name_vi: 'Thuê chơi game chung: 1 giờ liên tục', name_en: 'Co-op Play: 1 Continuous Hour', title_vi: '1 giờ liên tục', title_en: '1 continuous hour', desc_vi: 'Chơi chung liên tục trong 60 phút.', desc_en: 'Continuous co-op gameplay for 60 mins.', price: 20000, badge_vi: null, badge_en: null },
+            { id: 'coop_3h', name_vi: 'Thuê chơi game chung: 3 giờ liên tục', name_en: 'Co-op Play: 3 Continuous Hours', title_vi: '3 giờ liên tục', title_en: '3 continuous hours', desc_vi: 'Chơi chung liên tục 180 phút (Gói tối đa).', desc_en: 'Continuous co-op gameplay for 180 mins (Max).', price: 40000, badge_vi: 'TIẾT KIỆM 20K', badge_en: 'SAVE 20K' }
+        ];
+
+        const blindBoxBloxFruit = [
+            { id: 'bf_box_20', name_vi: 'Túi mù Blox Fruit (20K)', name_en: 'Blox Fruit Mystery Box (20K)', tier_vi: 'Gói Khởi Đầu', tier_en: 'Starter Box', price: 20000, priceText: '20K', badge_vi: 'Phổ thông', badge_en: 'Standard' },
+            { id: 'bf_box_50', name_vi: 'Túi mù Blox Fruit (50K)', name_en: 'Blox Fruit Mystery Box (50K)', tier_vi: 'Gói Tầm Trung', tier_en: 'Mid Tier Box', price: 50000, priceText: '50K', badge_vi: 'Hot', badge_en: 'Hot' },
+            { id: 'bf_box_70', name_vi: 'Túi mù Blox Fruit (70K)', name_en: 'Blox Fruit Mystery Box (70K)', tier_vi: 'Gói VIP', tier_en: 'VIP Box', price: 70000, priceText: '70K', badge_vi: 'Tỷ lệ cao', badge_en: 'High Rate' }
+        ];
+
+        const blindBoxStealEgg = [
+            { id: 'egg_box_20', name_vi: 'Túi mù Steal an Egg (20K)', name_en: 'Steal an Egg Mystery Box (20K)', tier_vi: 'Gói Khởi Đầu', tier_en: 'Starter Box', price: 20000, priceText: '20K', badge_vi: 'Phổ thông', badge_en: 'Standard' },
+            { id: 'egg_box_50', name_vi: 'Túi mù Steal an Egg (50K)', name_en: 'Steal an Egg Mystery Box (50K)', tier_vi: 'Gói Tầm Trung', tier_en: 'Mid Tier Box', price: 50000, priceText: '50K', badge_vi: 'Hot', badge_en: 'Hot' },
+            { id: 'egg_box_70', name_vi: 'Túi mù Steal an Egg (70K)', name_en: 'Steal an Egg Mystery Box (70K)', tier_vi: 'Gói VIP', tier_en: 'VIP Box', price: 70000, priceText: '70K', badge_vi: 'Tỷ lệ cao', badge_en: 'High Rate' }
+        ];
+
+        // ==========================================
+        // 1. LUỒNG ONBOARDING (ROBOT -> LANG -> GUIDE)
+        // ==========================================
+        function verifyNotRobot() {
+            if (isRobotVerified || isRobotVerifying) return;
+            isRobotVerifying = true;
+
+            const box = document.getElementById('robot-checkbox-box');
+            const spinner = document.getElementById('robot-spinner');
+            const check = document.getElementById('robot-checkmark');
+            const continueBtn = document.getElementById('robot-continue-btn');
+
+            box.classList.add('border-amber-400');
+            spinner.classList.remove('hidden');
+
+            setTimeout(() => {
+                isRobotVerifying = false;
+                isRobotVerified = true;
+                spinner.classList.add('hidden');
+                check.classList.remove('hidden');
+                box.classList.remove('border-slate-500', 'border-amber-400');
+                box.classList.add('border-emerald-400', 'bg-emerald-500/15');
+
+                continueBtn.disabled = false;
+                continueBtn.className = 'px-7 py-3.5 rounded-xl font-gaming font-extrabold text-sm sm:text-base transition-all bg-gradient-to-r from-rose-500 via-amber-500 to-yellow-500 hover:from-rose-400 hover:to-yellow-400 text-slate-950 shadow-lg shadow-amber-500/25 cursor-pointer active:scale-95';
+            }, 650);
+        }
+
+        function goToLanguageStep() {
+            if (!isRobotVerified) return;
+            document.getElementById('ob-step-robot').classList.add('hidden');
+            document.getElementById('ob-step-lang').classList.remove('hidden');
+        }
+
+        function chooseOnboardingLanguage(lang) {
+            setLanguage(lang, false);
+            document.getElementById('ob-step-lang').classList.add('hidden');
+            document.getElementById('ob-step-ask-guide').classList.remove('hidden');
+        }
+
+        function showGuideSteps() {
+            renderGuideModalContent();
+            document.getElementById('ob-step-ask-guide').classList.add('hidden');
+            document.getElementById('ob-step-guide-detail').classList.remove('hidden');
+        }
+
+        function openGuideModalFromHeader() {
+            renderGuideModalContent();
+            document.getElementById('ob-step-robot').classList.add('hidden');
+            document.getElementById('ob-step-lang').classList.add('hidden');
+            document.getElementById('ob-step-ask-guide').classList.add('hidden');
+            document.getElementById('ob-step-guide-detail').classList.remove('hidden');
+            document.getElementById('onboarding-overlay').classList.remove('hidden');
+        }
+
+        function enterMainShop() {
+            document.getElementById('onboarding-overlay').classList.add('hidden');
+        }
+
+        function renderGuideModalContent() {
+            const t = i18n[currentLang];
+            document.getElementById('guide-badge').textContent = t.guideBadge;
+            document.getElementById('guide-heading').textContent = t.guideHeading;
+            document.getElementById('guide-footer-note').textContent = t.guideFooterNote;
+            document.getElementById('guide-enter-btn').textContent = t.guideEnterBtn;
+
+            const container = document.getElementById('guide-steps-container');
+            container.innerHTML = t.guideSteps.map((item, idx) => `
+                <div class="p-3.5 sm:p-4 rounded-2xl bg-[#070D1D]/90 border border-slate-800 hover:border-amber-500/40 flex items-start gap-3.5 transition-all">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-rose-500 to-amber-500 text-slate-950 font-gaming font-extrabold text-sm flex items-center justify-center shrink-0 mt-0.5 shadow-md">
+                        ${idx + 1}
+                    </div>
+                    <div>
+                        <h4 class="font-gaming text-sm sm:text-base font-extrabold text-white">${item.step}</h4>
+                        <p class="text-xs sm:text-sm text-slate-300 mt-0.5 leading-relaxed">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==========================================
+        // 2. CHUYỂN ĐỔI NGÔN NGỮ VIE / ENG
+        // ==========================================
+        function setLanguage(lang, showNotification = true) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+
+            const btnVi = document.getElementById('lang-btn-vi');
+            const btnEn = document.getElementById('lang-btn-en');
+            if (lang === 'vi') {
+                btnVi.className = 'px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-gaming font-extrabold transition-all bg-rose-500 text-white shadow-sm';
+                btnEn.className = 'px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-gaming font-extrabold transition-all text-slate-400 hover:text-white';
+            } else {
+                btnEn.className = 'px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-gaming font-extrabold transition-all bg-cyan-500 text-slate-950 shadow-sm';
+                btnVi.className = 'px-2 py-1.5 rounded-lg text-[11px] sm:text-xs font-gaming font-extrabold transition-all text-slate-400 hover:text-white';
+            }
+
+            applyStaticTranslations();
+            renderGuideModalContent();
+            updateUI();
+
+            if (showNotification) {
+                showToast(i18n[lang].toastLangSwitched);
+            }
+        }
+
+        function applyStaticTranslations() {
+            const t = i18n[currentLang];
+            const setText = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = text;
+            };
+
+            // Onboarding step 3A
+            setText('ask-guide-title', t.askGuideTitle);
+            setText('ask-guide-sub', t.askGuideSub);
+            setText('ask-guide-yes', t.askGuideYes);
+            setText('ask-guide-no', t.askGuideNo);
+
+            // Header & Tabs
+            setText('hdr-guide-text', t.hdrGuide);
+            setText('hdr-cart-label', t.hdrCart);
+            setText('nav-tab-1', t.navTab1);
+            setText('nav-tab-2', t.navTab2);
+            setText('nav-tab-3', t.navTab3);
+
+            // Page 1
+            setText('p1-badge', t.p1Badge);
+            setText('p1-subtitle', t.p1Subtitle);
+            setText('p1-desc', t.p1Desc);
+            setText('p1-cta-1', t.p1Cta1);
+            setText('p1-cta-2', t.p1Cta2);
+            setText('p1-cta-3', t.p1Cta3);
+            setText('bf-s1-tag', t.bfS1Tag);
+            setText('bf-s1-title', t.bfS1Title);
+            setText('bf-s1-hint', t.bfS1Hint);
+            setText('bf-s2-tag', t.bfS2Tag);
+            setText('bf-s2-title', t.bfS2Title);
+            setText('bf-s2-hint', t.bfS2Hint);
+            setText('bf-s3-title', t.bfS3Title);
+            setText('bf-s3-badge', t.bfS3Badge);
+            setText('bf-s3-msg', t.bfS3Msg);
+            setText('bf-s3-sub', t.bfS3Sub);
+
+            // Page 2
+            setText('p2-badge', t.p2Badge);
+            setText('p2-subtitle', t.p2Subtitle);
+            setText('p2-cta-2', t.p2Cta2);
+            setText('n99-area', t.n99Area);
+            setText('n99-title', t.n99Title);
+            setText('n99-s1-title', t.n99S1Title);
+            setText('n99-s1-note', t.n99S1Note);
+            setText('n99-s2-title', t.n99S2Title);
+            setText('n99-warn-title', t.n99WarnTitle);
+            setText('n99-warn-1', t.n99Warn1);
+            setText('n99-warn-2', t.n99Warn2);
+            setText('ev-area', t.evArea);
+            setText('ev-title', t.evTitle);
+            setText('ev-s1-title', t.evS1Title);
+            setText('ev-s1-note', t.evS1Note);
+            setText('ev-s2-title', t.evS2Title);
+            setText('ev-s2-note', t.evS2Note);
+            setText('ev-s3-title', t.evS3Title);
+            setText('ev-s3-note', t.evS3Note);
+            setText('ev-warn-title', t.evWarnTitle);
+            setText('ev-warn-1', t.evWarn1);
+
+            // Page 3
+            setText('p3-badge', t.p3Badge);
+            setText('p3-title', t.p3Title);
+            setText('p3-subtitle', t.p3Subtitle);
+            setText('p3-cta-1', t.p3Cta1);
+            setText('p3-cta-2', t.p3Cta2);
+            setText('p3-cta-3', t.p3Cta3);
+            setText('tm-tag', t.tmTag);
+            setText('tm-title', t.tmTitle);
+            setText('tm-hint', t.tmHint);
+            setText('tm-bf-title', t.tmBfTitle);
+            setText('tm-bf-sub', t.tmBfSub);
+            setText('tm-bf-warn', t.tmBfWarn);
+            setText('tm-egg-title', t.tmEggTitle);
+            setText('tm-egg-sub', t.tmEggSub);
+            setText('tm-egg-warn', t.tmEggWarn);
+            setText('vpn-tag', t.vpnTag);
+            setText('vpn-title', t.vpnTitle);
+            setText('vpn-note-pill', t.vpnNotePill);
+            setText('vpn-warn-title', t.vpnWarnTitle);
+            setText('vpn-warn-sub', t.vpnWarnSub);
+            setText('vpn-1w-badge', t.vpn1wBadge);
+            setText('vpn-1w-title', t.vpn1wTitle);
+            setText('vpn-1w-desc', t.vpn1wDesc);
+            setText('vpn-1w-cost-lbl', t.vpnCostLbl);
+            setText('vpn-2w-badge', t.vpn2wBadge);
+            setText('vpn-2w-title', t.vpn2wTitle);
+            setText('vpn-2w-desc', t.vpn2wDesc);
+            setText('vpn-2w-cost-lbl', t.vpnCostLbl);
+            setText('vpn-c-badge', t.vpnCBadge);
+            setText('vpn-c-rate', t.vpnCRate);
+            setText('vpn-c-title', t.vpnCTitle);
+            setText('vpn-c-total-lbl', t.vpnCTotalLbl);
+            setText('coop-tag', t.coopTag);
+            setText('coop-title', t.coopTitle);
+            setText('coop-s1-title', t.coopS1Title);
+            setText('coop-s2-title', t.coopS2Title);
+
+            const rulesEl = document.getElementById('coop-rules-list');
+            if (rulesEl) {
+                const icons = ['fa-clock text-emerald-400', 'fa-ban text-rose-400', 'fa-shield-halved text-amber-400'];
+                rulesEl.innerHTML = t.coopRules.map((rule, i) => `
+                    <li class="flex items-start gap-2.5">
+                        <i class="fa-solid ${icons[i]} mt-1 shrink-0"></i>
+                        <span>${rule}</span>
+                    </li>
+                `).join('');
+            }
+
+            // Cart & Footer
+            setText('cart-badge', t.cartBadge);
+            setText('cart-title', t.cartTitle);
+            setText('cart-desc', t.cartDesc);
+            setText('cart-selected-lbl', t.cartSelectedLbl);
+            setText('cart-clear-lbl', t.cartClearLbl);
+            setText('cart-total-lbl', t.cartTotalLbl);
+            setText('custom-price-note', t.cartCustomNote);
+            setText('pay-select-lbl', t.paySelectLbl);
+            setText('pay-opt-1', t.payOpt1);
+            setText('pay-opt-2', t.payOpt2);
+            setText('pay-opt-3', t.payOpt3);
+            setText('xu-tiktok-note-text', t.xuTiktokNote);
+            setText('msg-box-title', t.msgBoxTitle);
+            setText('msg-auto-lbl', t.msgAutoLbl);
+            setText('btn-create-copy', t.btnCreateCopy);
+            setText('btn-open-tiktok', t.btnOpenTiktok);
+            setText('footer-thanks', t.footerThanks);
+            setText('footer-wish', t.footerWish);
+            setText('footer-copy-id', t.footerCopyId);
+            setText('mob-selected-lbl', t.mobSelectedLbl);
+            setText('mob-pkg-lbl', t.mobPkgLbl);
+            setText('mob-view-btn', t.mobViewBtn);
+        }
+
+        // ==========================================
+        // 3. CHUYỂN ĐỔI 3 TRANG (SPA TAB SWITCHER)
         // ==========================================
         function switchPage(pageKey) {
             currentPage = pageKey;
-            const page1El = document.getElementById('view-page1');
-            const page2El = document.getElementById('view-page2');
-            const btn1 = document.getElementById('tab-btn-page1');
-            const btn2 = document.getElementById('tab-btn-page2');
+            const views = {
+                page1: document.getElementById('view-page1'),
+                page2: document.getElementById('view-page2'),
+                page3: document.getElementById('view-page3')
+            };
+            const btns = {
+                page1: document.getElementById('tab-btn-page1'),
+                page2: document.getElementById('tab-btn-page2'),
+                page3: document.getElementById('tab-btn-page3')
+            };
 
-            if (pageKey === 'page1') {
-                page1El.classList.remove('hidden');
-                page2El.classList.add('hidden');
+            const inactiveClass = 'px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70';
+            const activeClasses = {
+                page1: 'px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/25',
+                page2: 'px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 shadow-md shadow-emerald-500/25',
+                page3: 'px-2.5 sm:px-3.5 py-2 rounded-xl text-[11px] sm:text-xs font-gaming font-bold flex items-center justify-center gap-1.5 transition-all bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-md shadow-purple-500/30'
+            };
 
-                btn1.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-rose-500 to-amber-500 text-white shadow-md shadow-rose-500/25';
-                btn2.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70';
-            } else {
-                page1El.classList.add('hidden');
-                page2El.classList.remove('hidden');
-
-                btn1.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all text-slate-300 hover:text-white hover:bg-slate-800/70';
-                btn2.className = 'px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-gaming font-bold flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-purple-500 to-fuchsia-600 text-white shadow-md shadow-purple-500/30';
-            }
+            Object.keys(views).forEach(key => {
+                if (key === pageKey) {
+                    views[key].classList.remove('hidden');
+                    btns[key].className = activeClasses[key];
+                } else {
+                    views[key].classList.add('hidden');
+                    btns[key].className = inactiveClass;
+                }
+            });
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ==========================================
-        // THÔNG BÁO TOAST & COPY CLIPBOARD
+        // 4. THÔNG BÁO TOAST & COPY CLIPBOARD
         // ==========================================
         function showToast(message) {
             const toast = document.getElementById('toast-box');
@@ -712,18 +1704,123 @@
                 document.execCommand('copy');
                 showToast(successMsg);
             } catch (err) {
-                showToast('Không thể sao chép tự động, vui lòng bôi đen để copy!');
+                showToast('Please copy manually!');
             }
             document.body.removeChild(tempInput);
         }
 
         // ==========================================
-        // RENDER CÁC THẺ DỊCH VỤ TRANG 1 & TRANG 2
+        // 5. RENDER THẺ DỊCH VỤ & STEPPER
         // ==========================================
-        function renderFixedServices() {
-            const container = document.getElementById('fixed-services-grid');
-            container.innerHTML = fixedServices.map(item => {
+        function createPackageCardHTML(pkg, accent = 'amber') {
+            const t = i18n[currentLang];
+            const isSelected = selectedIds.has(pkg.id);
+            const title = currentLang === 'vi' ? pkg.title_vi : pkg.title_en;
+            const desc = currentLang === 'vi' ? pkg.desc_vi : pkg.desc_en;
+            const badge = currentLang === 'vi' ? pkg.badge_vi : pkg.badge_en;
+
+            const activeBorder = accent === 'emerald'
+                ? 'bg-gradient-to-br from-[#0D2B27] to-[#0F1B38] border-emerald-400 shadow-lg shadow-emerald-500/15 -translate-y-0.5'
+                : 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-amber-400 shadow-lg shadow-amber-500/15 -translate-y-0.5';
+
+            const btnClass = isSelected
+                ? (accent === 'emerald' ? 'bg-emerald-400 text-slate-950' : 'bg-amber-400 text-slate-950')
+                : 'bg-slate-800 text-cyan-300 group-hover:bg-amber-400 group-hover:text-slate-950';
+
+            return `
+                <div onclick="toggleService('${pkg.id}')"
+                    class="cursor-pointer group rounded-2xl p-4 sm:p-5 transition-all border flex flex-col justify-between gap-4 ${
+                        isSelected ? activeBorder : 'bg-[#060B19]/90 hover:bg-[#101D3B] border-slate-800 hover:border-amber-500/40'
+                    }">
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between gap-2 min-h-[24px]">
+                            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400">${t.fixedPkgTag}</span>
+                            ${badge ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/60 text-emerald-300 text-[10px] sm:text-xs font-extrabold tracking-wide shadow-sm shadow-emerald-500/20">${badge}</span>` : ''}
+                        </div>
+                        <h4 class="font-gaming text-lg sm:text-xl font-extrabold text-white group-hover:text-amber-300 transition-colors">
+                            ${title}
+                        </h4>
+                        ${desc ? `<p class="text-xs text-slate-400">${desc}</p>` : ''}
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800/90 flex items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] uppercase text-slate-400 block">${t.servicePriceLbl}</span>
+                            <span class="font-gaming text-lg sm:text-xl font-extrabold text-amber-400">${formatVND(pkg.price)}</span>
+                        </div>
+                        <button type="button" class="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${btnClass}">
+                            <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-cart-plus'}"></i>
+                            <span>${isSelected ? t.btnAddedCart : t.btnAddCart}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createStepperCardHTML({ id, key, title, valueText, unitNote, price }) {
+            const t = i18n[currentLang];
+            const isSelected = selectedIds.has(id);
+            return `
+                <div class="rounded-2xl p-4 sm:p-5 bg-gradient-to-br from-[#102042] to-[#081024] border transition-all flex flex-col justify-between gap-3.5 ${
+                    isSelected ? 'border-amber-400 shadow-lg shadow-amber-500/20' : 'border-cyan-500/40'
+                }">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between gap-1">
+                            <span class="px-2 py-0.5 rounded-md bg-cyan-500/15 text-cyan-300 text-[11px] font-bold">${t.customPkgTag}</span>
+                            <span class="text-[11px] text-slate-400">${unitNote}</span>
+                        </div>
+                        <h4 class="font-gaming text-base sm:text-lg font-bold text-white">${title}</h4>
+
+                        <div class="flex items-center justify-between bg-[#060B19] p-1.5 rounded-xl border border-slate-700">
+                            <button type="button" onclick="changeStepper('${key}', -1)"
+                                class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center active:scale-90">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <span class="font-gaming font-extrabold text-sm sm:text-base text-cyan-300 px-2 text-center">
+                                ${valueText}
+                            </span>
+                            <button type="button" onclick="changeStepper('${key}', 1)"
+                                class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center justify-center active:scale-90">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800/90 flex items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] uppercase text-slate-400 block">${t.totalItemLbl}</span>
+                            <span class="font-gaming text-lg sm:text-xl font-extrabold text-amber-400">${formatVND(price)}</span>
+                        </div>
+                        <button type="button" onclick="toggleService('${id}')"
+                            class="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95 ${
+                                isSelected ? 'bg-amber-400 text-slate-950' : 'bg-cyan-500 hover:bg-cyan-400 text-slate-950'
+                            }">
+                            <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-cart-plus'}"></i>
+                            <span>${isSelected ? t.btnAddedCart : t.btnAddCart}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function changeStepper(key, delta) {
+            const limits = {
+                days: { min: 4, max: 30 },
+                win: { min: 4, max: 30 },
+                cash: { min: 4, max: 30 },
+                vpn: { min: 3, max: 12 }
+            };
+            const lim = limits[key];
+            steppers[key] = Math.max(lim.min, Math.min(lim.max, steppers[key] + delta));
+            updateUI();
+        }
+
+        function renderPage1() {
+            const t = i18n[currentLang];
+            document.getElementById('bf-fixed-grid').innerHTML = bfFixedServices.map(item => {
                 const isSelected = selectedIds.has(item.id);
+                const name = currentLang === 'vi' ? item.name_vi : item.name_en;
+                const desc = currentLang === 'vi' ? item.desc_vi : item.desc_en;
                 return `
                     <div onclick="toggleService('${item.id}')"
                         class="cursor-pointer group relative rounded-2xl p-5 transition-all duration-200 border ${
@@ -731,76 +1828,69 @@
                                 ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-amber-400 shadow-lg shadow-amber-500/15 -translate-y-0.5'
                                 : 'bg-[#0B152C] hover:bg-[#101E3D] border-slate-800 hover:border-cyan-500/50'
                         }">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="flex items-center gap-3.5">
-                                <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 transition-colors ${
-                                    isSelected
-                                        ? 'bg-amber-400 text-slate-950'
-                                        : 'bg-cyan-500/15 text-cyan-400 group-hover:bg-cyan-500/25'
-                                }">
-                                    <i class="fa-solid ${item.icon}"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-gaming font-bold text-lg text-white group-hover:text-amber-300 transition-colors">
-                                        ${item.name}
-                                    </h3>
-                                    <p class="text-xs text-slate-400 mt-0.5">${item.desc}</p>
-                                </div>
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shrink-0 transition-colors ${
+                                isSelected ? 'bg-amber-400 text-slate-950' : 'bg-cyan-500/15 text-cyan-400 group-hover:bg-cyan-500/25'
+                            }">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-gaming font-bold text-lg text-white group-hover:text-amber-300 transition-colors">
+                                    ${name}
+                                </h3>
+                                <p class="text-xs text-slate-400 mt-0.5">${desc}</p>
                             </div>
                         </div>
 
-                        <div class="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-between">
+                        <div class="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-between gap-2">
                             <div>
-                                <span class="text-[11px] uppercase tracking-wider text-slate-400 block">Giá dịch vụ</span>
-                                <span class="font-gaming text-2xl font-extrabold text-amber-400">${item.priceText}</span>
+                                <span class="text-[11px] uppercase tracking-wider text-slate-400 block">${t.servicePriceLbl}</span>
+                                <span class="font-gaming text-2xl font-extrabold text-amber-400">${item.priceLabel} <span class="text-xs font-normal text-slate-400">(20.000 VNĐ)</span></span>
                             </div>
 
                             <button type="button"
-                                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all ${
+                                class="px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
                                     isSelected
                                         ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-500/20'
                                         : 'bg-slate-800 text-cyan-300 group-hover:bg-cyan-500 group-hover:text-slate-950'
                                 }">
-                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
-                                <span>${isSelected ? 'Đã chọn' : 'Chọn gói'}</span>
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-cart-plus'}"></i>
+                                <span>${isSelected ? t.btnAddedCart : t.btnAddCart}</span>
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
-        }
 
-        function renderCustomServices() {
-            const container = document.getElementById('custom-services-grid');
-            container.innerHTML = customServices.map(item => {
+            document.getElementById('bf-custom-grid').innerHTML = bfCustomServices.map(item => {
                 const isSelected = selectedIds.has(item.id);
+                const name = currentLang === 'vi' ? item.name_vi : item.name_en;
+                const desc = currentLang === 'vi' ? item.desc_vi : item.desc_en;
                 const borderClass = isSelected
                     ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-cyan-400 shadow-lg shadow-cyan-500/15'
                     : item.highlight
-                        ? 'bg-gradient-to-br from-[#161028] to-[#0B152C] hover:bg-[#141E3D] border-rose-500/50 hover:border-rose-400 shadow-md shadow-rose-950/30'
+                        ? 'bg-gradient-to-br from-[#1A102B] to-[#0B152C] hover:bg-[#141E3D] border-rose-500/55 hover:border-rose-400 shadow-md shadow-rose-950/30'
                         : 'bg-[#0B152C] hover:bg-[#101E3D] border-slate-800 hover:border-cyan-500/40';
 
                 return `
                     <div onclick="toggleService('${item.id}')"
                         class="cursor-pointer group rounded-2xl p-5 transition-all duration-200 border flex flex-col justify-between gap-4 ${borderClass}">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="flex items-start gap-3.5">
-                                <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 mt-0.5 ${
-                                    isSelected
-                                        ? 'bg-cyan-400 text-slate-950'
-                                        : item.highlight
-                                            ? 'bg-rose-500/20 text-rose-400'
-                                            : 'bg-amber-500/15 text-amber-400'
-                                }">
-                                    <i class="fa-solid ${item.icon}"></i>
+                        <div class="flex items-start gap-3.5">
+                            <div class="w-11 h-11 rounded-xl flex items-center justify-center text-lg shrink-0 mt-0.5 ${
+                                isSelected
+                                    ? 'bg-cyan-400 text-slate-950'
+                                    : item.highlight
+                                        ? 'bg-rose-500/20 text-rose-400'
+                                        : 'bg-amber-500/15 text-amber-400'
+                            }">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="font-gaming font-bold text-lg text-white">${name}</h3>
+                                    ${item.highlight ? `<span class="px-2 py-0.5 rounded-md bg-rose-500/20 border border-rose-500/40 text-rose-300 text-[10px] font-bold uppercase tracking-wider">${t.featuredBadge}</span>` : ''}
                                 </div>
-                                <div>
-                                    <div class="flex items-center gap-2 flex-wrap">
-                                        <h3 class="font-gaming font-bold text-lg text-white">${item.name}</h3>
-                                        ${item.highlight ? '<span class="px-2 py-0.5 rounded-md bg-rose-500/20 border border-rose-500/40 text-rose-300 text-[10px] font-bold uppercase tracking-wider">Mới cập nhật</span>' : ''}
-                                    </div>
-                                    <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">${item.desc}</p>
-                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">${desc}</p>
                             </div>
                         </div>
 
@@ -811,7 +1901,7 @@
                                     : 'bg-cyan-500/15 border border-cyan-400/40 text-cyan-300'
                             } text-xs font-bold">
                                 <i class="fa-regular fa-comment-dots"></i>
-                                Nhắn riêng báo giá
+                                ${t.customQuoteBadge}
                             </span>
 
                             <button type="button"
@@ -820,8 +1910,8 @@
                                         ? 'bg-cyan-400 text-slate-950'
                                         : 'bg-slate-800 text-slate-200 group-hover:bg-slate-700'
                                 }">
-                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
-                                <span>${isSelected ? 'Đã thêm vào đơn' : 'Thêm vào đơn'}</span>
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-cart-plus'}"></i>
+                                <span>${isSelected ? t.btnAddedCart : t.btnAddCart}</span>
                             </button>
                         </div>
                     </div>
@@ -829,12 +1919,59 @@
             }).join('');
         }
 
-        function renderBlindBoxes() {
-            const bfContainer = document.getElementById('blindbox-bf-grid');
-            const eggContainer = document.getElementById('blindbox-egg-grid');
+        function renderPage2() {
+            const isVi = currentLang === 'vi';
+            const daysCards = nightsDaysPackages.map(pkg => createPackageCardHTML(pkg, 'emerald')).join('');
+            const daysStepper = createStepperCardHTML({
+                id: '99n_days_custom',
+                key: 'days',
+                title: isVi ? 'Chọn số Days thêm' : 'Custom Extra Days',
+                valueText: `${steppers.days * 100} Days`,
+                unitNote: '+20K / 100 Days',
+                price: steppers.days * 20000
+            });
+            document.getElementById('nights-days-grid').innerHTML = daysCards + daysStepper;
 
-            bfContainer.innerHTML = blindBoxBloxFruit.map(item => {
+            document.getElementById('nights-diamonds-grid').innerHTML = nightsDiamondsPackages
+                .map(pkg => createPackageCardHTML(pkg, 'emerald'))
+                .join('');
+
+            const winCards = evadeWinPackages.map(pkg => createPackageCardHTML(pkg, 'amber')).join('');
+            const winStepper = createStepperCardHTML({
+                id: 'evade_win_custom',
+                key: 'win',
+                title: isVi ? 'Chọn số chuỗi Win' : 'Custom Win Streaks',
+                valueText: isVi ? `${steppers.win * 50} chuỗi Win` : `${steppers.win * 50} Win Streaks`,
+                unitNote: '+20K / 50 Win',
+                price: steppers.win * 20000
+            });
+            document.getElementById('evade-win-grid').innerHTML = winCards + winStepper;
+
+            document.getElementById('evade-level-grid').innerHTML = evadeLevelPackages
+                .map(pkg => createPackageCardHTML(pkg, 'amber'))
+                .join('');
+
+            const cashCards = evadeCashPackages.map(pkg => createPackageCardHTML(pkg, 'emerald')).join('');
+            const cashStepper = createStepperCardHTML({
+                id: 'evade_cash_custom',
+                key: 'cash',
+                title: isVi ? 'Chọn số Cash thêm' : 'Custom Extra Cash',
+                valueText: `${(steppers.cash * 10000).toLocaleString('vi-VN')} Cash`,
+                unitNote: '+20K / 10K Cash',
+                price: steppers.cash * 20000
+            });
+            document.getElementById('evade-cash-grid').innerHTML = cashCards + cashStepper;
+        }
+
+        function renderPage3() {
+            const t = i18n[currentLang];
+            const isVi = currentLang === 'vi';
+
+            // I. Túi mù Blox Fruit
+            document.getElementById('blindbox-bf-grid').innerHTML = blindBoxBloxFruit.map(item => {
                 const isSelected = selectedIds.has(item.id);
+                const tier = isVi ? item.tier_vi : item.tier_en;
+                const badge = isVi ? item.badge_vi : item.badge_en;
                 return `
                     <div onclick="toggleService('${item.id}')"
                         class="cursor-pointer group rounded-2xl p-4 sm:p-5 transition-all border flex flex-col justify-between gap-4 ${
@@ -843,32 +1980,35 @@
                                 : 'bg-[#060B19]/90 hover:bg-[#111D3B] border-slate-800 hover:border-purple-500/50'
                         }">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 text-xs font-bold">${item.tier}</span>
-                            <span class="text-[11px] font-semibold text-amber-400">${item.badge}</span>
+                            <span class="px-2.5 py-0.5 rounded-md bg-purple-500/20 text-purple-300 text-xs font-bold">${tier}</span>
+                            <span class="text-[11px] font-semibold text-amber-400">${badge}</span>
                         </div>
 
-                        <div class="flex items-center justify-between pt-2">
+                        <div class="flex items-center justify-between pt-2 gap-2">
                             <div>
-                                <span class="text-[11px] text-slate-400 block">Giá túi mù</span>
+                                <span class="text-[11px] text-slate-400 block">${t.blindboxPriceLbl}</span>
                                 <span class="font-gaming text-3xl font-extrabold text-amber-400">${item.priceText}</span>
                             </div>
 
                             <button type="button"
-                                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all ${
+                                class="px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
                                     isSelected
                                         ? 'bg-purple-500 text-white shadow-md shadow-purple-500/30'
                                         : 'bg-slate-800 text-purple-300 group-hover:bg-purple-500 group-hover:text-white'
                                 }">
-                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
-                                <span>${isSelected ? 'Đã chọn' : 'Chọn túi'}</span>
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-cart-plus'}"></i>
+                                <span>${isSelected ? t.btnAddedCart : t.btnAddCart}</span>
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
 
-            eggContainer.innerHTML = blindBoxStealEgg.map(item => {
+            // I. Túi mù Steal an Egg
+            document.getElementById('blindbox-egg-grid').innerHTML = blindBoxStealEgg.map(item => {
                 const isSelected = selectedIds.has(item.id);
+                const tier = isVi ? item.tier_vi : item.tier_en;
+                const badge = isVi ? item.badge_vi : item.badge_en;
                 return `
                     <div onclick="toggleService('${item.id}')"
                         class="cursor-pointer group rounded-2xl p-4 sm:p-5 transition-all border flex flex-col justify-between gap-4 ${
@@ -877,33 +2017,31 @@
                                 : 'bg-[#060B19]/90 hover:bg-[#111D3B] border-slate-800 hover:border-amber-500/50'
                         }">
                         <div class="flex items-center justify-between">
-                            <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-xs font-bold">${item.tier}</span>
-                            <span class="text-[11px] font-semibold text-cyan-400">${item.badge}</span>
+                            <span class="px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-xs font-bold">${tier}</span>
+                            <span class="text-[11px] font-semibold text-cyan-400">${badge}</span>
                         </div>
 
-                        <div class="flex items-center justify-between pt-2">
+                        <div class="flex items-center justify-between pt-2 gap-2">
                             <div>
-                                <span class="text-[11px] text-slate-400 block">Giá túi mù</span>
+                                <span class="text-[11px] text-slate-400 block">${t.blindboxPriceLbl}</span>
                                 <span class="font-gaming text-3xl font-extrabold text-amber-400">${item.priceText}</span>
                             </div>
 
                             <button type="button"
-                                class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all ${
+                                class="px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
                                     isSelected
                                         ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-500/30'
                                         : 'bg-slate-800 text-amber-300 group-hover:bg-amber-400 group-hover:text-slate-950'
                                 }">
-                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-plus'}"></i>
-                                <span>${isSelected ? 'Đã chọn' : 'Chọn túi'}</span>
+                                <i class="fa-solid ${isSelected ? 'fa-check' : 'fa-cart-plus'}"></i>
+                                <span>${isSelected ? t.btnAddedCart : t.btnAddCart}</span>
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
-        }
 
-        function renderVpnCards() {
-            // Cập nhật gói 7 ngày (20K)
+            // II. Treo VPN
             const card1 = document.getElementById('vpn-card-1w');
             const btn1 = document.getElementById('vpn-btn-1w');
             const sel1 = selectedIds.has('vpn_7d');
@@ -912,12 +2050,11 @@
                     ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-amber-400 shadow-lg shadow-amber-500/15'
                     : 'bg-[#0B152C] border-slate-800 hover:border-cyan-500/50'
             }`;
-            btn1.className = `px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 ${
+            btn1.className = `px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 ${
                 sel1 ? 'bg-amber-400 text-slate-950' : 'bg-slate-800 text-cyan-300'
             }`;
-            btn1.innerHTML = `<i class="fa-solid ${sel1 ? 'fa-check' : 'fa-plus'}"></i> ${sel1 ? 'Đã chọn' : 'Chọn gói'}`;
+            btn1.innerHTML = `<i class="fa-solid ${sel1 ? 'fa-check' : 'fa-cart-plus'}"></i> ${sel1 ? t.btnAddedCart : t.btnAddCart}`;
 
-            // Cập nhật gói 2 tuần (40K)
             const card2 = document.getElementById('vpn-card-2w');
             const btn2 = document.getElementById('vpn-btn-2w');
             const sel2 = selectedIds.has('vpn_14d');
@@ -926,15 +2063,16 @@
                     ? 'bg-gradient-to-br from-[#16274F] to-[#0F1B38] border-amber-400 shadow-lg shadow-amber-500/15'
                     : 'bg-[#0B152C] border-slate-800 hover:border-cyan-500/50'
             }`;
-            btn2.className = `px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 ${
+            btn2.className = `px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 ${
                 sel2 ? 'bg-amber-400 text-slate-950' : 'bg-slate-800 text-cyan-300'
             }`;
-            btn2.innerHTML = `<i class="fa-solid ${sel2 ? 'fa-check' : 'fa-plus'}"></i> ${sel2 ? 'Đã chọn' : 'Chọn gói'}`;
+            btn2.innerHTML = `<i class="fa-solid ${sel2 ? 'fa-check' : 'fa-cart-plus'}"></i> ${sel2 ? t.btnAddedCart : t.btnAddCart}`;
 
-            // Cập nhật gói tùy chỉnh số tuần
-            const customPrice = customVpnWeeks * 20;
-            document.getElementById('custom-vpn-weeks-label').textContent = `${customVpnWeeks} tuần (${customVpnWeeks * 7} ngày)`;
-            document.getElementById('custom-vpn-price-label').textContent = `${customPrice}K`;
+            const customVpnPrice = steppers.vpn * 20000;
+            document.getElementById('custom-vpn-weeks-label').textContent = isVi
+                ? `${steppers.vpn} tuần (${steppers.vpn * 7} ngày)`
+                : `${steppers.vpn} weeks (${steppers.vpn * 7} days)`;
+            document.getElementById('custom-vpn-price-label').textContent = formatVND(customVpnPrice);
 
             const cardCustom = document.getElementById('vpn-card-custom');
             const btnCustom = document.getElementById('vpn-btn-custom');
@@ -942,20 +2080,19 @@
             cardCustom.className = `rounded-2xl p-5 bg-gradient-to-br from-[#0F1E3D] to-[#0B152C] transition-all flex flex-col justify-between gap-4 border ${
                 selCustom ? 'border-amber-400 shadow-lg shadow-amber-500/20' : 'border-cyan-500/40'
             }`;
-            btnCustom.className = `px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all active:scale-95 ${
+            btnCustom.className = `px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95 ${
                 selCustom ? 'bg-amber-400 text-slate-950' : 'bg-cyan-500 hover:bg-cyan-400 text-slate-950'
             }`;
-            btnCustom.innerHTML = `<i class="fa-solid ${selCustom ? 'fa-check' : 'fa-plus'}"></i> <span>${selCustom ? 'Đã chọn' : 'Chọn gói'}</span>`;
-        }
+            btnCustom.innerHTML = `<i class="fa-solid ${selCustom ? 'fa-check' : 'fa-cart-plus'}"></i> <span>${selCustom ? t.btnAddedCart : t.btnAddCart}</span>`;
 
-        // Tăng/giảm số tuần treo VPN tùy chỉnh (+20K mỗi 7 ngày)
-        function changeCustomVpnWeeks(delta) {
-            customVpnWeeks = Math.max(3, Math.min(12, customVpnWeeks + delta));
-            updateUI();
+            // III. Thuê chơi game chung
+            document.getElementById('coop-grid').innerHTML = coopPackages
+                .map(pkg => createPackageCardHTML(pkg, 'emerald'))
+                .join('');
         }
 
         // ==========================================
-        // XỬ LÝ GIỎ HÀNG & TÍNH TỔNG TIỀN
+        // 6. GIỎ HÀNG & TẠO ĐƠN SONG NGỮ
         // ==========================================
         function toggleService(id) {
             if (selectedIds.has(id)) {
@@ -969,7 +2106,7 @@
         function clearAllSelections() {
             selectedIds.clear();
             updateUI();
-            showToast('Đã xóa toàn bộ dịch vụ đã chọn.');
+            showToast(i18n[currentLang].toastCleared);
         }
 
         function selectPayment(method) {
@@ -993,14 +2130,16 @@
         }
 
         function updateUI() {
-            renderFixedServices();
-            renderCustomServices();
-            renderBlindBoxes();
-            renderVpnCards();
+            renderPage1();
+            renderPage2();
+            renderPage3();
             updateOrderSummary();
         }
 
         function updateOrderSummary() {
+            const t = i18n[currentLang];
+            const isVi = currentLang === 'vi';
+
             const listEl = document.getElementById('selected-items-list');
             const countEl = document.getElementById('selected-count');
             const headerCountEl = document.getElementById('header-cart-count');
@@ -1016,62 +2155,114 @@
             let hasCustomService = false;
             const chosenItems = [];
 
-            // 1. Mục I Trang 1
-            fixedServices.forEach(item => {
-                if (selectedIds.has(item.id)) {
-                    totalMoney += item.price;
-                    chosenItems.push({ id: item.id, name: item.name, priceText: item.priceText, isCustom: false });
-                }
-            });
+            const collectFixed = (arr, prefix = '') => {
+                arr.forEach(item => {
+                    if (selectedIds.has(item.id)) {
+                        totalMoney += item.price;
+                        const label = isVi ? item.name_vi : item.name_en;
+                        chosenItems.push({
+                            id: item.id,
+                            name: prefix ? `${prefix}${label}` : label,
+                            priceText: formatVND(item.price),
+                            isCustom: false
+                        });
+                    }
+                });
+            };
 
-            // 2. Mục II Trang 1
-            customServices.forEach(item => {
+            // Trang 1: Blox Fruits
+            collectFixed(bfFixedServices, 'Blox Fruits: ');
+            bfCustomServices.forEach(item => {
                 if (selectedIds.has(item.id)) {
                     hasCustomService = true;
-                    chosenItems.push({ id: item.id, name: item.name, priceText: 'Báo giá riêng', isCustom: true });
+                    chosenItems.push({
+                        id: item.id,
+                        name: `Blox Fruits: ${isVi ? item.name_vi : item.name_en}`,
+                        priceText: isVi ? 'Báo giá riêng' : 'Custom quote',
+                        isCustom: true
+                    });
                 }
             });
 
-            // 3. Túi mù Blox Fruit (Trang 2)
-            blindBoxBloxFruit.forEach(item => {
-                if (selectedIds.has(item.id)) {
-                    totalMoney += item.price;
-                    chosenItems.push({ id: item.id, name: item.name, priceText: item.priceText, isCustom: false });
-                }
-            });
-
-            // 4. Túi mù Steal an Egg (Trang 2)
-            blindBoxStealEgg.forEach(item => {
-                if (selectedIds.has(item.id)) {
-                    totalMoney += item.price;
-                    chosenItems.push({ id: item.id, name: item.name, priceText: item.priceText, isCustom: false });
-                }
-            });
-
-            // 5. Treo VPN (Trang 2)
-            if (selectedIds.has('vpn_7d')) {
-                totalMoney += 20;
-                chosenItems.push({ id: 'vpn_7d', name: 'Treo VPN VNG qua Quốc tế (7 ngày)', priceText: '20K', isCustom: false });
-            }
-            if (selectedIds.has('vpn_14d')) {
-                totalMoney += 40;
-                chosenItems.push({ id: 'vpn_14d', name: 'Treo VPN VNG qua Quốc tế (2 tuần)', priceText: '40K', isCustom: false });
-            }
-            if (selectedIds.has('vpn_custom')) {
-                const vpnCost = customVpnWeeks * 20;
-                totalMoney += vpnCost;
+            // Trang 2: 99 Nights & Evade
+            collectFixed(nightsDaysPackages);
+            if (selectedIds.has('99n_days_custom')) {
+                const cost = steppers.days * 20000;
+                totalMoney += cost;
                 chosenItems.push({
-                    id: 'vpn_custom',
-                    name: `Treo VPN VNG qua Quốc tế (${customVpnWeeks} tuần - ${customVpnWeeks * 7} ngày)`,
-                    priceText: `${vpnCost}K`,
+                    id: '99n_days_custom',
+                    name: `99 Nights: ${steppers.days * 100} Days`,
+                    priceText: formatVND(cost),
+                    isCustom: false
+                });
+            }
+            collectFixed(nightsDiamondsPackages);
+
+            collectFixed(evadeWinPackages);
+            if (selectedIds.has('evade_win_custom')) {
+                const cost = steppers.win * 20000;
+                totalMoney += cost;
+                chosenItems.push({
+                    id: 'evade_win_custom',
+                    name: isVi ? `Evade: ${steppers.win * 50} chuỗi Win` : `Evade: ${steppers.win * 50} Win Streaks`,
+                    priceText: formatVND(cost),
+                    isCustom: false
+                });
+            }
+            collectFixed(evadeLevelPackages);
+            collectFixed(evadeCashPackages);
+            if (selectedIds.has('evade_cash_custom')) {
+                const cost = steppers.cash * 20000;
+                totalMoney += cost;
+                chosenItems.push({
+                    id: 'evade_cash_custom',
+                    name: `Evade: ${(steppers.cash * 10000).toLocaleString('vi-VN')} Cash`,
+                    priceText: formatVND(cost),
                     isCustom: false
                 });
             }
 
-            // Cập nhật số lượng & tổng tiền
+            // Trang 3: Túi mù, VPN & Thuê chơi chung
+            collectFixed(blindBoxBloxFruit);
+            collectFixed(blindBoxStealEgg);
+
+            if (selectedIds.has('vpn_7d')) {
+                totalMoney += 20000;
+                chosenItems.push({
+                    id: 'vpn_7d',
+                    name: isVi ? 'Treo VPN VNG qua Quốc tế (7 ngày)' : 'VPN Hosting VNG -> Global (7 days)',
+                    priceText: formatVND(20000),
+                    isCustom: false
+                });
+            }
+            if (selectedIds.has('vpn_14d')) {
+                totalMoney += 40000;
+                chosenItems.push({
+                    id: 'vpn_14d',
+                    name: isVi ? 'Treo VPN VNG qua Quốc tế (2 tuần)' : 'VPN Hosting VNG -> Global (2 weeks)',
+                    priceText: formatVND(40000),
+                    isCustom: false
+                });
+            }
+            if (selectedIds.has('vpn_custom')) {
+                const vpnCost = steppers.vpn * 20000;
+                totalMoney += vpnCost;
+                chosenItems.push({
+                    id: 'vpn_custom',
+                    name: isVi
+                        ? `Treo VPN VNG qua Quốc tế (${steppers.vpn} tuần - ${steppers.vpn * 7} ngày)`
+                        : `VPN Hosting VNG -> Global (${steppers.vpn} weeks - ${steppers.vpn * 7} days)`,
+                    priceText: formatVND(vpnCost),
+                    isCustom: false
+                });
+            }
+
+            collectFixed(coopPackages);
+
+            const formattedTotal = formatVND(totalMoney);
             countEl.textContent = chosenItems.length;
             headerCountEl.textContent = chosenItems.length;
-            totalEl.textContent = `${totalMoney}K`;
+            totalEl.textContent = formattedTotal;
 
             if (hasCustomService) {
                 customNoteEl.classList.remove('hidden');
@@ -1079,11 +2270,10 @@
                 customNoteEl.classList.add('hidden');
             }
 
-            // Thanh nổi Mobile
             mobileCount.textContent = chosenItems.length;
             mobileTotal.textContent = hasCustomService && totalMoney === 0
-                ? 'Báo giá'
-                : `${totalMoney}K${hasCustomService ? ' + Báo giá' : ''}`;
+                ? (isVi ? 'Báo giá riêng' : 'Custom quote')
+                : `${formattedTotal}${hasCustomService ? (isVi ? ' + Báo giá' : ' + Quote') : ''}`;
 
             if (chosenItems.length > 0) {
                 mobileBar.classList.remove('translate-y-full');
@@ -1091,20 +2281,15 @@
                 mobileBar.classList.add('translate-y-full');
             }
 
-            // Render danh sách item trong bảng tóm tắt
             if (chosenItems.length === 0) {
-                listEl.innerHTML = `
-                    <p class="text-sm text-slate-500 italic py-3 text-center">
-                        Chưa có dịch vụ nào được chọn. Hãy nhấn vào các gói bên trên nhé!
-                    </p>
-                `;
+                listEl.innerHTML = `<p class="text-sm text-slate-500 italic py-3 text-center">${t.cartEmpty}</p>`;
             } else {
                 listEl.innerHTML = chosenItems.map(item => `
                     <div class="flex items-center justify-between gap-2 bg-[#0B152C] px-3 py-2 rounded-xl border border-slate-800">
                         <span class="text-xs sm:text-sm font-medium text-slate-200 truncate">• ${item.name}</span>
                         <div class="flex items-center gap-2.5 shrink-0">
                             <span class="text-xs font-bold ${item.isCustom ? 'text-cyan-400' : 'text-amber-400'}">${item.priceText}</span>
-                            <button type="button" onclick="toggleService('${item.id}')" class="text-slate-500 hover:text-rose-400 transition-colors" title="Xóa gói này">
+                            <button type="button" onclick="toggleService('${item.id}')" class="text-slate-500 hover:text-rose-400 transition-colors">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
@@ -1112,37 +2297,47 @@
                 `).join('');
             }
 
-            // Tạo nội dung tin nhắn tự động gửi shop
-            const paymentText = selectedPayment === 'Xu TikTok'
-                ? 'Xu TikTok (Giá không cố định - nhờ shop hỗ trợ báo giá)'
-                : selectedPayment;
+            // Nội dung tin nhắn gửi shop theo ngôn ngữ đang chọn
+            const paymentMapEn = {
+                'Thẻ cào Viettel': 'Viettel Card',
+                'Thẻ Zing': 'Zing Card',
+                'Xu TikTok': 'TikTok Coins (Price is not fixed - please assist with quote)'
+            };
+
+            const paymentText = isVi
+                ? (selectedPayment === 'Xu TikTok' ? 'Xu TikTok (Giá không cố định - nhờ shop hỗ trợ báo giá)' : selectedPayment)
+                : paymentMapEn[selectedPayment];
 
             if (chosenItems.length === 0) {
-                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ tại redKAI Rshop:\n- Dịch vụ cần đặt: (Chưa chọn gói)\n- Hình thức thanh toán: ${paymentText}\nShop hỗ trợ giúp mình nhé!`;
+                msgBox.value = isVi
+                    ? `Chào shop @levutientruong, mình muốn đặt dịch vụ tại redKAI Rshop:\n- Dịch vụ cần đặt: (Chưa chọn gói)\n- Hình thức thanh toán: ${paymentText}\nShop hỗ trợ giúp mình nhé!`
+                    : `Hello @levutientruong, I would like to place an order at redKAI Rshop:\n- Services: (No items selected)\n- Payment method: ${paymentText}\nPlease assist me!`;
             } else {
                 const lines = chosenItems.map(i => `  + ${i.name} (${i.priceText})`).join('\n');
                 const totalLine = hasCustomService
-                    ? `${totalMoney}K + Dịch vụ chờ shop báo giá`
-                    : `${totalMoney}K`;
+                    ? (isVi ? `${formattedTotal} + Dịch vụ chờ shop báo giá` : `${formattedTotal} + Custom quoted items`)
+                    : formattedTotal;
 
-                msgBox.value = `Chào shop @levutientruong, mình muốn đặt dịch vụ tại redKAI Rshop:\n${lines}\n• Tổng tạm tính: ${totalLine}\n• Hình thức thanh toán: ${paymentText}\nShop kiểm tra và hỗ trợ giúp mình nhé!`;
+                msgBox.value = isVi
+                    ? `Chào shop @levutientruong, mình muốn đặt dịch vụ tại redKAI Rshop:\n${lines}\n• Tổng tạm tính: ${totalLine}\n• Hình thức thanh toán: ${paymentText}\nShop kiểm tra và hỗ trợ giúp mình nhé!`
+                    : `Hello @levutientruong, I would like to place an order at redKAI Rshop:\n${lines}\n• Estimated Total: ${totalLine}\n• Payment method: ${paymentText}\nPlease check and confirm my order!`;
             }
         }
 
-        // Copy tin nhắn đơn hàng & mở TikTok
         function copyOrderAndOpenTikTok() {
             const msgBox = document.getElementById('order-message-preview');
-            copyToClipboard(msgBox.value, 'Đã copy đơn hàng! Đang mở TikTok @levutientruong...');
+            copyToClipboard(msgBox.value, i18n[currentLang].toastCopiedOrder);
             setTimeout(() => {
                 window.open('https://www.tiktok.com/@levutientruong', '_blank', 'noopener,noreferrer');
             }, 600);
         }
 
         function copyTikTokId() {
-            copyToClipboard('@levutientruong', 'Đã sao chép ID TikTok: @levutientruong');
+            copyToClipboard('@levutientruong', i18n[currentLang].toastCopiedId);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            applyStaticTranslations();
             updateUI();
         });
     </script>
